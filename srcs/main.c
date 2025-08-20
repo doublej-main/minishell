@@ -6,13 +6,13 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:38:28 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/20 13:34:38 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/20 16:20:08 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-volatile  sig_atomic_t	g_sig = 0;
+volatile sig_atomic_t	g_sig = 0;
 
 static void	consume_line(t_shell *shell, char *line)
 {
@@ -26,7 +26,7 @@ void	shell_init(t_shell *shell, char **environ)
 {
 	shell->env = env_from_environ(environ);
 	disable_echoctl();
-	shell->status  = 0;
+	shell->status = 0;
 }
 
 void	shell_destroy(t_shell *shell)
@@ -34,9 +34,19 @@ void	shell_destroy(t_shell *shell)
 	env_free(shell->env);
 }
 
+/**
+ * REPL -- READ - EVALUATE - PRINT - LOOP
+ * Next we need Lexer: tokenize operators, handle quotes etc.
+ * Then parser and error handling
+ * $VAR and $?, expansion in general
+ * Heredoc
+ * Exec, child processes etc
+ * Built-ins
+ * Edge case testing, polishing, memory leaks, norm checks etc.
+ */
 void	shell_loop(t_shell *shell)
 {
-	char *line;
+	char	*line;
 	char	*prompt;
 
 	while (1)
@@ -47,6 +57,7 @@ void	shell_loop(t_shell *shell)
 		free(prompt);
 		if (!line)
 			break ;
+		// TODO do what the line specifies
 		consume_line(shell, line);
 		free(line);
 	}
