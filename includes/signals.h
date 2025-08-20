@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:17:02 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/19 13:19:17 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/20 13:31:15 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 /*
 ** Includes
 */
+# include "minishell.h"
 # include <signal.h>
+# include <termios.h>
 
 /*
 ** Prototypes
 */
 void	signals_interactive(void);
 void	signals_default(void);
+void	disable_echoctl(void);
 
 #endif

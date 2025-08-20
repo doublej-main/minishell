@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 14:43:37 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/20 13:20:14 by jjaaskel         ###   ########.fr       */
+/*   Created: 2025/08/20 12:53:33 by jjaaskel          #+#    #+#             */
+/*   Updated: 2025/08/20 13:02:28 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-char	*make_prompt(void)
-{
-	char	*cwd;
-	char	*tmp;
-	char	*prompt;
+/**
+* Includes
+*/
+# include "minishell.h"
 
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-		cwd = ft_strdup("?");
-	if (!cwd)
-		return (NULL);
-	tmp = ft_strjoin("minishell ", cwd);
-	free(cwd);
-	if (!tmp)
-		return (NULL);
-	prompt = ft_strjoin(tmp, " $> ");
-	free(tmp);
-	return (prompt);
-}
+/** 
+* Prototypes
+*/
+void	print_banner(void);
+
+#endif
