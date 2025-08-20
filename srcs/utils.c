@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 14:43:37 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/20 13:20:14 by jjaaskel         ###   ########.fr       */
+/*   Created: 2025/08/20 12:42:36 by jjaaskel          #+#    #+#             */
+/*   Updated: 2025/08/20 13:35:48 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "utils.h"
 
-char	*make_prompt(void)
+void	print_banner(void)
 {
-	char	*cwd;
-	char	*tmp;
-	char	*prompt;
+	char	*line;
+	int	fd;
 
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-		cwd = ft_strdup("?");
-	if (!cwd)
-		return (NULL);
-	tmp = ft_strjoin("minishell ", cwd);
-	free(cwd);
-	if (!tmp)
-		return (NULL);
-	prompt = ft_strjoin(tmp, " $> ");
-	free(tmp);
-	return (prompt);
+	fd = open("banner.txt", O_RDONLY);
+	if (fd < 0)
+		exit(EXIT_FAILURE);
+	line = get_next_line(fd);
+	while (42)
+	{
+		if (line == NULL)
+			break  ;
+		ft_printf("%s\n", line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	if (line)
+		free(line);
 }

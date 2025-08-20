@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:38:28 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/19 15:33:35 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/20 13:34:38 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	consume_line(t_shell *shell, char *line)
 void	shell_init(t_shell *shell, char **environ)
 {
 	shell->env = env_from_environ(environ);
+	disable_echoctl();
 	shell->status  = 0;
 }
 
@@ -41,7 +42,7 @@ void	shell_loop(t_shell *shell)
 	while (1)
 	{
 		signals_interactive();
-		prompt = make_prompt(shell->status);
+		prompt = make_prompt();
 		line = readline(prompt);
 		free(prompt);
 		if (!line)
@@ -57,6 +58,7 @@ int	main(int argc, char **argv, char **environ)
 
 	(void)argc;
 	(void)argv;
+	print_banner();
 	shell_init(&shell, environ);
 	shell_loop(&shell);
 	shell_destroy(&shell);
