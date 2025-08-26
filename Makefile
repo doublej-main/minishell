@@ -1,38 +1,54 @@
-NAME        = minishell
-SRCS        = srcs/main.c srcs/signals.c srcs/env.c srcs/prompt.c srcs/utils.c
-OBJS        = $(SRCS:.c=.o)
-INCLUDES	= includes
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/08/26 13:38:16 by vahdekiv          #+#    #+#              #
+#    Updated: 2025/08/26 14:49:25 by vahdekiv         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CC          = cc
-CFLAGS      = -Wall -Wextra -Werror
-IFLAGS     = -I$(INCLUDES) -I$(LIBFT_DIR)
+NAME = minishell
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+INCLUDES = includes
+IFLAGS = -I$(INCLUDES) -I$(LIBFT_DIR)
+SRCS = srcs/main.c srcs/signals.c srcs/env.c srcs/prompt.c srcs/utils.c
 
-RM = rm -f
+O_DIR = objects
+OBJS = $(patsubst srcs/%.c, $(O_DIR)/%.o,$(SRCS))
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 FT_PRINTF = $(LIBFT_DIR)/ft_printf/libftprintf.a
 
-LIBS     = -lreadline -lncurses
+LIBS = -lreadline -lncurses
 
 all: $(NAME)
 
-$(LIBFT):          ;  @$(MAKE) -C $(LIBFT_DIR)
-$(FT_PRINTF):      ;  @$(MAKE) -C $(LIBFT_DIR)/ft_printf
+$(LIBFT):
+		@make -C $(LIBFT_DIR)
 
-$(NAME): $(OBJS) | $(LIBFT) $(FT_PRINTF)
-	$(CC) $(CFLAGS) $(IFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(FT_PRINTF) $(LIBS)
+$(FT_PRINTF):
+		@make -C $(LIBFT_DIR)/ft_printf
 
-%.o: %.c $(INCLUDES)/*.h
-	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+$(NAME): $(LIBFT) $(FT_PRINTF) $(OBJS)
+	$(CC) $(CFLAGS) $(IFLAGS) $(OBJS) $(LIBFT) $(FT_PRINTF) $(LIBS) -o $(NAME)
+
+$(O_DIR):
+		@mkdir -p $@
+
+$(O_DIR)/%.o: srcs/%.c $(INCLUDES)/*.h | $(O_DIR)
+		$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(OBJS)
-	$(MAKE) -C $(LIBFT_DIR)     clean
+		@rm -rf $(O_DIR)
+		@make fclean -C $(LIBFT_DIR)
 
 fclean: clean
-	$(RM) $(NAME)
-	$(MAKE) -C $(LIBFT_DIR)     fclean
+		@rm -f $(NAME)
 
 re: fclean all
 
