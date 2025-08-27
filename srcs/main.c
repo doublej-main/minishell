@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:38:28 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/20 16:20:08 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/27 14:27:21 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,16 @@ static void	consume_line(t_shell *shell, char *line)
 		shell->status = 0;
 }
 
-void	shell_init(t_shell *shell, char **environ)
+int	shell_init(t_shell *shell, char **environ)
 {
+	t_arena	arena;
+
+	arena = (t_arena){0};
 	shell->env = env_from_environ(environ);
+	if (!shell->env)
+		return (FAILURE);
+	if (arena_init(&arena, 10000) < 0)
+		return (perror("arena fail"), FAILURE);
 	disable_echoctl();
 	shell->status = 0;
 }
@@ -70,7 +77,8 @@ int	main(int argc, char **argv, char **environ)
 	(void)argc;
 	(void)argv;
 	print_banner();
-	shell_init(&shell, environ);
+	if (!shell_init(&shell, environ))
+		return (EXIT_FAILURE);
 	shell_loop(&shell);
 	shell_destroy(&shell);
 	return (EXIT_SUCCESS);
