@@ -1,24 +1,15 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/08/26 13:38:16 by vahdekiv          #+#    #+#              #
-#    Updated: 2025/08/26 14:49:25 by vahdekiv         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-NAME = minishell
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
-INCLUDES = includes
-IFLAGS = -I$(INCLUDES) -I$(LIBFT_DIR)
-SRCS = srcs/main.c srcs/signals.c srcs/env.c srcs/prompt.c srcs/utils.c
-
-O_DIR = objects
+NAME        = minishell
+SRCS        = srcs/main.c srcs/signals.c srcs/env.c srcs/prompt.c srcs/utils.c srcs/arena.c \
+				srcs/arena_utils.c
 OBJS = $(patsubst srcs/%.c, $(O_DIR)/%.o,$(SRCS))
+O_DIR = objects
+INCLUDES	= includes
+
+CC          = cc
+CFLAGS      = -Wall -Wextra -Werror -g
+IFLAGS     = -I$(INCLUDES) -I$(LIBFT_DIR)
+
+RM = rm -f                                                                 
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a

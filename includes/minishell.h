@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:07:24 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/20 13:32:51 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:43:53 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,21 @@
 /*
 ** Includes
 */
+# include "arena.h"
+# include "env.h"
+# include "libft.h"
+# include "prompt.h"
+# include "signals.h"
+# include "utils.h"
+# include <errno.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <signal.h>
 # include <stdbool.h>
 # include <stddef.h>
-# include <stdlib.h>
 # include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include <stdlib.h>
 # include <unistd.h>
-# include <errno.h>
-# include <signal.h>
-# include "env.h"
-# include "prompt.h"
-# include "libft.h"
-# include "utils.h"
-# include "signals.h"
 
 /*
 ** Macros
@@ -44,15 +45,16 @@ extern volatile sig_atomic_t	g_sig;
 
 typedef struct s_shell
 {
-	t_env	*env;
-	int	status;
-}	t_shell;
+	t_env						*env;
+	int							status;
+	t_arena						arena;
+}								t_shell;
 
 /*
 ** Prototypes
 */
-void	shell_init(t_shell *shell, char **environ);
-void	shell_loop(t_shell *shell);
-void	shell_destroy(t_shell *shell);
+int								shell_init(t_shell *shell, char **environ);
+void							shell_loop(t_shell *shell);
+void							shell_destroy(t_shell *shell);
 
 #endif
