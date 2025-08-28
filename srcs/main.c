@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:38:28 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/27 14:27:21 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/28 12:11:16 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,22 @@ static void	consume_line(t_shell *shell, char *line)
 		shell->status = 0;
 }
 
-int	shell_init(t_shell *shell, char **environ)
+int	shell_init(t_shell *shell, char **environ, t_arena *arena)
 {
-	t_arena	arena;
-
-	arena = (t_arena){0};
 	shell->env = env_from_environ(environ);
 	if (!shell->env)
-		return (FAILURE);
-	if (arena_init(&arena, 10000) < 0)
+		return (perror("env fail"), FAILURE);
+	if (arena_init(arena, 10000) < 0)
 		return (perror("arena fail"), FAILURE);
 	disable_echoctl();
 	shell->status = 0;
+	return (SUCCESS);
 }
 
-void	shell_destroy(t_shell *shell)
+void	shell_destroy(t_shell *shell, t_arena *arena)
 {
 	env_free(shell->env);
+	arena_destroy(arena);
 }
 
 /**
@@ -73,13 +72,14 @@ void	shell_loop(t_shell *shell)
 int	main(int argc, char **argv, char **environ)
 {
 	t_shell	shell;
+	t_arena	arena;
 
 	(void)argc;
 	(void)argv;
 	print_banner();
-	if (!shell_init(&shell, environ))
+	if (!shell_init(&shell, environ, &arena))
 		return (EXIT_FAILURE);
 	shell_loop(&shell);
-	shell_destroy(&shell);
+	shell_destroy(&shell, &arena);
 	return (EXIT_SUCCESS);
 }

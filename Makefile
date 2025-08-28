@@ -1,5 +1,6 @@
 NAME        = minishell
-SRCS        = srcs/main.c srcs/signals.c srcs/env.c srcs/prompt.c srcs/utils.c
+SRCS        = srcs/main.c srcs/signals.c srcs/env.c srcs/prompt.c srcs/utils.c srcs/arena.c \
+				srcs/arena_utils.c
 OBJS        = $(SRCS:.c=.o)
 INCLUDES	= includes
 

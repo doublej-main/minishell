@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 11:39:13 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/27 15:08:01 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/28 12:16:03 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ void						arena_reset(t_arena *arena);
 void						*arena_alloc(t_arena *arena, size_t needed);
 void						*arena_calloc(t_arena *arena, size_t needed);
 char						*arena_strdup(t_arena *arena, const char *str);
+char						*arena_strjoin(char const *s1, char const *s2,
+								t_arena *arena);
 
 #endif

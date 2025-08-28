@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 11:51:52 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/27 15:06:50 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/28 12:07:20 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	arena_init(t_arena *arena, size_t block_size)
 {
 	t_arena_block	*block;
 
+	arena = (t_arena *){0};
 	block = arena_new_block(block_size);
 	if (!block)
 		return (INIT_FAIL);

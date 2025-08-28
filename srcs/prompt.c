@@ -6,13 +6,13 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 14:43:37 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/20 13:20:14 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/28 12:19:07 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "prompt.h"
 
-char	*make_prompt(void)
+char	*make_prompt(t_arena *arena)
 {
 	char	*cwd;
 	char	*tmp;
@@ -20,14 +20,14 @@ char	*make_prompt(void)
 
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
-		cwd = ft_strdup("?");
+		cwd = arena_strdup("?", arena);
 	if (!cwd)
 		return (NULL);
-	tmp = ft_strjoin("minishell ", cwd);
+	tmp = arena_strjoin("minishell ", cwd, arena);
 	free(cwd);
 	if (!tmp)
 		return (NULL);
-	prompt = ft_strjoin(tmp, " $> ");
+	prompt = arena_strjoin(tmp, " $> ", arena);
 	free(tmp);
 	return (prompt);
 }
