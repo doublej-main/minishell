@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:07:24 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/28 12:11:36 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:43:53 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@
 */
 # define SUCCESS 1
 # define FAILURE 0
-# define INIT_FAIL -1
 
 /*
 ** Variables and structs
@@ -48,15 +47,14 @@ typedef struct s_shell
 {
 	t_env						*env;
 	int							status;
-	t_arena						tmp;
+	t_arena						arena;
 }								t_shell;
 
 /*
 ** Prototypes
 */
-int								shell_init(t_shell *shell, char **environ,
-									t_arena *arena);
+int								shell_init(t_shell *shell, char **environ);
 void							shell_loop(t_shell *shell);
-void							shell_destroy(t_shell *shell, t_arena *arena);
+void							shell_destroy(t_shell *shell);
 
 #endif

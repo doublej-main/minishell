@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 14:01:12 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/28 12:18:07 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/28 13:37:12 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 
 # include "minishell.h"
 
+char	*make_prompt(t_arena *arena);
 
 #endif

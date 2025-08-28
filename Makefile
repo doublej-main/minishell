@@ -5,7 +5,7 @@ OBJS        = $(SRCS:.c=.o)
 INCLUDES	= includes
 
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror
+CFLAGS      = -Wall -Wextra -Werror -g
 IFLAGS     = -I$(INCLUDES) -I$(LIBFT_DIR)
 
 RM = rm -f

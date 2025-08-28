@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:38:28 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/28 12:11:16 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:40:13 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,22 @@ static void	consume_line(t_shell *shell, char *line)
 		shell->status = 0;
 }
 
-int	shell_init(t_shell *shell, char **environ, t_arena *arena)
+int	shell_init(t_shell *shell, char **environ)
 {
 	shell->env = env_from_environ(environ);
 	if (!shell->env)
 		return (perror("env fail"), FAILURE);
-	if (arena_init(arena, 10000) < 0)
+	if (arena_init(&shell->arena, 10000) < 0)
 		return (perror("arena fail"), FAILURE);
 	disable_echoctl();
 	shell->status = 0;
 	return (SUCCESS);
 }
 
-void	shell_destroy(t_shell *shell, t_arena *arena)
+void	shell_destroy(t_shell *shell)
 {
 	env_free(shell->env);
-	arena_destroy(arena);
+	// arena_destroy(&shell->arena);
 }
 
 /**
@@ -58,14 +58,14 @@ void	shell_loop(t_shell *shell)
 	while (1)
 	{
 		signals_interactive();
-		prompt = make_prompt();
+		prompt = make_prompt(&shell->arena);
 		line = readline(prompt);
-		free(prompt);
 		if (!line)
 			break ;
 		// TODO do what the line specifies
 		consume_line(shell, line);
 		free(line);
+		arena_reset(&shell->arena);
 	}
 }
 
@@ -76,10 +76,12 @@ int	main(int argc, char **argv, char **environ)
 
 	(void)argc;
 	(void)argv;
+	arena = (t_arena){0};
+	shell.arena = arena;
 	print_banner();
-	if (!shell_init(&shell, environ, &arena))
+	if (!shell_init(&shell, environ))
 		return (EXIT_FAILURE);
 	shell_loop(&shell);
-	shell_destroy(&shell, &arena);
+	shell_destroy(&shell);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 14:43:37 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/28 12:19:07 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:36:26 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,12 @@ char	*make_prompt(t_arena *arena)
 
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
-		cwd = arena_strdup("?", arena);
+		cwd = arena_strdup(arena, "?");
 	if (!cwd)
 		return (NULL);
 	tmp = arena_strjoin("minishell ", cwd, arena);
-	free(cwd);
 	if (!tmp)
 		return (NULL);
 	prompt = arena_strjoin(tmp, " $> ", arena);
-	free(tmp);
 	return (prompt);
 }
