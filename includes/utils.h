@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 12:53:33 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/20 13:02:28 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/29 14:18:47 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 /**
 * Includes
 */
-# include "minishell.h"
+# include <unistd.h>
+# include "arena.h"
 
 /** 
 * Prototypes

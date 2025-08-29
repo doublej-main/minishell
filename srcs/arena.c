@@ -6,11 +6,11 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 11:51:52 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/28 15:28:19 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/29 14:19:49 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "arena.h"
+#include "minishell.h"
 
 t_arena_block	*arena_new_block(size_t block_size)
 {
