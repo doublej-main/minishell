@@ -6,7 +6,7 @@
 /*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 16:49:34 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/08/28 17:10:36 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/08/29 14:12:03 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_token	*add_token(t_shell *shell)
 	shell->head = temp;
 	return (temp);
 }
-// for testing
+
 char	*gettokentype(t_token_type type)
 {
 	if (type == TOKEN_PIPE)
@@ -52,4 +52,42 @@ char	*gettokentype(t_token_type type)
 		return ("ENV VAR");
 	else
 		return ("WORD");
+}
+
+size_t	wordcount(char	**array)
+{
+	size_t	i;
+	size_t	j;
+	size_t	qcount;
+	size_t	count;
+
+	i = 0;
+	j = 0;
+	qcount = 0;
+	count = 0;
+	while (array[i])
+	{
+		while (array[i][j])
+		{
+			if (array[i][j] == ''' || '"')
+				qcount++;
+			j++;
+		}
+		if (qcount % 2 == 0)
+			count++;
+		i++;
+	}
+}
+
+void	free_array(char **array)
+{
+	size_t	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
 }

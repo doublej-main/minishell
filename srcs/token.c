@@ -6,7 +6,7 @@
 /*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:52:41 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/08/28 17:10:56 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/08/29 15:51:00 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,34 @@ void	print_token(t_token *token)
 void	tokenize_input(char *line, DEL, t_shell *shell)
 {
 	t_token	*token;
-	char	**token_arr;
+	char	**token_split;
+	char	**token_array;
 	size_t	i;
 
 	i = 0;
-	token_arr = ft_split(line, DEL);
-	while (token_arr[i])
+	token_split = ft_split(line, DEL);
+	token_array = handle_quotes(token_arr, shell->arena);
+	free_array(token_split);
+	while (token_array[i])
 	{
 		token = add_token(shell);
-		token->value = arena_strdup(shell->arena, token_arr[i]);
+		token->value = arena_strdup(shell->arena, token_array[i]);
 		token->type = get_type(token->value);
 		print_token(token);
 		i++;
 	}
+}
+
+char	**handle_quotes(char **token_arr, t_arena *arena)
+{
+	size_t	wordcount;
+	char	**array;
+	t_arr	*elem;
+
+	elem.qcount = 0;
+	elem.w_countin_q = 0;
+	elem.line = NULL;
+	wordcount = countwords(token_arr);
+	array = loop_token_array(token_arr, elem, wordcount);
+	return (array);
 }

@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:38:28 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/28 12:11:16 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:34:24 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	shell_loop(t_shell *shell)
 		free(prompt);
 		if (!line)
 			break ;
+		tokenize_input(line, DEL);
 		// TODO do what the line specifies
 		consume_line(shell, line);
 		free(line);

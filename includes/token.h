@@ -6,7 +6,7 @@
 /*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:25:32 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/08/28 17:10:38 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/08/29 15:42:10 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ typedef struct	s_token
 	char			*value;
 	struct s_token	*next;
 }	t_token;
+
+typedef struct	s_arr
+{
+	size_t	qcount;
+	size_t	w_countin_q;
+	char	*line;
+}	t_arr;
 
 void	tokenize_input(char *line, DEL, t_shell *shell);
 t_token	*new_token();
