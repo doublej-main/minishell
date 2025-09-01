@@ -6,7 +6,7 @@
 /*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:52:41 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/08/29 15:51:00 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/09/01 12:21:01 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static e_token_type	get_type(char *token)
 		return (TOKEN_WORD);
 }
 
-void	print_token(t_token *token)
+static void	print_token(t_token *token)
 {
 	printf("Token: %s	| Type: %s\n", token->value, gettokentype(token->type));
 }
@@ -44,7 +44,7 @@ void	tokenize_input(char *line, DEL, t_shell *shell)
 
 	i = 0;
 	token_split = ft_split(line, DEL);
-	token_array = handle_quotes(token_arr, shell->arena);
+	token_array = handle_quotes(token_split, shell->arena);
 	free_array(token_split);
 	while (token_array[i])
 	{
@@ -60,12 +60,11 @@ char	**handle_quotes(char **token_arr, t_arena *arena)
 {
 	size_t	wordcount;
 	char	**array;
-	t_arr	*elem;
 
 	elem.qcount = 0;
 	elem.w_countin_q = 0;
 	elem.line = NULL;
 	wordcount = countwords(token_arr);
-	array = loop_token_array(token_arr, elem, wordcount);
+	array = loop_token_array(token_arr, arena->elem, arena, wordcount);
 	return (array);
 }

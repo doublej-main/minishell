@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 11:39:13 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/28 12:16:03 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/01 12:10:48 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_arena
 {
 	t_arena_block			*head;
 	size_t					block_size;
+	t_arr					*elem;
 }							t_arena;
 
 /**

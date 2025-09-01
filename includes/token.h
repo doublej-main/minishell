@@ -6,7 +6,7 @@
 /*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:25:32 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/08/29 15:42:10 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/09/01 12:20:08 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ typedef struct	s_arr
 void	tokenize_input(char *line, DEL, t_shell *shell);
 t_token	*new_token();
 t_token	*add_token(t_shell *shell);
-char	*gettokentype(t_token_type type); // for testing
+char	*gettokentype(t_token_type type);
+char	**loop_token_array(char **token, t_arr *elem, t_arena arena, size_t wc);
+char	**handle_quotes(char **token_arr, t_arena *arena);
+size_t	wordcount(char **array);
+void	free_array(char **array);
 
 #endif
