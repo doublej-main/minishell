@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 12:42:36 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/01 12:13:58 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/09/01 14:21:22 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static void	increment_elements(t_arr *elem, size_t	type)
 		elem->qcount++;
 		elem->w_countin_q++;
 	}
-	if (type == 1)
+	else if (type == 1)
 		elem->w_countin_q = 1;
-	if (type == 2)
+	else if (type == 2)
 	{
 		elem->qcount = 0;
 		elem->w_countin_q = 0;
@@ -41,7 +41,7 @@ static char	*joinlines(t_arr *elem, char *array, char *array2, size_t type)
 		increment_elements(elem, 1);
 		return (newarray);
 	}
-	if (type == 1)
+	else if (type == 1)
 	{
 		elem.line = ft_strjoin(array2, ' ');
 		newarray = arena_strjoin(arena, elem.line, array);
