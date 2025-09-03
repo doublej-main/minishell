@@ -24,6 +24,16 @@ static void	print_token(t_token *token)
 	printf("Token: %s	| Type: %s\n", token->value, gettokentype(token->type));
 }
 
+static t_token_type	get_q_type(char *token)
+{
+	if (token[0] == ''' && token[ft_strlen(token) - 1] == ''')
+		return (TOKEN_WORD_SINGLE_Q);
+	else if (token[0] == '"' && token[ft_strlen(token) - 1] == '"')
+		return (TOKEN_WORD_DOUBLE_Q);
+	else
+		return (TOKEN_WORD);
+}
+
 void	tokenize_input(char *line, DEL, t_shell *shell)
 {
 	t_token	*token;
@@ -40,6 +50,8 @@ void	tokenize_input(char *line, DEL, t_shell *shell)
 		token = add_token(shell);
 		token->value = arena_strdup(shell->arena, token_array[i]);
 		token->type = get_type(token->value);
+		if (token->type == TOKEN_WORD)
+			token->type = get_q_type(token->value);
 		print_token(token);
 		i++;
 	}
