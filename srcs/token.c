@@ -4,19 +4,19 @@
 static e_token_type	get_type(char *token)
 {
 	if (ft_strncmp(token,  "|", 1) == 0)
-		return (TOKEN_PIPE);
+		return (PIPE);
 	else if (ft_strncmp(token, "<", 1) == 0)
-		return (TOKEN_REDIR_IN);
+		return (REDIR_IN);
 	else if (ft_strncmp(token, ">" , 1) == 0)
-		return (TOKEN_REDIR_OUT);
+		return (REDIR_OUT);
 	else if (ft_strcmp(token, ">>", 2) == 0)
-		return (TOKEN_REDIR_APPEND);
+		return (REDIR_APPEND);
 	else if (ft_strncmp(token, "<<", 2) == 0)
-		return (TOKEN_REDIR_HEREDOC);
+		return (REDIR_HEREDOC);
 	else if (ft_strncmp(token, "$", 1)
-		return (TOKEN_ENV_VAR);
+		return (ENV_VAR);
 	else
-		return (TOKEN_WORD);
+		return (WORD);
 }
 
 static void	print_token(t_token *token)
@@ -27,11 +27,11 @@ static void	print_token(t_token *token)
 static t_token_type	get_q_type(char *token)
 {
 	if (token[0] == ''' && token[ft_strlen(token) - 1] == ''')
-		return (TOKEN_WORD_SINGLE_Q);
+		return (WORD_SINGLE_Q);
 	else if (token[0] == '"' && token[ft_strlen(token) - 1] == '"')
-		return (TOKEN_WORD_DOUBLE_Q);
+		return (WORD_DOUBLE_Q);
 	else
-		return (TOKEN_WORD);
+		return (WORD);
 }
 
 void	tokenize_input(char *line, DEL, t_shell *shell)

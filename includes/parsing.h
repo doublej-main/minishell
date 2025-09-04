@@ -6,7 +6,8 @@
 
 typedef struct	s_ast_node
 {
-	t_node type			type; //command, pipeline, redirection, file
+	char				*value;
+	t_node type			type;	//command, pipeline, redirection, file
 	char				*args;
 	struct s_ast_node	*left;
 	struct s_ast_node	*right;

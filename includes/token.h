@@ -6,7 +6,7 @@
 /*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:25:32 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/09/03 16:29:34 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/09/04 11:21:51 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@
 
 typedef enum	e_token_type
 {
-	TOKEN_WORD,				// For commands and arguments
-	TOKEN_PIPE,				// For '|'
-	TOKEN_REDIR_IN,			// For '<'
-	TOKEN_REDIR_OUT,		// For '>'
-	TOKEN_REDIR_APPEND,		// For '>>'
-	TOKEN_REDIR_HEREDOC,	// For '<<'
-	TOKEN_ENV_VAR,			// For environment variables '$'
-	TOKEN_WORD_SINGLE_Q,	// For strings in single quotes
-	TOKEN_WORD_DOUBLE_Q,	// For strings in double quotes
+	WORD,			// For commands and arguments
+	PIPE,			// For '|'
+	REDIR_IN,		// For '<'
+	REDIR_OUT,		// For '>'
+	REDIR_APPEND,	// For '>>'
+	REDIR_HEREDOC,	// For '<<'
+	ENV_VAR,		// For environment variables '$'
+	WORD_SINGLE_Q,	// For strings in single quotes
+	WORD_DOUBLE_Q,	// For strings in double quotes
 }	t_token_type;
 
 typedef struct	s_token

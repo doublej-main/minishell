@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-t_token	*new_token()
+t_token	*new_token(t_arena *arena)
 {
 	t_token *new;
 
@@ -19,7 +19,7 @@ t_token	*add_token(t_shell *shell)
 {
 	t_token *temp;
 
-	temp = new_token();
+	temp = new_token(shell->arena);
 	token->next = shell->head;
 	shell->head = temp;
 	return (temp);
@@ -27,17 +27,17 @@ t_token	*add_token(t_shell *shell)
 
 char	*gettokentype(t_token_type type)
 {
-	if (type == TOKEN_PIPE)
+	if (type == PIPE)
 		return ("PIPE");
-	else if (type == TOKEN_REDIR_IN)
+	else if (type == REDIR_IN)
 		return ("REDIR IN");
-	else if (type == TOKEN_REDIR_OUT)
+	else if (type == REDIR_OUT)
 		return ("REDIR OUT");
-	else if (type == TOKEN_REDIR_APPEND)
+	else if (type == REDIR_APPEND)
 		return ("REDIR APPEND");
-	else if (type == TOKEN_REDIR_HEREDOC)
+	else if (type == REDIR_HEREDOC)
 		return ("REDIR HEREDOC");
-	else if (type == TOKEN_ENV_VAR)
+	else if (type == ENV_VAR)
 		return ("ENV VAR");
 	else
 		return ("WORD");
