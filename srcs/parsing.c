@@ -47,5 +47,10 @@ root->left(pipe)->left(pipe)->left->right = infile;
 					\
 					infile
 
-	< infile | cmd | cmd > outfile				
+	< infile | cmd | cmd > outfile
+
+	so if pipe, pipe.left = pipe, or redir_in, pipe.right = cmd or outfile
+	if redir_in right = infile
+	if redir_out, right = outfile
+	maybe if redir, skip and left is infile, right is cmd(?)
 */
