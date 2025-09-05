@@ -12,7 +12,7 @@ Step 5: Implement node hierarchy with a valid logic using linked lists
 
 */
 
-t_ast_node	newnode(char *value, t_token type, t_arena *arena)
+t_ast_node	*newnode(char *value, t_token type, t_arena *arena)
 {
 	t_ast_node *newnode = arena_alloc(arena, sizeof(t_ast_node));
 	if (!newnode)
@@ -26,7 +26,9 @@ t_ast_node	newnode(char *value, t_token type, t_arena *arena)
 	return (newnode);
 }
 
-/* token reading and implementing in linked lists
+/*
+
+token reading and implementing in linked lists
 
 find root (last pipe3)
 root->left = pipe2;
