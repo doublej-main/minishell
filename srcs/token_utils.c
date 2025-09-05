@@ -58,7 +58,7 @@ size_t	wordcount(char	**array)
 	{
 		while (array[i][j])
 		{
-			if (array[i][j] == ''' || '"')
+			if (array[i][j] == '\'' || '\"')
 				qcount++;
 			j++;
 		}

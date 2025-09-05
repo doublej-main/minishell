@@ -26,9 +26,9 @@ static void	print_token(t_token *token)
 
 static t_token_type	get_q_type(char *token)
 {
-	if (token[0] == ''' && token[ft_strlen(token) - 1] == ''')
+	if (token[0] == '\'' && token[ft_strlen(token) - 1] == '\'')
 		return (WORD_SINGLE_Q);
-	else if (token[0] == '"' && token[ft_strlen(token) - 1] == '"')
+	else if (token[0] == '\"' && token[ft_strlen(token) - 1] == '\"')
 		return (WORD_DOUBLE_Q);
 	else
 		return (WORD);

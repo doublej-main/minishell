@@ -99,7 +99,7 @@ char	**loop_token_array(char	**token, t_arr *elem, t_arena arena, size_t wc)
 		j = 0;
 		while (token[i][j])
 		{
-			if (token[i][j] == ''' || '"')
+			if (token[i][j] == '\'' || '\"')
 				increment_elements(&elem, 0);
 			token = parse_tk_array(token[i][j], token[i], token[i - 1], &elem);
 			array = build_tk_array(token[i][j], token[i], token[i - 1], &elem);

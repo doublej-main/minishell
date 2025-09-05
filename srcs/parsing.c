@@ -28,29 +28,41 @@ t_ast_node	newnode(char *value, t_token type, t_arena *arena)
 
 /* token reading and implementing in linked lists
 
-find root (if pipe, root = last pipe or redir(?))
-root->left = pipe;
-root->right = outfile;
-root->left(pipe)->right = cmd;
-root->left(pipe)->left = if pipe, pipe;
-root->left(pipe)->left(pipe)->right = cmd;
-root->left(pipe)->left(pipe)->left = if redir, redir;
-root->left(pipe)->left(pipe)->left->right = infile;
+find root (last pipe3)
+root->left = pipe2;
+root->right = redir_out3;
+root->left(pipe2)->right = redir_out1;
+root->left(pipe2)->right(redr_out1)->left = cmd3;
+root->left(pipe2)->left = pipe1;
+root->left(pipe2)->left(pipe1)->right = cmd2;
+root->left(pipe2)->left(pipe1)->left = redir_out0;
+root->left(pipe2)->left(pipe1)->left(redir_out0)->left = redir_in2;
+root->left(pipe2)->left(pipe1)->left(redir_out0)->left(redir_in2)->left = red_in1;
+root->left(pipe2)->left(pipe1)->left(redir_out0)->left(redir_in2)->left(red_in1)->left = cmd param1
 
-							root(pipe or redir)
-							/		\
-						pipe		outfile
-						/	\
-					pipe	cmd
-					/	\
-				redir	cmd
-					\
-					infile
+				PIPE BLOCK 1					PB2			PB3				PIPE BLOCK 4
 
-	< infile | cmd | cmd > outfile
+	cmd param1 < infile1 < infile2 > outfile0 | cmd2 | cmd3 > outfile1 | cmd4 > outfile2 > outfile3
 
-	so if pipe, pipe.left = pipe, or redir_in, pipe.right = cmd or outfile
-	if redir_in right = infile
-	if redir_out, right = outfile
-	maybe if redir, skip and left is infile, right is cmd(?)
+
+										root(pipe3)
+								/						\
+							pipe2						red(> outfile3)
+						/			\						/
+					pipe1			red(> outfile1)		red(> outfile2)
+					/	\			/						/
+		red(> outfile0)	cmd2	cmd3					cmd4
+				/											
+		red(< infile2)
+			/
+		red(< infile1)
+		/
+	cmd param1
+
+
+	- Root is always last pipe
+	- Branching nodes are always pipes
+	- Each pipe-block should contain at most one command. Other tokens will be treated as arguments, and their order may not be correct
+	- Each redirection token should be followed by a file argument
+	- Each pipe sign must be accompanied by a left child and a right child
 */
