@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static int	is_identifier(const char *str)
+int	is_identifier(const char *str)
 {
 	int	i;
 
