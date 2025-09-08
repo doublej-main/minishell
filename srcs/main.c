@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:38:28 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/28 16:40:13 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/29 14:16:22 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	main(int argc, char **argv, char **environ)
 	(void)argc;
 	(void)argv;
 	arena = (t_arena){0};
-	shell.arena = arena;
+	shell.arena = &arena;
 	print_banner();
 	if (!shell_init(&shell, environ))
 		return (EXIT_FAILURE);

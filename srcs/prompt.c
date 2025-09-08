@@ -6,11 +6,11 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 14:43:37 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/28 16:36:26 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/29 17:11:53 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prompt.h"
+#include "minishell.h"
 
 char	*make_prompt(t_arena *arena)
 {
@@ -24,6 +24,7 @@ char	*make_prompt(t_arena *arena)
 	if (!cwd)
 		return (NULL);
 	tmp = arena_strjoin("minishell ", cwd, arena);
+	free(cwd);
 	if (!tmp)
 		return (NULL);
 	prompt = arena_strjoin(tmp, " $> ", arena);

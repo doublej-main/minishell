@@ -6,11 +6,11 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 14:18:30 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/20 13:53:57 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/29 14:17:12 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "signals.h"
+#include "minishell.h"
 
 /**
 * Write a newline

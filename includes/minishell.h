@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:07:24 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/28 15:43:53 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/29 14:15:54 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_shell
 {
 	t_env						*env;
 	int							status;
-	t_arena						arena;
+	t_arena						*arena;
 }								t_shell;
 
 /*

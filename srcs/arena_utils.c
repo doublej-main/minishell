@@ -6,11 +6,11 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 14:10:04 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/28 15:39:06 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/29 14:20:00 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "arena.h"
+#include "minishell.h"
 
 void	*arena_alloc(t_arena *arena, size_t needed)
 {

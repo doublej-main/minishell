@@ -6,11 +6,11 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 12:42:36 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/20 15:39:53 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/29 14:17:37 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "minishell.h"
 
 void	print_banner(void)
 {
