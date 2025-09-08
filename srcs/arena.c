@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   arena.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/27 11:51:52 by jjaaskel          #+#    #+#             */
+/*   Updated: 2025/08/29 14:19:49 by jjaaskel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -38,7 +49,8 @@ int	arena_init(t_arena *arena, size_t block_size)
 {
 	t_arena_block	*block;
 
-	arena = (t_arena *){0};
+	if (!arena || block_size == 0)
+		return (INIT_FAIL);
 	block = arena_new_block(block_size);
 	if (!block)
 		return (INIT_FAIL);

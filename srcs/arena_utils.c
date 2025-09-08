@@ -1,21 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   arena_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/27 14:10:04 by jjaaskel          #+#    #+#             */
+/*   Updated: 2025/08/29 14:20:00 by jjaaskel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
 void	*arena_alloc(t_arena *arena, size_t needed)
 {
 	t_arena_block	*temp;
-	void			*ptr;
+	unsigned char	*ptr;
 
 	temp = arena->head;
 	if (needed > (temp->max_size - temp->used_mem))
 	{
-		ptr = arena_add_block(arena, needed);
-		if (!ptr)
+		temp = arena_add_block(arena, needed);
+		if (!temp)
 			return (NULL);
 	}
-	ptr = temp->mem + temp->used_mem;
+	ptr = (unsigned char *)temp->mem + temp->used_mem;
 	temp->used_mem += needed;
-	return (ptr);
+	return ((void *)ptr);
 }
 void	*arena_calloc(t_arena *arena, size_t needed)
 {
@@ -25,7 +36,7 @@ void	*arena_calloc(t_arena *arena, size_t needed)
 	if (!ptr)
 		return (NULL);
 	ft_bzero(ptr, needed);
-	return (ptr);
+	return ((void *)ptr);
 }
 char	*arena_strdup(t_arena *arena, const char *str)
 {

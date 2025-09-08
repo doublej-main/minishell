@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/19 13:07:24 by jjaaskel          #+#    #+#             */
+/*   Updated: 2025/08/29 14:15:54 by jjaaskel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -11,8 +22,6 @@
 # include "prompt.h"
 # include "signals.h"
 # include "utils.h"
-# include "token.h"
-# include "parsing.h"
 # include <errno.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -28,7 +37,6 @@
 */
 # define SUCCESS 1
 # define FAILURE 0
-# define INIT_FAIL -1
 
 /*
 ** Variables and structs
@@ -39,16 +47,14 @@ typedef struct s_shell
 {
 	t_env						*env;
 	int							status;
-	t_arena						tmp;
-	t_token						*head;
-}	t_shell;
+	t_arena						*arena;
+}								t_shell;
 
 /*
 ** Prototypes
 */
-int								shell_init(t_shell *shell, char **environ,
-									t_arena *arena);
+int								shell_init(t_shell *shell, char **environ);
 void							shell_loop(t_shell *shell);
-void							shell_destroy(t_shell *shell, t_arena *arena);
+void							shell_destroy(t_shell *shell);
 
 #endif

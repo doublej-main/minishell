@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:17:02 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/20 13:31:15 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/08/29 14:17:21 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 /*
 ** Includes
 */
-# include "minishell.h"
 # include <signal.h>
 # include <termios.h>
 
