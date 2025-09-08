@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:07:24 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/29 14:15:54 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/08 15:36:00 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include "env.h"
 # include "libft.h"
 # include "prompt.h"
+# include "ast.h"
+# include "token.h"
 # include "signals.h"
 # include "utils.h"
 # include <errno.h>
@@ -48,6 +50,7 @@ typedef struct s_shell
 	t_env						*env;
 	int							status;
 	t_arena						*arena;
+	t_token						*head;
 }								t_shell;
 
 /*
