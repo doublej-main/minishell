@@ -12,20 +12,21 @@ Step 5: Implement node hierarchy with a valid logic using linked lists
 
 */
 
-t_ast_node	*newnode(char *value, t_token type, t_arena *arena)
+t_ast_node	*newnode(char *value, t_token *token, t_arena *arena)
 {
-	t_ast_node *newnode = arena_alloc(arena, sizeof(t_ast_node));
+	t_ast_node *newnode;
+	newnode = arena_alloc(arena, sizeof(t_ast_node));
 	if (!newnode)
 		return (NULL);
-	newnode.value = arena_strdup(arena, value);
-	if (!newnode.value)
+	newnode->value = arena_strdup(arena, value);
+	if (!newnode->value)
 		return (NULL);
-	newnode.type = type;
-	newnode.left = NULL;
-	newnode.right = NULL;
+	newnode->type = token->type;
+	newnode->left = NULL;
+	newnode->right = NULL;
 	return (newnode);
 }
-
+/*
 void	ast_init(t_arena *arena, t_token *token)
 {
 	t_ast	*ast;
@@ -56,6 +57,7 @@ void	ast_parser(t_arena *arena, t_ast *ast, t_token *token)
 {
 	
 }
+*/
 /*
 
 token reading and implementing in linked lists

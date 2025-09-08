@@ -20,7 +20,7 @@ t_token	*add_token(t_shell *shell)
 	t_token *temp;
 
 	temp = new_token(shell->arena);
-	token->next = shell->head;
+	temp->next = shell->head;
 	shell->head = temp;
 	return (temp);
 }
@@ -58,7 +58,7 @@ size_t	wordcount(char	**array)
 	{
 		while (array[i][j])
 		{
-			if (array[i][j] == '\'' || '\"')
+			if (array[i][j] == '\'' || array[i][j] == '\"')
 				qcount++;
 			j++;
 		}
@@ -66,6 +66,7 @@ size_t	wordcount(char	**array)
 			count++;
 		i++;
 	}
+	return (count);
 }
 
 void	free_array(char **array)
@@ -73,10 +74,10 @@ void	free_array(char **array)
 	size_t	i;
 
 	i = 0;
-	while (arr[i])
+	while (array[i])
 	{
-		free(arr[i]);
+		free(array[i]);
 		i++;
 	}
-	free(arr);
+	free(array);
 }
