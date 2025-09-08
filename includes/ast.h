@@ -11,7 +11,7 @@ typedef struct	s_ast
 	int			fd_in;
 	int			fd_out;
 	t_env		*env;
-}
+}	t_ast;
 
 typedef struct	s_ast_node
 {

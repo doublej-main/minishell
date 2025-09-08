@@ -55,6 +55,7 @@ void	tokenize_input(char *line, DEL, t_shell *shell)
 		print_token(token);
 		i++;
 	}
+	ast_init(shell->arena, &token);
 }
 
 char	**handle_quotes(char **token_arr, t_arena *arena)

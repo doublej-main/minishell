@@ -26,6 +26,36 @@ t_ast_node	*newnode(char *value, t_token type, t_arena *arena)
 	return (newnode);
 }
 
+void	ast_init(t_arena *arena, t_token *token)
+{
+	t_ast	*ast;
+	t_token	*tmp;
+	size_t	i;
+
+	i = 0;
+	ast = arena_alloc(arena, sizeof(t_ast));
+	tmp = token;
+	while(tmp)
+	{
+		token = token->next;
+		i++;
+	}
+	ast->tokens = arena_alloc(arena, (i + 1) * (sizeof(char *)));
+	i = 0;
+	while(tmp)
+	{
+		ast->tokens[i] = token->value;
+		token = token->next;
+		i++;
+	}
+	ast->tokens[i] = '\0';
+	ast_parser(arena, ast, token);
+}
+
+void	ast_parser(t_arena *arena, t_ast *ast, t_token *token)
+{
+	
+}
 /*
 
 token reading and implementing in linked lists
