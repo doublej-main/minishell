@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:38:28 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/08 16:24:45 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/09/09 12:34:07 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	shell_loop(t_shell *shell)
 			break ;
 		// TODO do what the line specifies
 		consume_line(shell, line);
+		tokenize_input(line, shell);
 		free(line);
 		arena_reset(shell->arena);
 	}
