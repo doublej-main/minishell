@@ -11,7 +11,7 @@ Step 4: Create hierarchy in tree according to node priority
 Step 5: Implement node hierarchy with a valid logic using linked lists
 
 */
-
+/*
 t_ast_node	*newnode(char *value, t_token *token, t_arena *arena)
 {
 	t_ast_node *newnode;
@@ -36,10 +36,10 @@ void	ast_init(t_arena *arena, t_token *token)
 
 	i = 0;
 	ast = arena_alloc(arena, sizeof(t_ast));
-	tmp = token;
+	tmp = token->next;
 	while(tmp)
 	{
-		token = token->next;
+		token->next = temp;
 		i++;
 	}
 	ast->tokens = arena_alloc(arena, (i + 1) * (sizeof(char *)));
@@ -49,31 +49,13 @@ void	ast_init(t_arena *arena, t_token *token)
 		ast->tokens[i] = arena_alloc(arena, ft_strlen(token->value)
 		* sizeof(char *));
 		ast->tokens[i] = token->value;
-		token = token->next;
+		token->next = temp;
 		i++;
 	}
 	ast->tokens[i] = '\0';
 	ast_parser(arena, ast, token);
 }
-
-void	ast_parser(t_arena *arena, t_ast *ast, t_token *token)
-{
-	size_t	i;
-
-	i = 0;
-	tmp = token;
-	while (ast->tokens[i])
-	{
-		i++;
-	}
-	while (ast->tokens[i])
-	{
-		if (ast->tokens[i] == "|")
-			break;
-		i--;
-	}
-	ast->root = newnode(ast->tokens[i], token
-}
+*/
 
 /*
 

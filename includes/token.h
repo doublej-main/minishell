@@ -6,14 +6,18 @@
 /*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:25:32 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/09/08 18:26:42 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/09/10 15:08:19 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
 # define TOKEN_H
 
-# define DEL "\f\n\r\t\v"
+# define DEL "'\f' '\n' '\r' '\t' '\v'"
+
+# include "arena.h"
+
+typedef struct s_arena t_arena;
 
 typedef enum	e_token_type
 {

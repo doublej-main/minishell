@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:38:28 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/09 12:34:07 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/09/10 13:59:33 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ void	shell_loop(t_shell *shell)
 		if (!line)
 			break ;
 		// TODO do what the line specifies
+		printf("line read\n");
 		consume_line(shell, line);
+		printf("line consumed\n");
 		tokenize_input(line, shell);
 		free(line);
 		arena_reset(shell->arena);

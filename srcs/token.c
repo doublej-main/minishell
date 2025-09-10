@@ -18,11 +18,13 @@ static t_token_type	get_type(char *token)
 	else
 		return (WORD);
 }
-
+//for testing
 static void	print_token(t_token *token)
 {
 	printf("Token: %s	| Type: %s\n", token->value, gettokentype(token->type));
 }
+
+
 
 static t_token_type	get_q_type(char *token)
 {
@@ -30,6 +32,10 @@ static t_token_type	get_q_type(char *token)
 		return (WORD_SINGLE_Q);
 	else if (token[0] == '\"' && token[ft_strlen(token) - 1] == '\"')
 		return (WORD_DOUBLE_Q);
+	else if (token[0] == '\'' && token[ft_strlen(token) - 1] != '\'')
+		exit (1); //return error, exit and free
+	else if (token[0] == '\"' && token[ft_strlen(token) - 1] != '\"')
+		exit (1); //return error, exit and free
 	else
 		return (WORD);
 }
@@ -42,9 +48,29 @@ void	tokenize_input(char *line, t_shell *shell)
 	size_t	i;
 
 	i = 0;
+	//test1
+	printf("we made it to token\n");
+	//
 	token_split = mini_split(line, DEL);
+	//test2
+	while (token_split[i])
+	{
+		printf("%s\n", token_split[i]);
+		i++;
+	}
+	printf("%zu\n", i);
+	//
 	array = arena_alloc(shell->arena, sizeof(t_arr));
 	array->token_array = handle_quotes(token_split, array, shell->arena);
+	//test3
+	i = 0;
+	while (array->token_array[i])
+	{
+		printf("%s\n", array->token_array[i]);
+		i++;
+	}
+	printf("%zu\n", i);
+	//
 	free_array(token_split);
 	while (array->token_array[i])
 	{
@@ -54,11 +80,12 @@ void	tokenize_input(char *line, t_shell *shell)
 		if (token->type == WORD)
 			token->type = get_q_type(token->value);
 		print_token(token);
+		ft_lstadd_back(&shell->head, token);
 		i++;
 	}
 //	ast_init(shell->arena, &token);
 }
-
+//do in one function instead
 char	**handle_quotes(char **token_split, t_arr *elem, t_arena *arena)
 {
 	size_t	wc;

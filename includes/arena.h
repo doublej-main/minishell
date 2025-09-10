@@ -6,14 +6,14 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 11:39:13 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/28 13:50:55 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/10 15:01:34 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ARENA_H
 # define ARENA_H
 
-# include "libft.h"
+# include "../libft/libft.h"
 # include <stddef.h>
 
 # define INIT_FAIL -1
