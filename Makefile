@@ -1,7 +1,7 @@
 NAME        = minishell
 SRCS        = srcs/main.c srcs/signals.c srcs/env.c srcs/prompt.c srcs/utils.c \
 				srcs/arena.c srcs/arena_utils.c srcs/ast.c srcs/token.c \
-				srcs/token_utils.c srcs/tokenizing_quotes.c srcs/mini_split.c
+				srcs/token_utils.c
 OBJS = $(patsubst srcs/%.c, $(O_DIR)/%.o,$(SRCS))
 O_DIR = objects
 INCLUDES	= includes

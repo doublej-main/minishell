@@ -24,58 +24,69 @@ static void	print_token(t_token *token)
 	printf("Token: %s	| Type: %s\n", token->value, gettokentype(token->type));
 }
 
-
-
 static t_token_type	get_q_type(char *token)
 {
 	if (token[0] == '\'' && token[ft_strlen(token) - 1] == '\'')
 		return (WORD_SINGLE_Q);
 	else if (token[0] == '\"' && token[ft_strlen(token) - 1] == '\"')
 		return (WORD_DOUBLE_Q);
-	else if (token[0] == '\'' && token[ft_strlen(token) - 1] != '\'')
-		exit (1); //return error, exit and free
-	else if (token[0] == '\"' && token[ft_strlen(token) - 1] != '\"')
-		exit (1); //return error, exit and free
 	else
 		return (WORD);
 }
 
-void	tokenize_input(char *line, t_shell *shell)
+int	isdel(char c)
 {
-	t_token	*token;
-	char	**token_split;
-	t_arr	*array;
-	size_t	i;
+	if (c == ' ' || c == '\t' || c == '\v' || c == '\r'
+		|| c == '\f' || c == '\n')
+		return (1);
+	return (0);
+}
+
+static char	**parser(char *line, t_arena *arena, t_parser *p)
+{
+	char		**array;
+
+	p->i = 0;
+	p->j = 0;
+	p->start = 0;
+	p->q_flag = 0;
+	array = (char **){0};
+	while (isdel(line[p->i]))
+		p->i++;
+	while (line[p->i])
+	{
+		if (!quote_handler(line[p->i], p))
+			return (NULL);
+		else if (isdel(line[p->i]) && p->q_flag == 0)
+		{
+			array[p->j] = arena_substr(line, p->start, p->i - p->start, arena);
+			p->j++;
+		}
+		p->i++;
+	}
+	array[p->j] = 0;
+	return (array);
+}
+
+int	tokenize_input(char *line, t_shell *shell)
+{
+	t_token		*token;
+	t_parser	*p;
+	size_t		i;
 
 	i = 0;
-	//test1
-	printf("we made it to token\n");
-	//
-	token_split = mini_split(line, DEL);
-	//test2
-	while (token_split[i])
-	{
-		printf("%s\n", token_split[i]);
-		i++;
-	}
-	printf("%zu\n", i);
-	//
-	array = arena_alloc(shell->arena, sizeof(t_arr));
-	array->token_array = handle_quotes(token_split, array, shell->arena);
-	//test3
-	i = 0;
-	while (array->token_array[i])
-	{
-		printf("%s\n", array->token_array[i]);
-		i++;
-	}
-	printf("%zu\n", i);
-	//
-	free_array(token_split);
-	while (array->token_array[i])
+	p = arena_alloc(shell->arena, sizeof(t_parser));
+	if ((wdcount(line, p) > 0))
+		p->array = arena_alloc(shell->arena, wdcount(line, p) * sizeof(char *));
+	if (!p->array)
+		return (perror("memory"), FAILURE);
+	p->array = parser(line, shell->arena, p);
+	while (p->array[i])
 	{
 		token = add_token(shell);
-		token->value = arena_strdup(shell->arena, array->token_array[i]);
+		token->value = arena_strdup(shell->arena, p->array[i]);
+		if (!token->value)
+			return (perror("token"), FAILURE);
 		token->type = get_type(token->value);
 		if (token->type == WORD)
 			token->type = get_q_type(token->value);
@@ -83,18 +94,5 @@ void	tokenize_input(char *line, t_shell *shell)
 		ft_lstadd_back(&shell->head, token);
 		i++;
 	}
-//	ast_init(shell->arena, &token);
-}
-//do in one function instead
-char	**handle_quotes(char **token_split, t_arr *elem, t_arena *arena)
-{
-	size_t	wc;
-	char	**array;
-
-	elem->qcount = 0;
-	elem->w_countin_q = 0;
-	elem->line = NULL;
-	wc = wordcount(token_split);
-	array = loop_token_array(token_split, elem, arena, wc);
-	return (array);
+	return (SUCCESS);
 }

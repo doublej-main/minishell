@@ -43,41 +43,51 @@ char	*gettokentype(t_token_type type)
 		return ("WORD");
 }
 
-size_t	wordcount(char	**array)
+int quote_handler(char c, t_parser *p)
+{
+	if (c == '\'' && p->q_flag == 0)
+	{
+		p->q_flag = 1;
+		return (1);
+	}
+	else if (c == '\"' && p->q_flag == 0)
+	{
+		p->q_flag = 2;
+		return (1);
+	}
+	else if ((c == '\'' && p->q_flag == 1) ||
+		(c == '\"' && p->q_flag == 2))
+	{
+		p->q_flag = 0;
+		return (1);
+	}
+	else if ((c == '\0' && (p->q_flag == 1 || p->q_flag == 2)) ||
+		(c == '\'' && p->q_flag == 2) || (c == '\"' && p->q_flag == 1))
+		return (0);
+	else
+		return (1);
+}
+
+size_t	wdcount(const char *s, t_parser *p)
 {
 	size_t	i;
-	size_t	j;
-	size_t	qcount;
 	size_t	count;
 
 	i = 0;
-	j = 0;
-	qcount = 0;
 	count = 0;
-	while (array[i])
+	p->q_flag = 0;
+	while (isdel(s[i]))
+		i++;
+	while (s[i])
 	{
-		while (array[i][j])
+		if (!quote_handler(s[i], p))
+//			return (perror("quote"), 0);
+			ft_putstr_fd("gugu gaga", 2);
+		else if (isdel(s[i]) && p->q_flag == 0)
 		{
-			if (array[i][j] == '\'' || array[i][j] == '\"')
-				qcount++;
-			j++;
-		}
-		if (qcount % 2 == 0)
 			count++;
+		}
 		i++;
 	}
 	return (count);
-}
-
-void	free_array(char **array)
-{
-	size_t	i;
-
-	i = 0;
-	while (array[i])
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
 }
