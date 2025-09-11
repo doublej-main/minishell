@@ -43,27 +43,28 @@ char	*gettokentype(t_token_type type)
 		return ("WORD");
 }
 
-int quote_handler(char c, t_parser *p)
+int quote_handler(char c, int *q_flag)
 {
-	if (c == '\'' && p->q_flag == 0)
+	if (c == '\'' && *q_flag == 0)
 	{
-		p->q_flag = 1;
+		*q_flag = 1;
 		return (1);
 	}
-	else if (c == '\"' && p->q_flag == 0)
+	else if (c == '\"' && *q_flag == 0)
 	{
-		p->q_flag = 2;
+		*q_flag = 2;
 		return (1);
 	}
-	else if ((c == '\'' && p->q_flag == 1) ||
-		(c == '\"' && p->q_flag == 2))
+	else if ((c == '\'' && *q_flag == 1) ||
+		(c == '\"' && *q_flag == 2))
 	{
-		p->q_flag = 0;
+		printf("we are closing the quote\n");
+		*q_flag = 0;
 		return (1);
 	}
-	else if ((c == '\0' && (p->q_flag == 1 || p->q_flag == 2)) ||
-		(c == '\'' && p->q_flag == 2) || (c == '\"' && p->q_flag == 1))
-		return (0);
+	else if ((c == '\0' && (*q_flag == 1 || *q_flag == 2)) ||
+		(c == '\'' && *q_flag == 2) || (c == '\"' && *q_flag == 1))
+		return (-1);
 	else
 		return (1);
 }
@@ -80,13 +81,17 @@ size_t	wdcount(const char *s, t_parser *p)
 		i++;
 	while (s[i])
 	{
-		if (!quote_handler(s[i], p))
-//			return (perror("quote"), 0);
-			ft_putstr_fd("gugu gaga", 2);
+		if (s[i] == '\'' || s[i] == '\"')
+		{
+			if (quote_handler(s[i], &p->q_flag) < 0)
+				ft_putstr_fd("quote handler failure\n", 2);
+		}
 		else if (isdel(s[i]) && p->q_flag == 0)
 		{
 			count++;
 		}
+		else if (s[i + 1] == '\0')
+			count++;
 		i++;
 	}
 	return (count);

@@ -6,7 +6,7 @@
 /*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:25:32 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/09/11 13:00:27 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/09/11 16:29:49 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,7 @@ typedef struct	s_token
 
 typedef struct	s_parser
 {
-	size_t	i;
-	size_t	j;
-	size_t	start;
-	size_t	q_flag;
+	int		q_flag;
 	char	**array;
 }	t_parser;
 
@@ -53,7 +50,7 @@ int		tokenize_input(char *line, t_shell *shell);
 t_token	*new_token();
 t_token	*add_token(t_shell *shell);
 char	*gettokentype(t_token_type type);
-int		quote_handler(char c, t_parser *p);
+int		quote_handler(char c, int *q_flag);
 int		isdel(char c);
 size_t	wdcount(const char *s, t_parser *p);
 

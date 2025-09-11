@@ -45,26 +45,51 @@ int	isdel(char c)
 static char	**parser(char *line, t_arena *arena, t_parser *p)
 {
 	char		**array;
+	int			i;
+	int			j;
+	size_t		del_flag;
+	int			start;
 
-	p->i = 0;
-	p->j = 0;
-	p->start = 0;
+	i = 0;
+	j = 0;
+	start = -1;
+	del_flag = 0;
 	p->q_flag = 0;
-	array = (char **){0};
-	while (isdel(line[p->i]))
-		p->i++;
-	while (line[p->i])
+	array = arena_alloc(arena, wdcount(line, p) * sizeof(char *));
+	while (line[i])
 	{
-		if (!quote_handler(line[p->i], p))
-			return (NULL);
-		else if (isdel(line[p->i]) && p->q_flag == 0)
+		if (!isdel(line[i]) && start < 0)
 		{
-			array[p->j] = arena_substr(line, p->start, p->i - p->start, arena);
-			p->j++;
+			del_flag = 1;
+			start = i;
+			printf("start: %i\n", i);
 		}
-		p->i++;
+//		else if (quote_handler(line[i], &p->q_flag) < 0)
+//			return (NULL);
+		//THIS IS THE PROBLEM
+//		else if (quote_handler(line[i], &p->q_flag) > 0)
+//		{
+//			if (isdel(line[i]) && p->q_flag == 0 && del_flag == 1)
+//			{
+//				array[j] = arena_substr(line, start, i - start, arena);
+//				del_flag = 0;
+//				start = -1;
+//				j++;
+//			}
+//		}
+//		else
+//			return (NULL);
+		//
+		printf("%i\n", i);
+		i++;
 	}
-	array[p->j] = 0;
+	array[j] = 0;
+	j = 0;
+	while (array[j])
+	{
+		printf("%s\n", array[j]);
+		j++;
+	}
 	return (array);
 }
 
