@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 13:07:24 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/08 16:09:23 by vahdekiv         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -16,6 +5,7 @@
 /*
 ** Includes
 */
+# include "builtins.h"
 # include "arena.h"
 # include "env.h"
 # include "libft.h"
