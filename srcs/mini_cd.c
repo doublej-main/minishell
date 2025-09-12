@@ -9,16 +9,16 @@ int	mini_cd(char **argv, t_shell *shell)
 	dir = argv[1];
 	if (!dir)
 	{
-		dir = get_env(shell->env, "HOME"); //TODO
+		dir = env_get(shell->env, "HOME");
 		if (!dir || !*dir)
-			return (perror("cd: HOME not set\n"), EXIT_FAILURE);
+			return (ft_putstr_fd("cd: HOME not set\n", 2), EXIT_FAILURE);
 	}
 	old = getcwd(buf, sizeof(buf));
 	if (chdir(dir) < 0)
-		return (perror("cd"), EXIT_FAILURE);
+		return (ft_putstr_fd("cd", 2), EXIT_FAILURE);
 	if (old)
-		set_env_pair(shell, "OLDPWD", old); //TODO
+		set_new_pair(shell->env, "OLDPWD", old);
 	if (getcwd(buf, sizeof(buf)))
-		set_env_pair(shell, "PWD", buf); //TODO
+		set_new_pair(shell->env, "PWD", buf);
 	return (EXIT_SUCCESS);
 }

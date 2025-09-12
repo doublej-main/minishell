@@ -6,13 +6,13 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 14:23:47 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/19 15:20:24 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/11 14:07:22 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_env	*env_new_pair(const char *key, const char *val)
+t_env	*env_new_pair(const char *key, const char *val)
 {
 	t_env	*env;
 
@@ -34,7 +34,7 @@ static t_env	*env_new_pair(const char *key, const char *val)
 	return (env);
 }
 
-static int	split_keyval(const char *str, char **key, char **val)
+int	split_keyval(const char *str, char **key, char **val)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:38:28 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/29 14:16:22 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/11 15:07:03 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	shell_init(t_shell *shell, char **environ)
 	shell->env = env_from_environ(environ);
 	if (!shell->env)
 		return (perror("env fail"), FAILURE);
-	if (arena_init(&shell->arena, 10000) < 0)
+	if (arena_init(shell->arena, 10000) < 0)
 		return (perror("arena fail"), FAILURE);
 	disable_echoctl();
 	shell->status = 0;
@@ -58,14 +58,14 @@ void	shell_loop(t_shell *shell)
 	while (1)
 	{
 		signals_interactive();
-		prompt = make_prompt(&shell->arena);
+		prompt = make_prompt(shell->arena);
 		line = readline(prompt);
 		if (!line)
 			break ;
 		// TODO do what the line specifies
 		consume_line(shell, line);
 		free(line);
-		arena_reset(&shell->arena);
+		arena_reset(shell->arena);
 	}
 }
 

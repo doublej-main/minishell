@@ -1,8 +1,8 @@
 NAME        = minishell
 SRCS        = srcs/main.c srcs/signals.c srcs/env.c srcs/prompt.c srcs/utils.c srcs/arena.c \
-				srcs/arena_utils.c srcs/builtins/dispatch.c srcs/builtins/mini_cd.c \
-				srcs/builtins/mini_echo.c srcs/builtins/mini_env.c srcs/builtins/mini_exit.c \
-				srcs/builtins/mini_export.c srcs/builtins/mini_pwd.c srcs/builtins/mini_unset.c
+				srcs/arena_utils.c srcs/dispatch.c srcs/mini_cd.c srcs/mini_echo.c srcs/mini_env.c \
+				srcs/mini_exit.c srcs/mini_export.c srcs/mini_pwd.c srcs/mini_unset.c srcs/env_get.c \
+				srcs/env_set.c srcs/env_unset.c srcs/print_env.c
 OBJS = $(patsubst srcs/%.c, $(O_DIR)/%.o,$(SRCS))
 O_DIR = objects
 INCLUDES	= includes
