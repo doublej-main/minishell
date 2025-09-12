@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:38:28 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/11 15:24:57 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/09/12 14:23:05 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	shell_loop(t_shell *shell)
 
 	while (1)
 	{
-//		signals_interactive();
+		signals_interactive();
 		prompt = make_prompt(shell->arena);
 		line = readline(prompt);
 		if (!line)

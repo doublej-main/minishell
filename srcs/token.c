@@ -3,17 +3,17 @@
 
 static t_token_type	get_type(char *token)
 {
-	if (ft_strncmp(token,  "|", 1) == 0)
+	if (ft_strcmp(token,  "|") == 0)
 		return (PIPE);
-	else if (ft_strncmp(token, "<", 1) == 0)
+	else if (ft_strcmp(token, "<") == 0)
 		return (REDIR_IN);
-	else if (ft_strncmp(token, ">" , 1) == 0)
+	else if (ft_strcmp(token, ">") == 0)
 		return (REDIR_OUT);
-	else if (ft_strncmp(token, ">>", 2) == 0)
+	else if (ft_strcmp(token, ">>") == 0)
 		return (REDIR_APPEND);
-	else if (ft_strncmp(token, "<<", 2) == 0)
+	else if (ft_strcmp(token, "<<") == 0)
 		return (REDIR_HEREDOC);
-	else if (!ft_strncmp(token, "$", 1))
+	else if (!ft_strcmp(token, "$"))
 		return (ENV_VAR);
 	else if (token[0] == '\'' && token[ft_strlen(token) - 1] == '\'')
 		return (WORD_DOUBLE_Q);
