@@ -34,62 +34,29 @@ static t_token_type	get_q_type(char *token)
 		return (WORD);
 }
 
-int	isdel(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\v' || c == '\r'
-		|| c == '\f' || c == '\n')
-		return (1);
-	return (0);
-}
-
 static char	**parser(char *line, t_arena *arena, t_parser *p)
 {
 	char		**array;
-	int			i;
-	int			j;
-	size_t		del_flag;
-	int			start;
 
-	i = 0;
-	j = 0;
-	start = -1;
-	del_flag = 0;
-	p->q_flag = 0;
-	array = arena_alloc(arena, wdcount(line, p) * sizeof(char *));
-	while (line[i])
+	parser_helper(p, 2);
+	array = arena_alloc(arena, (wdcount(line, p) + 1) * sizeof(char *));
+	if (!array)
+		return (NULL);
+	while (p->i <= (int) ft_strlen(line))
 	{
-		if (!isdel(line[i]) && start < 0)
+		if (!isdel(line[p->i]) && p->start < 0)
+			parser_helper(p, 0);
+		if ((isdel(line[p->i]) && p->q_flag == 0 && p->del_flag == 1)
+			|| line[p->i] == '\0')
 		{
-			del_flag = 1;
-			start = i;
-			printf("start: %i\n", i);
+			array[p->j] = arena_substr(line, p->start, p->i - p->start, arena);
+			parser_helper(p, 1);
 		}
-//		else if (quote_handler(line[i], &p->q_flag) < 0)
-//			return (NULL);
-		//THIS IS THE PROBLEM
-//		else if (quote_handler(line[i], &p->q_flag) > 0)
-//		{
-//			if (isdel(line[i]) && p->q_flag == 0 && del_flag == 1)
-//			{
-//				array[j] = arena_substr(line, start, i - start, arena);
-//				del_flag = 0;
-//				start = -1;
-//				j++;
-//			}
-//		}
-//		else
-//			return (NULL);
-		//
-		printf("%i\n", i);
-		i++;
+		else if (quote_handler(line[p->i], &p->q_flag) < 0)
+			return (NULL);
+		p->i++;
 	}
-	array[j] = 0;
-	j = 0;
-	while (array[j])
-	{
-		printf("%s\n", array[j]);
-		j++;
-	}
+	array[p->j] = 0;
 	return (array);
 }
 
@@ -98,7 +65,11 @@ int	tokenize_input(char *line, t_shell *shell)
 	t_token		*token;
 	t_parser	*p;
 	size_t		i;
+	//test
+	size_t		j;
 
+	j = 0;
+	//
 	i = 0;
 	p = arena_alloc(shell->arena, sizeof(t_parser));
 	if ((wdcount(line, p) > 0))
@@ -106,6 +77,14 @@ int	tokenize_input(char *line, t_shell *shell)
 	if (!p->array)
 		return (perror("memory"), FAILURE);
 	p->array = parser(line, shell->arena, p);
+	if (!p->array)
+		return (perror("parser"), FAILURE);
+	//test
+	while (p->array[j])
+	{
+		printf("%s\n", p->array[j]);
+		j++;
+	}
 	while (p->array[i])
 	{
 		token = add_token(shell);
