@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 17:34:57 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/10 14:54:05 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/09/12 14:09:28 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 	{
 		last = ft_lstlast(*lst);
 		last->next = new;
+		new->next = NULL;
 	}
 }
