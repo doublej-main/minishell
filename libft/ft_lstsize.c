@@ -6,19 +6,19 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 17:11:34 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/06/23 15:28:38 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/10 15:04:51 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_lstsize(t_list *lst)
+int	ft_lstsize(t_token *lst)
 {
 	int		count;
-	t_list	*tmp;
+	t_token	*tmp;
 
 	count = 0;
-	tmp = (t_list *)lst;
+	tmp = (t_token *)lst;
 	while (tmp)
 	{
 		count++;

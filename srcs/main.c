@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 13:38:28 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/11 15:07:03 by jjaaskel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -64,6 +53,11 @@ void	shell_loop(t_shell *shell)
 			break ;
 		// TODO do what the line specifies
 		consume_line(shell, line);
+		if (!tokenize_input(line, shell))
+		{
+			free(line);
+			return ;
+		}
 		free(line);
 		arena_reset(shell->arena);
 	}

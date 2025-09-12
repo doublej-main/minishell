@@ -21,6 +21,7 @@
 # include <string.h>
 # include <strings.h>
 # include <unistd.h>
+# include "../includes/token.h"
 
 typedef struct s_list
 {
@@ -80,10 +81,10 @@ void				ft_putnbr_fd(int n, int fd);
 
 // Bonus functions
 t_list				*ft_lstnew(void *content);
-void				ft_lstadd_front(t_list **lst, t_list *new);
-int					ft_lstsize(t_list *lst);
-t_list				*ft_lstlast(t_list *lst);
-void				ft_lstadd_back(t_list **lst, t_list *new);
+void				ft_lstadd_front(t_token **lst, t_token *new);
+int					ft_lstsize(t_token *lst);
+t_token				*ft_lstlast(t_token *lst);
+void				ft_lstadd_back(t_token **lst, t_token *new);
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
 
