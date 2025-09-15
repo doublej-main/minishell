@@ -27,17 +27,7 @@ static void	print_token(t_token *token)
 {
 	printf("Token: %s	| Type: %s\n", token->value, gettokentype(token->type));
 }
-/*
-static t_token_type	get_q_type(char *token)
-{
-	if (token[0] == '\'' && token[ft_strlen(token) - 1] == '\'')
-		return (WORD_SINGLE_Q);
-	else if (token[0] == '\"' && token[ft_strlen(token) - 1] == '\"')
-		return (WORD_DOUBLE_Q);
-	else
-		return (WORD);
-}
-*/
+
 static char	**parser(char *line, t_arena *arena, t_parser *p)
 {
 	char		**array;
@@ -88,8 +78,6 @@ int	tokenize_input(char *line, t_shell *shell)
 		if (!token->value)
 			return (perror("token"), FAILURE);
 		token->type = get_type(token->value);
-//		if (token->type == WORD)
-//			token->type = get_q_type(token->value);
 		print_token(token);
 		ft_lstadd_back(&shell->head, token);
 		i++;

@@ -15,9 +15,10 @@ typedef struct	s_redir
 
 typedef struct	s_cmd
 {
-	char			*argv;	//["echo", "hello", NULL]
+	char			**argv;	//["echo", "hello", NULL]
 	t_redir			*in;	//input redirs
 	t_redir			*out;	//output redirs
+	int				argc;
 }	t_cmd;
 
 typedef struct	s_pl
@@ -32,5 +33,6 @@ int	def_pipeblock(t_arena *arena, t_token *token, t_pl *pipeblock);
 int	def_cmds(t_arena *arena, t_token *token, t_cmd *cmds);
 int	def_redirs(t_arena *arena, t_token *token, t_pl *pipeblock, int type);
 int	redir_helper(t_token *token, t_pl *pipeblock);
+int	create_av(t_arena *arena, t_pl *pipeblock, char *stash, t_token *token);
 
 #endif
