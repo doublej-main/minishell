@@ -72,6 +72,8 @@ int	tokenize_input(char *line, t_shell *shell)
 	
 	i = 0;
 	p = arena_alloc(shell->arena, sizeof(t_parser));
+	if (!p)
+		return (perror("parser"), FAILURE);
 	if ((wdcount(line, p) > 0))
 		p->array = arena_alloc(shell->arena, wdcount(line, p) * sizeof(char *));
 	if (!p->array)
@@ -92,5 +94,7 @@ int	tokenize_input(char *line, t_shell *shell)
 		ft_lstadd_back(&shell->head, token);
 		i++;
 	}
+	if (!create_pipeline(arena, token))
+		return (FAILURE);
 	return (SUCCESS);
 }

@@ -9,6 +9,7 @@
 # include "arena.h"
 # include "env.h"
 # include "libft.h"
+# include "pipeline.h"
 # include "prompt.h"
 # include "ast.h"
 # include "token.h"
