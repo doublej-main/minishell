@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:07:24 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/08 14:25:31 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/15 11:38:40 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 /*
 ** Includes
 */
+# include "exec.h"
 # include "builtins.h"
 # include "arena.h"
 # include "env.h"
@@ -32,6 +33,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/wait.h>
 
 /*
 ** Macros

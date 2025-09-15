@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:19:19 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/12 11:59:06 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/15 12:40:13 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ int					is_identifier(const char *str);
 int					print_sorted_env(t_env *env);
 int					set_new_pair(t_env *env, const char *key, const char *val);
 int					env_unset(t_env *env, const char *key);
+int					env_to_array(t_env *env, t_env **arr, int count);
+int					env_count(t_env *env);
 
 #endif

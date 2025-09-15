@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 09:58:42 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/12 11:54:43 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/15 13:09:42 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,7 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 
 // get_next_line
 char				*get_next_line(int fd);
+
+void				ft_free(char **ptr);
 
 #endif

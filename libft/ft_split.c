@@ -6,13 +6,13 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 10:28:34 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/06/23 14:52:30 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/15 13:08:58 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_free(char **ptr)
+void	ft_free(char **ptr)
 {
 	char	**tmp;
 
