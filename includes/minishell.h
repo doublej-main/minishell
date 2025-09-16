@@ -1,10 +1,10 @@
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
 /*
 ** Includes
 */
+# include "exec.h"
 # include "builtins.h"
 # include "arena.h"
 # include "env.h"
@@ -23,6 +23,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/wait.h>
 
 /*
 ** Macros

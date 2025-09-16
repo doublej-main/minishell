@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static int	env_count(t_env *env)
+int	env_count(t_env *env)
 {
 	int	count;
 
@@ -13,7 +13,7 @@ static int	env_count(t_env *env)
 	return (count);
 }
 
-static int	env_to_array(t_env *env, t_env **arr, int count)
+int	env_to_array(t_env *env, t_env **arr, int count)
 {
 	int	i;
 
