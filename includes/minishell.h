@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 13:07:24 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/15 11:38:40 by jjaaskel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -21,7 +9,9 @@
 # include "arena.h"
 # include "env.h"
 # include "libft.h"
+# include "pipeline.h"
 # include "prompt.h"
+# include "token.h"
 # include "signals.h"
 # include "utils.h"
 # include <errno.h>
@@ -51,7 +41,8 @@ typedef struct s_shell
 	t_env						*env;
 	int							status;
 	t_arena						*arena;
-}								t_shell;
+	t_token						*head;
+}	t_shell;
 
 /*
 ** Prototypes
