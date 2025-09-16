@@ -47,12 +47,12 @@ static int	fork_one_child(t_cmd *cmd, t_shell *shell)
 
 int	run_single(t_cmd *cmd, t_shell *shell)
 {
-	int sin;
-	int sout;
-	pid_t pid;
-	int status;
+	// int sin;
+	// int sout;
+	// pid_t pid;
+	// int status;
 
 	if (cmd->argv && cmd->argv[0] && is_parent_builtin(cmd->argv[0]))
 		return (run_single_parent(cmd, shell));
-	return (fork_one_child);
+	return (fork_one_child(cmd, shell));
 }

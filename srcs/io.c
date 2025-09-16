@@ -19,9 +19,9 @@ static int	open_out(const t_redir *r)
 	int	fd;
 
 	fd = -1;
-	if (r->type == RT_OUT)
+	if (r->type == REDIR_OUT)
 		fd = open(r->target, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (r->kind == RT_APPEND)
+	else if (r->type == REDIR_APPEND)
 		fd = open(r->target, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	return (fd);
 }
@@ -42,7 +42,7 @@ int	io_apply_redirs(const t_cmd *cmd, int *save_in, int *save_out)
 	*save_in = dup(STDIN_FILENO);
 	*save_out = dup(STDOUT_FILENO);
 	if (*save_in < 0 || save_out < 0)
-		return (perror(dup), -1);
+		return (perror("dup"), -1);
 	r = cmd->in;
 	while (r)
 	{

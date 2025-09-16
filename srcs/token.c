@@ -54,9 +54,8 @@ static char	**parser(char *line, t_arena *arena, t_parser *p)
 	return (array);
 }
 
-int	tokenize_input(char *line, t_shell *shell)
+int	tokenize_input(char *line, t_shell *shell, t_token *token)
 {
-	t_token		*token;
 	t_parser	*p;
 	size_t		i;
 	
@@ -82,7 +81,5 @@ int	tokenize_input(char *line, t_shell *shell)
 		ft_lstadd_back(&shell->head, token);
 		i++;
 	}
-	if (!pipeline_init(shell->arena, token))
-		return (FAILURE);
 	return (SUCCESS);
 }

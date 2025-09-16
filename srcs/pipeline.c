@@ -80,25 +80,30 @@ int	def_pipeblock(t_arena *arena, t_token *token, t_pl *pipeblock, int ac)
 	return (SUCCESS);
 }
 
-int	pipeline_init(t_arena *arena, t_token *token)
+int	pipeline_init(t_arena *arena, t_token *token, t_pl *pipeblock)
 {
-	t_pl	*pipeblock;
 	int		ac;
 
+	printf("here0\n");
 	ac = argc(token);
+	printf("here1\n");
 	pipeblock = arena_alloc(arena, sizeof(t_pl));
 	if (!pipeblock)
 		return (perror("pipeblock"), FAILURE);
-	pipeblock->cmd = arena_alloc(arena, sizeof(t_cmd));                          
+	pipeblock->cmd = arena_alloc(arena, sizeof(t_cmd));
+	printf("here2\n");                       
 	if (!pipeblock->cmd)
 		return (perror("cmds"), FAILURE);
-	pipeblock->cmd->in = arena_alloc(arena, sizeof(t_redir));                                
+	pipeblock->cmd->in = arena_alloc(arena, sizeof(t_redir));
+	printf("here3\n");                           
 	if (!pipeblock->cmd->in)                                                                  
 		return (perror("in"), FAILURE);
-	pipeblock->cmd->out = arena_alloc(arena, sizeof(t_redir));                                
+	pipeblock->cmd->out = arena_alloc(arena, sizeof(t_redir));
+	printf("here4\n");                                 
 	if (!pipeblock->cmd->out)                                                                  
 		return (perror("out"), FAILURE);
 	pipeblock->cmd->argv = arena_alloc(arena, (ac + 1) * sizeof(char *));
+	printf("here5\n"); 
 	if (!pipeblock->cmd->argv)
 		return (perror("args"), FAILURE);
 	if (!def_pipeblock(arena, token, pipeblock, ac))

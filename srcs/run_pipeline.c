@@ -88,7 +88,7 @@ int	run_pipeline(t_pl *pl, t_shell *shell)
 
 	i = 0;
 	cur = pl;
-	fd.count = count_segemnts(pl);
+	fd.count = count_segments(pl);
 	fd.prev_in = -1;
 	while (i < fd.count)
 	{

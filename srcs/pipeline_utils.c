@@ -28,24 +28,22 @@ int	redir_helper(t_token *token, t_pl *pipeblock)
 int	argc(t_token *token)
 {
 	int		count;
-	t_token	*current;
 
+	printf("%s\n", token->value);
 	count = 0;
-	current = token;
-	while (current)
+	while (token && token->type != PIPE)
 	{
-		if (current->type == REDIR_IN || current->type == REDIR_OUT
-			|| current->type == REDIR_APPEND || current->type == REDIR_HEREDOC)
+		if (token->type == REDIR_IN || token->type == REDIR_OUT
+			|| token->type == REDIR_APPEND || token->type == REDIR_HEREDOC)
 		{
 			token = token->next;
-			current = token->next;
+			if (token)
+				token = token->next;
 		}
-		if (current->type == WORD)
+		if (token->type == WORD)
 			count++;
-		else if (current->type == PIPE)
-			return (count);
-		current = current->next;
-		token = current;
+		if (token)
+			token = token->next;
 	}
 	return (count);
 }

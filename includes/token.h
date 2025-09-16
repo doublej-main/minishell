@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:25:32 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/09/12 13:42:47 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/09/16 15:38:12 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct	s_parser
 struct	s_shell;
 typedef struct	s_shell t_shell;
 
-int		tokenize_input(char *line, t_shell *shell);
+int		tokenize_input(char *line, t_shell *shell, t_token *token);
 t_token	*new_token();
 t_token	*add_token(t_shell *shell);
 char	*gettokentype(t_token_type type);

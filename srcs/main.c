@@ -43,6 +43,8 @@ void	shell_loop(t_shell *shell)
 {
 	char	*line;
 	char	*prompt;
+	t_token	token;
+	t_pl	pl;
 
 	while (1)
 	{
@@ -51,13 +53,18 @@ void	shell_loop(t_shell *shell)
 		line = readline(prompt);
 		if (!line)
 			break ;
-		// TODO do what the line specifies
-		consume_line(shell, line);
-		if (!tokenize_input(line, shell))
+		if (!tokenize_input(line, shell, &token))
 		{
 			free(line);
 			return ;
 		}
+		if (!pipeline_init(shell->arena, &token, &pl))
+		{
+			free(line);
+			return ;
+		}
+		// execute_pipeline(&pl, shell);
+		consume_line(shell, line);
 		free(line);
 		arena_reset(shell->arena);
 	}

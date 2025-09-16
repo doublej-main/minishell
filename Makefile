@@ -6,7 +6,8 @@ SRCS        = srcs/main.c srcs/signals.c srcs/env.c srcs/prompt.c srcs/utils.c \
 				srcs/mini_export.c srcs/mini_pwd.c srcs/mini_unset.c \
 				srcs/env_get.c srcs/env_set.c srcs/env_unset.c srcs/print_env.c \
 				srcs/token.c srcs/token_utils.c srcs/parser_utils.c \
-				srcs/pipeline.c srcs/pipeline_utils.c
+				srcs/pipeline.c srcs/pipeline_utils.c srcs/exec.c srcs/io.c \
+				srcs/run_pipeline.c srcs/run_single.c srcs/exec_utils.c
         
 OBJS = $(patsubst srcs/%.c, $(O_DIR)/%.o,$(SRCS))
 O_DIR = objects
