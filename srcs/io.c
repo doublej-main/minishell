@@ -19,9 +19,9 @@ static int	open_out(const t_redir *r)
 	int	fd;
 
 	fd = -1;
-	if (r->kind == RT_OUT)
+	if (r->type == RT_OUT)
 		fd = open(r->target, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (r->kind == RT_APP)
+	else if (r->kind == RT_APPEND)
 		fd = open(r->target, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	return (fd);
 }

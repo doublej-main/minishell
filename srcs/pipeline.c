@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static int	count_segments(t_pipeline *pl)
+static int	count_segments(t_pl *pl)
 {
 	int	count;
 
@@ -13,7 +13,7 @@ static int	count_segments(t_pipeline *pl)
 	return (count);
 }
 
-static void	child_segment(t_pipeline *seg, int in, int out, t_shell *shell)
+static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
 {
 	int	d1;
 	int	d2;
@@ -51,7 +51,7 @@ static int	wait_children_last_status(void)
 	return (WEXITSTATUS(last));
 }
 
-static int	fork_segment(t_pipeline	*seg, t_fd *fd, int i, t_shell *shell)
+static int	fork_segment(t_pl *seg, t_fd *fd, int i, t_shell *shell)
 {
 	pid_t	pid;
 
@@ -80,9 +80,9 @@ static int	fork_segment(t_pipeline	*seg, t_fd *fd, int i, t_shell *shell)
 	return (EXIT_SUCCESS);
 }
 
-int	run_pipeline(t_pipeline *pl, t_shell *shell)
+int	run_pipeline(t_pl *pl, t_shell *shell)
 {
-	t_pipeline	*cur;
+	t_pl	*cur;
 	t_fd		fd;
 	int			i;
 

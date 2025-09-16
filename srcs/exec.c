@@ -28,16 +28,16 @@ void	exec_external_or_builtin(const t_cmd *cmd, t_shell *shell)
 		_exit(127);
 }
 
-int	execute_pipeline(t_pipeline *pl, t_shell *shell)
+int	execute_pipeline(t_pl *pl, t_shell *shell)
 {
 	int	status;
 
-	if (heredoc_prepare_all(pl, shell) < 0) // TODO
-		return (shell->status);
+	// if (heredoc_prepare_all(pl, shell) < 0) // TODO
+	// 	return (shell->status);
 	if (!pl->next)
 		status = run_single(pl->cmd, shell);
 	else
 		status = run_pipeline(pl, shell);
-	heredoc_cleanup_all(pl); // TODO
+	// heredoc_cleanup_all(pl); // TODO
 	return (status);
 }
