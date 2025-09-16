@@ -11,7 +11,6 @@
 # include "libft.h"
 # include "pipeline.h"
 # include "prompt.h"
-# include "ast.h"
 # include "token.h"
 # include "signals.h"
 # include "utils.h"

@@ -23,10 +23,10 @@ static t_token_type	get_type(char *token)
 		return (WORD);
 }
 //for testing
-static void	print_token(t_token *token)
-{
-	printf("Token: %s	| Type: %s\n", token->value, gettokentype(token->type));
-}
+//static void	print_token(t_token *token)
+//{
+//	printf("Token: %s	| Type: %s\n", token->value, gettokentype(token->type));
+//}
 
 static char	**parser(char *line, t_arena *arena, t_parser *p)
 {
@@ -78,11 +78,11 @@ int	tokenize_input(char *line, t_shell *shell)
 		if (!token->value)
 			return (perror("token"), FAILURE);
 		token->type = get_type(token->value);
-		print_token(token);
+//		print_token(token);
 		ft_lstadd_back(&shell->head, token);
 		i++;
 	}
-	if (!create_pipeline(arena, token))
+	if (!pipeline_init(shell->arena, token))
 		return (FAILURE);
 	return (SUCCESS);
 }

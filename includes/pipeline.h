@@ -2,8 +2,13 @@
 #ifndef PIPELINE_H
 # define PIPELINE_H
 
-#include "token.h"
-#include "arena.h"
+# include "token.h"
+# include "arena.h"
+
+# define REDIR_IN 1
+# define REDIR_OUT 2
+# define REDIR_APPEND 3
+# define REDIR_HEREDOC 4
 
 typedef struct	s_redir
 {
@@ -23,16 +28,16 @@ typedef struct	s_cmd
 
 typedef struct	s_pl
 {
-	t_cmd				*cmd;
-	struct s_pipeline	*next; // next pipeblock
+	t_cmd			*cmd;
+	struct s_pl		*next; // next pipeblock
 }	t_pl;
 
-int	pipeline_init(t_arena *arena, t_token *token);
-int	create_pipeline(t_arena *arena, t_token *token, t_pl *pipeblock
-int	def_pipeblock(t_arena *arena, t_token *token, t_pl *pipeblock);
-int	def_cmds(t_arena *arena, t_token *token, t_cmd *cmds);
-int	def_redirs(t_arena *arena, t_token *token, t_pl *pipeblock, int type);
-int	redir_helper(t_token *token, t_pl *pipeblock);
-int	create_av(t_arena *arena, t_pl *pipeblock, char *stash, t_token *token);
-
+int		pipeline_init(t_arena *arena, t_token *token);
+int		def_pipeblock(t_arena *arena, t_token *token, t_pl *pipeblock, int ac);
+char	*def_argv(t_arena *arena, char *value);
+void	redirs_quoted(t_token *current, t_pl *pipeblock, char *next);
+int		redir_helper(t_token *token, t_pl *pipeblock);
+int		argc(t_token *token);
+t_pl	*new_pipeblock(t_arena *arena);
+t_pl	*add_pipeblock(t_arena *arena);
 #endif
