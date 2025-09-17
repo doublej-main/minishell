@@ -1,27 +1,16 @@
 
 #include "minishell.h"
 
-t_token	*new_token(t_arena *arena)
-{
-	t_token *new;
-
-	new = arena_alloc(arena, sizeof(t_token));
-	if (!new)
-		return (NULL);
-	new->value = arena_alloc(arena, sizeof(char *));
-	if (!new->value)
-		return (NULL);
-	new->next = NULL;
-	return (new);
-}
-
 t_token	*add_token(t_shell *shell)
 {
 	t_token *temp;
 
-	temp = new_token(shell->arena);
-	temp->next = shell->head;
-	shell->head = temp;
+	temp = arena_alloc(shell->arena, sizeof(*temp));
+	if (!temp)
+		return (NULL);
+	temp->value = NULL;
+	temp->type = 0;
+	temp->next = NULL;
 	return (temp);
 }
 

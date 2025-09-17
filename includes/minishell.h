@@ -4,15 +4,15 @@
 /*
 ** Includes
 */
-# include "exec.h"
-# include "builtins.h"
 # include "arena.h"
+# include "builtins.h"
 # include "env.h"
+# include "exec.h"
 # include "libft.h"
 # include "pipeline.h"
 # include "prompt.h"
-# include "token.h"
 # include "signals.h"
+# include "token.h"
 # include "utils.h"
 # include <errno.h>
 # include <readline/history.h>
@@ -22,8 +22,8 @@
 # include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
 # include <sys/wait.h>
+# include <unistd.h>
 
 /*
 ** Macros
@@ -42,7 +42,8 @@ typedef struct s_shell
 	int							status;
 	t_arena						*arena;
 	t_token						*head;
-}	t_shell;
+	t_pl						*pipe_head;
+}								t_shell;
 
 /*
 ** Prototypes
@@ -50,5 +51,9 @@ typedef struct s_shell
 int								shell_init(t_shell *shell, char **environ);
 void							shell_loop(t_shell *shell);
 void							shell_destroy(t_shell *shell);
+void							consume_line(t_shell *shell, char *line);
+void							init_token_and_pipeline(t_shell *shell,
+									t_token *token, t_pl *pipeblock,
+									char *line);
 
 #endif

@@ -1,15 +1,6 @@
-
 #include "minishell.h"
 
 volatile sig_atomic_t	g_sig = 0;
-
-static void	consume_line(t_shell *shell, char *line)
-{
-	if (line && *line)
-		add_history(line);
-	if (line && *line)
-		shell->status = 0;
-}
 
 int	shell_init(t_shell *shell, char **environ)
 {
@@ -21,12 +12,6 @@ int	shell_init(t_shell *shell, char **environ)
 	disable_echoctl();
 	shell->status = 0;
 	return (SUCCESS);
-}
-
-void	shell_destroy(t_shell *shell)
-{
-	env_free(shell->env);
-	// arena_destroy(&shell->arena);
 }
 
 /**
@@ -43,29 +28,27 @@ void	shell_loop(t_shell *shell)
 {
 	char	*line;
 	char	*prompt;
-	t_token	token;
-	t_pl	pl;
+	t_token	*token;
+	t_pl	*pipeblock;
 
+	token = NULL;
+	pipeblock = NULL;
 	while (1)
 	{
-		signals_interactive();
+		// signals_interactive();
 		prompt = make_prompt(shell->arena);
 		line = readline(prompt);
 		if (!line)
 			break ;
-		if (!tokenize_input(line, shell, &token))
-		{
-			free(line);
-			return ;
-		}
-		if (!pipeline_init(shell->arena, &token, &pl))
-		{
-			free(line);
-			return ;
-		}
-		// execute_pipeline(&pl, shell);
+		shell->head = NULL;
+		tokenize_input(line, shell, token);
+		shell->pipe_head = NULL;
+		pipeline_init(shell, &pipeblock);
+		printf("before exec string is %s\n", shell->pipe_head->cmd->argv[0]);
+		shell->status = execute_pipeline(shell->pipe_head, shell);
 		consume_line(shell, line);
-		free(line);
+		if (line)
+			free(line);
 		arena_reset(shell->arena);
 	}
 }

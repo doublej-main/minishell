@@ -32,15 +32,13 @@ typedef struct s_pl
 	struct s_pl *next; // next pipeblock
 }					t_pl;
 
-int					pipeline_init(t_arena *arena, t_token *token,
-						t_pl *pipeblock);
-int					def_pipeblock(t_arena *arena, t_token *token,
-						t_pl *pipeblock, int ac);
+int					pipeline_init(t_shell *shell, t_pl **pipeblock);
+int					def_pipeblock(t_shell *shell, t_pl *pipeblock, int ac);
 char				*def_argv(t_arena *arena, char *value);
 void				redirs_quoted(t_token *current, t_pl *pipeblock,
 						char *next);
 int					redir_helper(t_token *token, t_pl *pipeblock);
 int					argc(t_token *token);
 t_pl				*new_pipeblock(t_arena *arena);
-t_pl				*add_pipeblock(t_arena *arena);
+t_pl				*add_pipeblock(t_shell *shell);
 #endif

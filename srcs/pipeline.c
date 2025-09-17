@@ -1,5 +1,18 @@
-
 #include "minishell.h"
+
+static int	init_segment(t_shell *shell, t_pl *pipeblock, int ac)
+{
+	pipeblock->cmd = arena_alloc(shell->arena, sizeof(t_cmd));
+	if (!pipeblock->cmd)
+		return (FAILURE);
+	pipeblock->cmd->in = NULL;
+	pipeblock->cmd->out = NULL;
+	pipeblock->cmd->argv = arena_alloc(shell->arena, sizeof(char *) * (ac + 1));
+	if (!pipeblock->cmd->argv)
+		return (FAILURE);
+	pipeblock->cmd->argv[0] = NULL;
+	return (SUCCESS);
+}
 
 void	redirs_quoted(t_token *current, t_pl *pipeblock, char *next)
 {
@@ -36,77 +49,81 @@ char	*def_argv(t_arena *arena, char *value)
 	temp = arena_strdup(arena, value);
 	if (!temp)
 		return (NULL);
+	printf("here\n");
 	return (temp);
 }
 
-int	def_pipeblock(t_arena *arena, t_token *token, t_pl *pipeblock, int ac)
+int	def_pipeblock(t_shell *shell, t_pl *pipeblock, int ac)
 {
 	t_token	*curr;
 	int		i;
 
-	curr = token;
+	printf("def pipe start\n");
+	curr = shell->head;
 	i = 0;
 	while (curr)
 	{
 		if (curr->type == PIPE)
 		{
-			pipeblock->next = add_pipeblock(arena);
-			pipeblock = pipeblock->next;
+			pipeblock->cmd->argv[i] = NULL;
+			pipeblock = add_pipeblock(shell);
+			ft_lstadd_back_pipe(&shell->pipe_head, pipeblock);
+			ac = argc(curr->next);
+			if (!init_segment(shell, pipeblock, ac))
+				return (FAILURE);
+			i = 0;
 		}
 		else if (curr->type == REDIR_IN || curr->type == REDIR_OUT
             || curr->type == REDIR_APPEND || curr->type == REDIR_HEREDOC)
 		{
+			if (!curr->next || curr->next->type != WORD)
+				return (FAILURE);
 			redir_helper(curr, pipeblock);
-			token = token->next;
-			if (token->type != WORD)
-				return(FAILURE);
-			else
-				redirs_quoted(curr, pipeblock, token->value);
+			redirs_quoted(curr, pipeblock, curr->next->value);
+			curr = curr->next;
 		}
 		else if (curr->type == WORD)
 		{
 			if (i < ac)
 			{
-				pipeblock->cmd->argv[i] = def_argv(arena, curr->value);
-				if (!pipeblock->cmd->argv[i])
-					return (FAILURE);
+				printf("here\n");
+				pipeblock->cmd->argv[i] = def_argv(shell->arena, curr->value);
+				i++;
 			}
-			else
-				pipeblock->cmd->argv[i] = 0;
-			i++;
 		}
 		curr = curr->next;
 	}
+	pipeblock->cmd->argv[i] = NULL;
+	printf("index is: %d and string is %s\n", i, pipeblock->cmd->argv[0]);
+	printf("defpipe finish\n");
 	return (SUCCESS);
 }
 
-int	pipeline_init(t_arena *arena, t_token *token, t_pl *pipeblock)
+int	pipeline_init(t_shell *shell, t_pl **pipeblock)
 {
 	int		ac;
 
-	printf("here0\n");
-	ac = argc(token);
-	printf("here1\n");
-	pipeblock = arena_alloc(arena, sizeof(t_pl));
-	if (!pipeblock)
+	ac = argc(shell->head);
+	(*pipeblock) = arena_alloc(shell->arena, sizeof(t_pl));
+	if (!*pipeblock)
 		return (perror("pipeblock"), FAILURE);
-	pipeblock->cmd = arena_alloc(arena, sizeof(t_cmd));
-	printf("here2\n");                       
-	if (!pipeblock->cmd)
+	(*pipeblock)->cmd = arena_alloc(shell->arena, sizeof(t_cmd));            
+	if (!(*pipeblock)->cmd)
 		return (perror("cmds"), FAILURE);
-	pipeblock->cmd->in = arena_alloc(arena, sizeof(t_redir));
-	printf("here3\n");                           
-	if (!pipeblock->cmd->in)                                                                  
+	(*pipeblock)->cmd->in = arena_alloc(shell->arena, sizeof(t_redir));                    
+	if (!(*pipeblock)->cmd->in)                                                                  
 		return (perror("in"), FAILURE);
-	pipeblock->cmd->out = arena_alloc(arena, sizeof(t_redir));
-	printf("here4\n");                                 
-	if (!pipeblock->cmd->out)                                                                  
+	(*pipeblock)->cmd->out = arena_alloc(shell->arena, sizeof(t_redir));                       
+	if (!(*pipeblock)->cmd->out)                                                                  
 		return (perror("out"), FAILURE);
-	pipeblock->cmd->argv = arena_alloc(arena, (ac + 1) * sizeof(char *));
-	printf("here5\n"); 
-	if (!pipeblock->cmd->argv)
+	(*pipeblock)->cmd->argv = arena_alloc(shell->arena, (ac + 1) * sizeof(char *));
+	printf("pipeline cmd argv\n");
+	if (!(*pipeblock)->cmd->argv)
 		return (perror("args"), FAILURE);
-	if (!def_pipeblock(arena, token, pipeblock, ac))
+	printf("before def *pipeblock\n");
+	ft_lstadd_back_pipe(&shell->pipe_head, *pipeblock);
+	if (!def_pipeblock(shell, *pipeblock, ac))
 		return (perror("def_pipeblock"), FAILURE);
+	printf("pipeline init finish\n");
 	return (SUCCESS);
 }

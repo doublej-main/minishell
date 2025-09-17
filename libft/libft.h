@@ -6,13 +6,15 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 09:58:42 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/15 13:09:42 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/17 11:45:54 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "../includes/token.h"
+# include "../includes/pipeline.h"
 # include "ft_printf/ft_printf.h"
 # include "get_next_line.h"
 # include <fcntl.h>
@@ -21,7 +23,6 @@
 # include <string.h>
 # include <strings.h>
 # include <unistd.h>
-# include "../includes/token.h"
 
 typedef struct s_list
 {
@@ -87,6 +88,8 @@ t_token				*ft_lstlast(t_token *lst);
 void				ft_lstadd_back(t_token **lst, t_token *new);
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
+// minishell bullshit
+void				ft_lstadd_back_pipe(t_pl **lst, t_pl *new);
 
 // get_next_line
 char				*get_next_line(int fd);

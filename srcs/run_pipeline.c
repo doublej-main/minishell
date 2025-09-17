@@ -18,6 +18,8 @@ static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
 	int	d1;
 	int	d2;
 
+	if (!seg->cmd || !seg->cmd->argv || !seg->cmd->argv[0])
+		_exit(0);
 	signals_default();
 	if (in != -1)
 	{

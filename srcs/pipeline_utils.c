@@ -29,7 +29,6 @@ int	argc(t_token *token)
 {
 	int		count;
 
-	printf("%s\n", token->value);
 	count = 0;
 	while (token && token->type != PIPE)
 	{
@@ -39,34 +38,24 @@ int	argc(t_token *token)
 			token = token->next;
 			if (token)
 				token = token->next;
+			continue ;
 		}
 		if (token->type == WORD)
 			count++;
-		if (token)
-			token = token->next;
+		token = token->next;
 	}
 	return (count);
 }
 
-t_pl *new_pipeblock(t_arena *arena)
-{
-    t_pl *new;
 
-    new = arena_alloc(arena, sizeof(t_pl));
-    if (!new)
-        return (NULL);
-    new->cmd = arena_alloc(arena, sizeof(t_cmd));
-    if (!new->cmd)
-        return (NULL);
-    new->next = NULL;
-    return (new);
-}
-
-t_pl *add_pipeblock(t_arena *arena)
+t_pl *add_pipeblock(t_shell *shell)
 {
     t_pl *temp;
 
-    temp = new_pipeblock(arena);
-    temp->next = NULL;
-    return (temp);
+    temp = arena_alloc(shell->arena, sizeof(*temp));
+	if (!temp)
+		return (NULL);
+	temp->cmd = NULL;
+	temp->next = NULL;
+	return (temp);
 }
