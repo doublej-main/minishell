@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   arena.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/27 11:51:52 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/29 14:19:49 by jjaaskel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 t_arena_block	*arena_new_block(size_t block_size)
@@ -65,6 +53,7 @@ void	arena_reset(t_arena *arena)
 	t_arena_block	*tmp;
 	t_arena_block	*next;
 
+	printf("arena reset\n");
 	if (!arena || !arena->head)
 		return ;
 	keep = arena->head;

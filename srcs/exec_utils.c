@@ -69,6 +69,7 @@ char	*path_search(char *name, t_env *env)
 	size_t		len;
 
 	path = env_get(env, "PATH");
+	printf("%s\n", path);
 	if (!path || !*path || !name || !*name)
 		return (NULL);
 	while (69)
@@ -78,6 +79,7 @@ char	*path_search(char *name, t_env *env)
 			path++;
 		len = (size_t)(path - start);
 		cand = build_candidate(start, len, name);
+		printf("built candidate: %s\n", cand);
 		if (cand && access(cand, X_OK) == 0)
 			return (cand);
 		free(cand);

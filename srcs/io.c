@@ -2,12 +2,12 @@
 
 void	io_restore_std(int save_in, int save_out)
 {
-	if (save_in >= 0)
+	if (save_in != 0)
 	{
 		dup2(save_in, STDIN_FILENO);
 		close(save_in);
 	}
-	if (save_out >= 0)
+	if (save_out != 1)
 	{
 		dup2(save_out, STDOUT_FILENO);
 		close(save_out);
@@ -59,5 +59,6 @@ int	io_apply_redirs(const t_cmd *cmd, int *save_in, int *save_out)
 			return (perror(r->target), -1);
 		r = r->next;
 	}
+	printf("redirs finish\n");
 	return (EXIT_SUCCESS);
 }

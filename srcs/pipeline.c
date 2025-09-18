@@ -5,8 +5,8 @@ static int	init_segment(t_shell *shell, t_pl *pipeblock, int ac)
 	pipeblock->cmd = arena_alloc(shell->arena, sizeof(t_cmd));
 	if (!pipeblock->cmd)
 		return (FAILURE);
-	pipeblock->cmd->in = NULL;
-	pipeblock->cmd->out = NULL;
+	pipeblock->cmd->in = (t_redir *)&(t_redir){0};
+	pipeblock->cmd->out = (t_redir *)&(t_redir){0};
 	pipeblock->cmd->argv = arena_alloc(shell->arena, sizeof(char *) * (ac + 1));
 	if (!pipeblock->cmd->argv)
 		return (FAILURE);

@@ -35,7 +35,7 @@ void	shell_loop(t_shell *shell)
 	pipeblock = NULL;
 	while (1)
 	{
-		// signals_interactive();
+		signals_interactive();
 		prompt = make_prompt(shell->arena);
 		line = readline(prompt);
 		if (!line)
@@ -44,8 +44,8 @@ void	shell_loop(t_shell *shell)
 		tokenize_input(line, shell, token);
 		shell->pipe_head = NULL;
 		pipeline_init(shell, &pipeblock);
-		printf("before exec string is %s\n", shell->pipe_head->cmd->argv[0]);
 		shell->status = execute_pipeline(shell->pipe_head, shell);
+		printf("shell status is:%d\n", shell->status);
 		consume_line(shell, line);
 		if (line)
 			free(line);
