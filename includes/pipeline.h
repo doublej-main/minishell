@@ -5,10 +5,13 @@
 # include "arena.h"
 # include "token.h"
 
+# define PIPE 0
 # define REDIR_IN 1
 # define REDIR_OUT 2
 # define REDIR_APPEND 3
 # define REDIR_HEREDOC 4
+# define ENV_VAR 5
+# define WORD 6
 
 typedef struct s_redir
 {

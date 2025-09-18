@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:25:32 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/09/17 15:56:53 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/18 12:21:32 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,20 @@
 
 typedef struct s_arena	t_arena;
 
-typedef enum e_token_type
-{
-	WORD,          // For commands and arguments
-	PIPE,          // For '|'
-	REDIR_IN,      // For '<'
-	REDIR_OUT,     // For '>'
-	REDIR_APPEND,  // For '>>'
-	REDIR_HEREDOC, // For '<<'
-	ENV_VAR,       // For environment variables '$'
-	WORD_SINGLE_Q, // For strings in single quotes
-	WORD_DOUBLE_Q, // For strings in double quotes
-}						t_token_type;
+//typedef enum e_token_type
+//{
+//	WORD,          // For commands and arguments
+//	PIPE,          // For '|'
+//	REDIR_IN,      // For '<'
+//	REDIR_OUT,     // For '>'
+//	REDIR_APPEND,  // For '>>'
+//	REDIR_HEREDOC, // For '<<'
+//	ENV_VAR,       // For environment variables '$'
+//}						t_token_type;
 
 typedef struct s_token
 {
-	enum e_token_type	type;
+	int					type;
 	char				*value;
 	struct s_token		*next;
 }						t_token;
@@ -55,7 +53,7 @@ int						tokenize_input(char *line, t_shell *shell,
 							t_token *token);
 t_token					*new_token(void);
 t_token					*add_token(t_shell *shell);
-char					*gettokentype(t_token_type type);
+char					*gettokentype(int type);
 int						quote_handler(char c, int *q_flag);
 int						isdel(char c);
 void					parser_helper(t_parser *p, int type);

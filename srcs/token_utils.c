@@ -14,7 +14,7 @@ t_token	*add_token(t_shell *shell)
 	return (temp);
 }
 
-char	*gettokentype(t_token_type type)
+char	*gettokentype(int type)
 {
 	if (type == PIPE)
 		return ("PIPE");

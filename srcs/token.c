@@ -1,24 +1,20 @@
 
 #include "minishell.h"
 
-static t_token_type	get_type(char *token)
+static int	get_type(char *token)
 {
 	if (ft_strcmp(token,  "|") == 0)
 		return (PIPE);
-	else if (ft_strcmp(token, "<") == 0)
+	if (ft_strcmp(token, "<") == 0)
 		return (REDIR_IN);
-	else if (ft_strcmp(token, ">") == 0)
+	if (ft_strcmp(token, ">") == 0)
 		return (REDIR_OUT);
-	else if (ft_strcmp(token, ">>") == 0)
+	if (ft_strcmp(token, ">>") == 0)
 		return (REDIR_APPEND);
-	else if (ft_strcmp(token, "<<") == 0)
+	if (ft_strcmp(token, "<<") == 0)
 		return (REDIR_HEREDOC);
-	else if (!ft_strcmp(token, "$"))
+	if (!ft_strcmp(token, "$"))
 		return (ENV_VAR);
-	else if (token[0] == '\'' && token[ft_strlen(token) - 1] == '\'')
-		return (WORD_DOUBLE_Q);
-	else if (token[0] == '\"' && token[ft_strlen(token) - 1] == '\"')
-		return (WORD_SINGLE_Q);
 	else
 		return (WORD);
 }
@@ -44,14 +40,12 @@ static char	**parser(char *line, t_arena *arena, t_parser *p)
 			|| line[p->i] == '\0')
 		{
 			array[p->j] = arena_substr(line, p->start, p->i - p->start, arena);
-			printf("we are here %s\n", array[p->j]);
 			parser_helper(p, 1);
 		}
 		else if (quote_handler(line[p->i], &p->q_flag) < 0)
 			return (NULL);
 		p->i++;
 	}
-	printf("array[p->j] is:%d\n", p->j);
 	array[p->j] = 0;
 	return (array);
 }
@@ -77,7 +71,6 @@ int	tokenize_input(char *line, t_shell *shell, t_token *token)
 		return (perror("parser"), FAILURE);
 	while (p->array[i])
 	{
-		printf("array elements at index %zu: %s\n", i, p->array[i]);
 		token = add_token(shell);
 		token->value = arena_strdup(shell->arena, p->array[i]);
 		if (!token->value)

@@ -28,9 +28,9 @@ void	redirs_quoted(t_token *current, t_pl *pipeblock, char *next)
 		else
 			pipeblock->cmd->in->quoted = 0;
 	}
-	else
+	if (current->type == REDIR_OUT || current->type == REDIR_HEREDOC)//outs
 	{
-		pipeblock->cmd->out->target = next;//outs
+		pipeblock->cmd->out->target = next;
 		if (next[0] == '\''                                               
             && next[ft_strlen(next) - 1] == '\'')                              
             pipeblock->cmd->out->quoted = 1;                                      
@@ -49,7 +49,6 @@ char	*def_argv(t_arena *arena, char *value)
 	temp = arena_strdup(arena, value);
 	if (!temp)
 		return (NULL);
-	printf("here\n");
 	return (temp);
 }
 
@@ -58,7 +57,6 @@ int	def_pipeblock(t_shell *shell, t_pl *pipeblock, int ac)
 	t_token	*curr;
 	int		i;
 
-	printf("def pipe start\n");
 	curr = shell->head;
 	i = 0;
 	while (curr)
@@ -81,12 +79,14 @@ int	def_pipeblock(t_shell *shell, t_pl *pipeblock, int ac)
 			redir_helper(curr, pipeblock);
 			redirs_quoted(curr, pipeblock, curr->next->value);
 			curr = curr->next;
+			if (curr->next)
+				curr = curr->next;
+			break;
 		}
 		else if (curr->type == WORD)
 		{
 			if (i < ac)
 			{
-				printf("here\n");
 				pipeblock->cmd->argv[i] = def_argv(shell->arena, curr->value);
 				i++;
 			}
@@ -94,8 +94,6 @@ int	def_pipeblock(t_shell *shell, t_pl *pipeblock, int ac)
 		curr = curr->next;
 	}
 	pipeblock->cmd->argv[i] = NULL;
-	printf("index is: %d and string is %s\n", i, pipeblock->cmd->argv[0]);
-	printf("defpipe finish\n");
 	return (SUCCESS);
 }
 
@@ -117,13 +115,10 @@ int	pipeline_init(t_shell *shell, t_pl **pipeblock)
 	if (!(*pipeblock)->cmd->out)                                                                  
 		return (perror("out"), FAILURE);
 	(*pipeblock)->cmd->argv = arena_alloc(shell->arena, (ac + 1) * sizeof(char *));
-	printf("pipeline cmd argv\n");
 	if (!(*pipeblock)->cmd->argv)
 		return (perror("args"), FAILURE);
-	printf("before def *pipeblock\n");
 	ft_lstadd_back_pipe(&shell->pipe_head, *pipeblock);
 	if (!def_pipeblock(shell, *pipeblock, ac))
 		return (perror("def_pipeblock"), FAILURE);
-	printf("pipeline init finish\n");
 	return (SUCCESS);
 }
