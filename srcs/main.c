@@ -45,7 +45,6 @@ void	shell_loop(t_shell *shell)
 		shell->pipe_head = NULL;
 		pipeline_init(shell, &pipeblock);
 		shell->status = execute_pipeline(shell->pipe_head, shell);
-		printf("shell status is:%d\n", shell->status);
 		consume_line(shell, line);
 		if (line)
 			free(line);

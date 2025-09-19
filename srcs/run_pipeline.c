@@ -15,27 +15,33 @@ static int	count_segments(t_pl *pl)
 
 static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
 {
-	int	d1;
-	int	d2;
-
-	if (!seg->cmd || !seg->cmd->argv || !seg->cmd->argv[0])
+	if (!seg->cmd)
 		_exit(0);
 	signals_default();
+	if ((!seg->cmd->argv || !seg->cmd->argv[0]) && seg->cmd->out)
+	{
+		if (open_out(seg->cmd->out) < 0)
+			_exit(1);
+		_exit(0);
+	} 
 	if (in != -1)
 	{
-		dup2(in, 0);
+		dup2(in, STDIN_FILENO);
 		close(in);
 	}
 	if (out != -1)
 	{
-		dup2(out, 1);
+		dup2(out, STDOUT_FILENO);
 		close(out);
 	}
-	if (io_apply_redirs(seg->cmd, &d1, &d2) < 0) // TODO
-		_exit(1);
+	if (seg->cmd->in->target || seg->cmd->out->target)
+	{
+		if (io_apply_redirs(seg->cmd) < 0)
+			_exit(1);
+	}
 	if (is_any_builtin(seg->cmd->argv[0]))
 		_exit(run_any_builtin(seg->cmd->argv[0], seg->cmd->argv, shell));
-	exec_external_or_builtin(seg->cmd, shell); // TODO
+	exec_external_or_builtin(seg->cmd, shell);
 }
 
 static int	wait_children_last_status(void)

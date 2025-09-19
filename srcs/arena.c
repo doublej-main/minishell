@@ -16,7 +16,24 @@ t_arena_block	*arena_new_block(size_t block_size)
 	return (new_block);
 }
 
-t_arena_block	*arena_add_block(t_arena *arena, size_t needed)
+// t_arena_block	*arena_add_block(t_arena *arena, size_t needed)
+// {
+// 	size_t			max;
+// 	t_arena_block	*new_block;
+
+// 	if (needed > arena->block_size)
+// 		max = arena->block_size + (needed - arena->block_size);
+// 	else
+// 		max = arena->block_size;
+// 	new_block = arena_new_block(max);
+// 	if (!new_block)
+// 		return (NULL);
+// 	new_block->next = arena->head;
+// 	arena->head = new_block;
+// 	return (new_block);
+// }
+
+void	arena_add_block(t_arena *arena, size_t needed)
 {
 	size_t			max;
 	t_arena_block	*new_block;
@@ -26,11 +43,8 @@ t_arena_block	*arena_add_block(t_arena *arena, size_t needed)
 	else
 		max = arena->block_size;
 	new_block = arena_new_block(max);
-	if (!new_block)
-		return (NULL);
 	new_block->next = arena->head;
 	arena->head = new_block;
-	return (new_block);
 }
 
 int	arena_init(t_arena *arena, size_t block_size)
@@ -49,15 +63,12 @@ int	arena_init(t_arena *arena, size_t block_size)
 
 void	arena_reset(t_arena *arena)
 {
-	t_arena_block	*keep;
 	t_arena_block	*tmp;
 	t_arena_block	*next;
 
-	printf("arena reset\n");
 	if (!arena || !arena->head)
 		return ;
-	keep = arena->head;
-	tmp = keep->next;
+	tmp = arena->head->next;
 	while (tmp)
 	{
 		next = tmp->next;
@@ -65,8 +76,8 @@ void	arena_reset(t_arena *arena)
 		free(tmp);
 		tmp = next;
 	}
-	keep->used_mem = 0;
-	keep->next = NULL;
+	arena->head->used_mem = 0;
+	arena->head->next = NULL;
 }
 
 void	arena_destroy(t_arena *arena)

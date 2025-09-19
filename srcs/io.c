@@ -14,7 +14,7 @@ void	io_restore_std(int save_in, int save_out)
 	}
 }
 
-static int	open_out(const t_redir *r)
+int	open_out(const t_redir *r)
 {
 	int	fd;
 
@@ -34,31 +34,29 @@ static int	dup_to(int fd, int to)
 	return (EXIT_SUCCESS);
 }
 
-int	io_apply_redirs(const t_cmd *cmd, int *save_in, int *save_out)
+int	io_apply_redirs(const t_cmd *cmd)
 {
 	int	fd;
 	t_redir	*r;
 
-	*save_in = dup(STDIN_FILENO);
-	*save_out = dup(STDOUT_FILENO);
-	if (*save_in < 0 || save_out < 0)
-		return (perror("dup"), -1);
-	r = cmd->in;
+	r = NULL;
+	if (cmd->in->target)
+		r = cmd->in;
 	while (r)
 	{
 		fd = open(r->target, O_RDONLY);
 		if (fd < 0 || dup_to(fd, STDIN_FILENO) < 0)
-			return (perror(r->target), -1);
+			return (ft_putstr_fd("in redir error\n", 2), -1);
 		r = r->next;
 	}
-	r = cmd->out;
+	if (cmd->out->target)
+		r = cmd->out;
 	while (r)
 	{
 		fd = open_out(r);
 		if (fd < 0 || dup_to(fd, STDOUT_FILENO) < 0)
-			return (perror(r->target), -1);
+			return (ft_putstr_fd("open out error\n", 2), -1);
 		r = r->next;
 	}
-	printf("redirs finish\n");
 	return (EXIT_SUCCESS);
 }

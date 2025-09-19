@@ -5,8 +5,12 @@ static int	init_segment(t_shell *shell, t_pl *pipeblock, int ac)
 	pipeblock->cmd = arena_alloc(shell->arena, sizeof(t_cmd));
 	if (!pipeblock->cmd)
 		return (FAILURE);
-	pipeblock->cmd->in = (t_redir *)&(t_redir){0};
-	pipeblock->cmd->out = (t_redir *)&(t_redir){0};
+	pipeblock->cmd->in = arena_calloc(shell->arena, sizeof(t_redir));
+	if (!pipeblock->cmd->in)
+		return (FAILURE);
+	pipeblock->cmd->out = arena_calloc(shell->arena, sizeof(t_redir));
+	if (!pipeblock->cmd->out)
+		return (FAILURE);
 	pipeblock->cmd->argv = arena_alloc(shell->arena, sizeof(char *) * (ac + 1));
 	if (!pipeblock->cmd->argv)
 		return (FAILURE);
@@ -108,10 +112,10 @@ int	pipeline_init(t_shell *shell, t_pl **pipeblock)
 	(*pipeblock)->cmd = arena_alloc(shell->arena, sizeof(t_cmd));            
 	if (!(*pipeblock)->cmd)
 		return (perror("cmds"), FAILURE);
-	(*pipeblock)->cmd->in = arena_alloc(shell->arena, sizeof(t_redir));                    
+	(*pipeblock)->cmd->in = arena_calloc(shell->arena, sizeof(t_redir));                    
 	if (!(*pipeblock)->cmd->in)                                                                  
 		return (perror("in"), FAILURE);
-	(*pipeblock)->cmd->out = arena_alloc(shell->arena, sizeof(t_redir));                       
+	(*pipeblock)->cmd->out = arena_calloc(shell->arena, sizeof(t_redir));                       
 	if (!(*pipeblock)->cmd->out)                                                                  
 		return (perror("out"), FAILURE);
 	(*pipeblock)->cmd->argv = arena_alloc(shell->arena, (ac + 1) * sizeof(char *));

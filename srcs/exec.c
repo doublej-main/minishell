@@ -5,7 +5,6 @@ void	exec_external_or_builtin(const t_cmd *cmd, t_shell *shell)
 	char	**envv;
 	char	*prog;
 
-	printf("exec external or builtin\n");
 	if (!cmd || !cmd->argv || !cmd->argv[0])
 		_exit(0);
 	if (is_any_builtin(cmd->argv[0]))
@@ -35,7 +34,6 @@ int	execute_pipeline(t_pl *pl, t_shell *shell)
 
 	// if (heredoc_prepare_all(pl, shell) < 0) // TODO
 	// 	return (shell->status);
-	printf("exec start\n");
 	if (!pl->next)
 		status = run_single(pl->cmd, shell);
 	else
