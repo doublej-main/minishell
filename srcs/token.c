@@ -37,7 +37,7 @@ static char	**parser(char *line, t_arena *arena, t_parser *p)
 		if (!isdel(line[p->i]) && p->start < 0)
 			parser_helper(p, 0);
 		if ((isdel(line[p->i]) && p->q_flag == 0 && p->del_flag == 1)
-			|| line[p->i] == '\0')
+			|| (line[p->i] == '\0' && !isdel(line[p->i - 1])))
 		{
 			array[p->j] = arena_substr(line, p->start, p->i - p->start, arena);
 			parser_helper(p, 1);
