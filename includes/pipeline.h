@@ -18,6 +18,7 @@ typedef struct s_redir
 	int type;     //<, >, >>, <<
 	char *target; // file or heredoc delimiter
 	int quoted;   // heredoc quoted?
+	int	hd_tmp;
 	struct s_redir	*next;
 }					t_redir;
 

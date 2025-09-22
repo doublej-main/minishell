@@ -32,12 +32,12 @@ int	execute_pipeline(t_pl *pl, t_shell *shell)
 {
 	int	status;
 
-	// if (heredoc_prepare_all(pl, shell) < 0) // TODO
-	// 	return (shell->status);
+	if (heredoc_prepare_all(shell) < 0)
+		return (130);
 	if (!pl->next)
 		status = run_single(pl->cmd, shell);
 	else
 		status = run_pipeline(pl, shell);
-	// heredoc_cleanup_all(pl); // TODO
+	heredoc_cleanup_all(pl);
 	return (status);
 }
