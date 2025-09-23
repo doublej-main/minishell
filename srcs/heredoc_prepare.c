@@ -14,6 +14,9 @@ static int	heredoc_prepare_one(t_shell *shell, t_redir *r)
 	if (!delim)
 		return (INIT_FAIL);
 	fd = hd_open_tmp(shell->arena, &path);
+	if (fd < 0)
+		return (INIT_FAIL);
+	printf("path: %s\n", path);
 	if (hd_loop(fd, delim) < 0)
 	{
 		close(fd);
@@ -33,6 +36,8 @@ int	heredoc_prepare_all(t_shell *shell)
 	t_redir	*r;
 
 	printf("prepare all\n");
+	printf("prepare all type: %d\n", shell->pipe_head->cmd->in->type);
+	printf("prepare all target: %s\n", shell->pipe_head->cmd->in->target);
 	if (!shell->pipe_head->cmd->in)
 		return (SUCCESS);
 	seg = shell->pipe_head;
@@ -46,7 +51,6 @@ int	heredoc_prepare_all(t_shell *shell)
 		{
 			if (r->type == REDIR_HEREDOC)
 			{
-				printf("fails here\n");
 				if (heredoc_prepare_one(shell, r) < 0)
 					return (INIT_FAIL);
 			}

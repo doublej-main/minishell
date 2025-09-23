@@ -31,6 +31,8 @@ static int	wait_one(pid_t pid)
 static int	fork_one_child(t_cmd *cmd, t_shell *shell)
 {
 	pid_t	pid;
+	int		fd;
+	char	*gnl;
 
 	pid = fork();
 	if (pid < 0)
@@ -39,6 +41,19 @@ static int	fork_one_child(t_cmd *cmd, t_shell *shell)
 	{
 		if (cmd->in->target || cmd->out->target)
 		{
+			if (cmd->in->hd_tmp && !(cmd->in->next || cmd->out->next))
+			{
+				fd = open(cmd->in->target, O_RDONLY);
+				gnl = get_next_line(fd);
+				while (gnl)
+				{
+					printf("%s", gnl);
+					free(gnl);
+					gnl = get_next_line(fd);
+				}
+				_exit(0);
+			}
+			printf("forking and target is: %s\n", cmd->in->target);
 			if (io_apply_redirs(cmd) < 0)
 				_exit(1);
 		}

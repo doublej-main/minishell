@@ -85,6 +85,7 @@ int	def_pipeblock(t_shell *shell, t_pl *pipeblock, int ac)
 				return (FAILURE);
 			redir_helper(curr, pipeblock);
 			redirs_quoted(curr, pipeblock, curr->next->value);
+			printf("type is: %d\n", shell->pipe_head->cmd->in->type);
 			curr = curr->next;
 			if (curr->next)
 				curr = curr->next;
@@ -101,6 +102,7 @@ int	def_pipeblock(t_shell *shell, t_pl *pipeblock, int ac)
 		curr = curr->next;
 	}
 	pipeblock->cmd->argv[i] = NULL;
+	printf("end of def pipeblock in type is: %d\n", pipeblock->cmd->in->type);
 	return (SUCCESS);
 }
 

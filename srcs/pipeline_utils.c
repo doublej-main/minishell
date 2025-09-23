@@ -8,9 +8,9 @@ int	redir_helper(t_token *token, t_pl *pipeblock)
 	if (token->type == REDIR_OUT)
 		pipeblock->cmd->out->type = REDIR_OUT;
 	if (token->type == REDIR_APPEND)
-		pipeblock->cmd->in->type = REDIR_APPEND;
+		pipeblock->cmd->out->type = REDIR_APPEND;
 	if (token->type == REDIR_HEREDOC)
-		pipeblock->cmd->out->type = REDIR_HEREDOC;
+		pipeblock->cmd->in->type = REDIR_HEREDOC;
 	return (1);
 }
 

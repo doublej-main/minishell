@@ -35,9 +35,12 @@ int	hd_open_tmp(t_arena *arena, char **path_out)
 	char		*heap_path;
 
 	tries = 0;
-	while (tries++ < 69 && count++)
+	count = 0;
+	printf("in hd_open_tmp\n");
+	while (tries++ < 69 && ++count)
 	{
 		heap_path = hd_path_heap(count, arena);
+		printf("heap_path: %s\n", heap_path);
 		if (!heap_path)
 			return (INIT_FAIL);
 		fd = open(heap_path, O_WRONLY | O_CREAT | O_EXCL, 0600);
