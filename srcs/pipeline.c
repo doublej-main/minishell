@@ -23,7 +23,6 @@ void	redirs_quoted(t_token *current, t_pl *pipeblock, char *next)
 	if (current->type == REDIR_IN || current->type == REDIR_HEREDOC)//ins
 	{
 		pipeblock->cmd->in->target = next;
-		printf("in target:%s\n", pipeblock->cmd->in->target);
 		if (next[0] == '\''
 			&& next[ft_strlen(next) - 1] == '\'')
 			pipeblock->cmd->in->quoted = 1;
@@ -79,13 +78,10 @@ int	def_pipeblock(t_shell *shell, t_pl *pipeblock, int ac)
 		else if (curr->type == REDIR_IN || curr->type == REDIR_OUT
             || curr->type == REDIR_APPEND || curr->type == REDIR_HEREDOC)
 		{
-			printf("should come here\n");
-			printf("target is: %s\nredir type is: %d\nnext value is: %s\nand next type is: %d\n", curr->value, curr->type, curr->next->value, curr->next->type);
 			if (!curr->next || curr->next->type != WORD)
 				return (FAILURE);
 			redir_helper(curr, pipeblock);
 			redirs_quoted(curr, pipeblock, curr->next->value);
-			printf("type is: %d\n", shell->pipe_head->cmd->in->type);
 			curr = curr->next;
 			if (curr->next)
 				curr = curr->next;
@@ -102,7 +98,6 @@ int	def_pipeblock(t_shell *shell, t_pl *pipeblock, int ac)
 		curr = curr->next;
 	}
 	pipeblock->cmd->argv[i] = NULL;
-	printf("end of def pipeblock in type is: %d\n", pipeblock->cmd->in->type);
 	return (SUCCESS);
 }
 

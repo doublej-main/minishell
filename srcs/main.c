@@ -44,8 +44,6 @@ void	shell_loop(t_shell *shell)
 		tokenize_input(line, shell, token);
 		shell->pipe_head = NULL;
 		pipeline_init(shell, &pipeblock);
-		printf("pipeblock in type: %d\n", shell->pipe_head->cmd->in->type);
-		printf("pipeblock heredoc target: %s\n", shell->pipe_head->cmd->in->target);
 		shell->status = execute_pipeline(shell->pipe_head, shell);
 		consume_line(shell, line);
 		if (line)

@@ -41,15 +41,10 @@ int	io_apply_redirs(const t_cmd *cmd)
 
 	r = NULL;
 	if (cmd->in->target)
-	{
-		printf("target exists and is: %s\n", cmd->in->target);
 		r = cmd->in;
-	}
 	while (r)
 	{
 		fd = open(r->target, O_RDONLY);
-		printf("r->target is: %s\n", r->target);
-		printf("fd is: %d\n", fd);
 		if (fd < 0 || dup_to(fd, STDIN_FILENO) < 0)
 			return (ft_putstr_fd("in redir error\n", 2), -1);
 		r = r->next;

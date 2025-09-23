@@ -6,7 +6,6 @@ int	hd_loop(int fd, const char *delim)
 
 	while (420)
 	{
-		printf("heredoc_loop\n");
 		line = readline("heredoc> ");
 		if (!line)
 			break ;
