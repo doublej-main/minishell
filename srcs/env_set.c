@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static t_env	*env_find(t_env *env, const char *key)
+t_env	*env_find(t_env *env, const char *key)
 {
 	while (env)
 	{

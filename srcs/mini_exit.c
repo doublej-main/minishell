@@ -2,7 +2,7 @@
 
 static unsigned char	exit_code_from_str(const char *str)
 {
-	int	sign;
+	int				sign;
 	unsigned char	code;
 
 	sign = 1;

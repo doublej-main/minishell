@@ -4,6 +4,7 @@
 /*
 ** Includes
 */
+# include "heredoc.h"
 # include "arena.h"
 # include "builtins.h"
 # include "env.h"

@@ -1,4 +1,3 @@
-
 #ifndef PIPELINE_H
 # define PIPELINE_H
 
@@ -15,24 +14,25 @@
 
 typedef struct s_redir
 {
-	int type;     //<, >, >>, <<
-	char *target; // file or heredoc delimiter
-	int quoted;   // heredoc quoted?
+	int				type;//<, >, >>, <<
+	char			*target;// file or heredoc delimiter
+	int				quoted;// heredoc quoted?
+	int				hd_tmp;
 	struct s_redir	*next;
 }					t_redir;
 
 typedef struct s_cmd
 {
-	char **argv;  //["echo", "hello", NULL]
-	t_redir *in;  // input redirs
-	t_redir *out; // output redirs
+	char			**argv;//["echo", "hello", NULL]
+	t_redir			*in;// input redirs
+	t_redir			*out;// output redirs
 	int				argc;
 }					t_cmd;
 
 typedef struct s_pl
 {
 	t_cmd			*cmd;
-	struct s_pl *next; // next pipeblock
+	struct s_pl		*next;// next pipeblock
 }					t_pl;
 
 int					pipeline_init(t_shell *shell, t_pl **pipeblock);

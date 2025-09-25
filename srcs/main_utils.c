@@ -11,5 +11,5 @@ void	consume_line(t_shell *shell, char *line)
 	if (line && *line)
 		add_history(line);
 	if (line && *line)
-		shell->status = 0;// set an env to shell status??
+		shell->status = 0;
 }

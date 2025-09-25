@@ -52,6 +52,12 @@ void	shell_loop(t_shell *shell)
 	}
 }
 
+// Need to implement detection of logical operators && and || 
+// and report them as not supported
+// Do we close all fds?
+// Does it handle incorrect use of redirections? i.e. multiple
+// Needs to handle environemtn variable expansion
+// Heredoc
 int	main(int argc, char **argv, char **environ)
 {
 	t_shell	shell;

@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:25:32 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/09/18 12:21:32 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/09/25 12:42:43 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_parser
 	char				**array;
 }						t_parser;
 
-struct s_shell;
+struct					s_shell;
 typedef struct s_shell	t_shell;
 
 int						tokenize_input(char *line, t_shell *shell,
