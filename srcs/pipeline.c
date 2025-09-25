@@ -85,7 +85,7 @@ int	def_pipeblock(t_shell *shell, t_pl *pipeblock, int ac)
 			curr = curr->next;
 			if (curr->next)
 				curr = curr->next;
-			break;
+			continue;
 		}
 		else if (curr->type == WORD)
 		{

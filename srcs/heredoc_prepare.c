@@ -54,14 +54,14 @@ int	heredoc_prepare_all(t_shell *shell)
 	return (SUCCESS);
 }
 
-void	heredoc_cleanup_all(t_pl *pl)
+void	heredoc_cleanup_all(t_pl *pipeblock)
 {
 	t_pl *seg;
 	t_redir *r;
 
-	if (!pl->cmd->in->target)
+	if (!pipeblock->cmd->in->target)
 		return ;
-	seg = pl;
+	seg = pipeblock;
 	while (seg)
 	{
 		if (seg->cmd->in->target)
@@ -69,7 +69,10 @@ void	heredoc_cleanup_all(t_pl *pl)
 		while (r)
 		{
 			if (r->type == REDIR_IN && r->hd_tmp == 1 && r->target)
+			{
 				unlink(r->target);
+				r->hd_tmp = 0;
+			}
 			r = r->next;
 		}
 		seg = seg->next;
