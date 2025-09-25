@@ -32,7 +32,7 @@ int	mini_export(char **argv, t_shell *shell)
 		if (!is_identifier(argv[i]))
 			return (ft_putstr_fd("export: not an identifier\n", 2), FAILURE);
 		else if (equal_sign && equal_sign + 1)
-		{	
+		{
 			split_keyval(argv[i], &key, &val);
 			set_new_pair(shell->env, key, val);
 		}

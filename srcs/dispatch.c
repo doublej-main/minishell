@@ -4,9 +4,10 @@ int	is_any_builtin(const char *name)
 {
 	if (!name)
 		return (FAILURE);
-	return (!ft_strcmp(name, "echo") || !ft_strcmp(name, "pwd") || !ft_strcmp(name, "cd")
-		|| !ft_strcmp(name, "export") || !ft_strcmp(name, "unset")
-		|| !ft_strcmp(name, "env") || !ft_strcmp(name, "exit"));
+	return (!ft_strcmp(name, "echo") || !ft_strcmp(name, "pwd")
+		|| !ft_strcmp(name, "cd") || !ft_strcmp(name, "export")
+		|| !ft_strcmp(name, "unset") || !ft_strcmp(name, "env")
+		|| !ft_strcmp(name, "exit"));
 }
 
 int	is_parent_builtin(const char *name)
@@ -14,7 +15,7 @@ int	is_parent_builtin(const char *name)
 	if (!name)
 		return (FAILURE);
 	return (!ft_strcmp(name, "cd") || !ft_strcmp(name, "export")
-			|| !ft_strcmp(name, "unset") || !ft_strcmp(name, "exit"));
+		|| !ft_strcmp(name, "unset") || !ft_strcmp(name, "exit"));
 }
 
 int	run_any_builtin(const char *name, char **argv, t_shell *shell)

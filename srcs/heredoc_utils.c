@@ -29,7 +29,7 @@ char	*strip_quotes(t_arena *arena, const char *s)
 
 int	hd_open_tmp(t_arena *arena, char **path_out)
 {
-	static int count;
+	static int	count;
 	int			tries;
 	int			fd;
 	char		*heap_path;

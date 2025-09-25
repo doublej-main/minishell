@@ -23,7 +23,7 @@ static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
 		if (open_out(seg->cmd->out) < 0)
 			_exit(1);
 		_exit(0);
-	} 
+	}
 	if (in != -1)
 	{
 		dup2(in, STDIN_FILENO);
@@ -90,7 +90,7 @@ static int	fork_segment(t_pl *seg, t_fd *fd, int i, t_shell *shell)
 
 int	run_pipeline(t_pl *pl, t_shell *shell)
 {
-	t_pl	*cur;
+	t_pl		*cur;
 	t_fd		fd;
 	int			i;
 

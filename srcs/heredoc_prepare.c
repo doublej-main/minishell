@@ -56,8 +56,8 @@ int	heredoc_prepare_all(t_shell *shell)
 
 void	heredoc_cleanup_all(t_pl *pipeblock)
 {
-	t_pl *seg;
-	t_redir *r;
+	t_pl	*seg;
+	t_redir	*r;
 
 	if (!pipeblock->cmd->in->target)
 		return ;

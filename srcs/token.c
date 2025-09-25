@@ -1,9 +1,8 @@
-
 #include "minishell.h"
 
 static int	get_type(char *token)
 {
-	if (ft_strcmp(token,  "|") == 0)
+	if (ft_strcmp(token, "|") == 0)
 		return (PIPE);
 	if (ft_strcmp(token, "<") == 0)
 		return (REDIR_IN);
@@ -54,8 +53,8 @@ int	tokenize_input(char *line, t_shell *shell, t_token *token)
 {
 	t_parser	*p;
 	size_t		i;
-	size_t n;
-	
+	size_t		n;
+
 	i = 0;
 	p = arena_alloc(shell->arena, sizeof(t_parser));
 	if (!p)

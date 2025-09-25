@@ -36,7 +36,7 @@ static int	dup_to(int fd, int to)
 
 int	io_apply_redirs(const t_cmd *cmd)
 {
-	int	fd;
+	int		fd;
 	t_redir	*r;
 
 	r = NULL;
