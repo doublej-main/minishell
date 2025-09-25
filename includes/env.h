@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:19:19 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/15 12:40:13 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/25 15:22:55 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 */
 typedef struct s_env
 {
+	size_t			keylen;
 	char			*key;
 	char			*val;
 	struct s_env	*next;
@@ -40,5 +41,6 @@ int					set_new_pair(t_env *env, const char *key, const char *val);
 int					env_unset(t_env *env, const char *key);
 int					env_to_array(t_env *env, t_env **arr, int count);
 int					env_count(t_env *env);
+t_env				*env_find(t_env *env, const char *key);
 
 #endif
