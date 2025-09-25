@@ -29,16 +29,14 @@ char	*strip_quotes(t_arena *arena, const char *s)
 
 int	hd_open_tmp(t_arena *arena, char **path_out)
 {
-	static int	count;
-	int			tries;
-	int			fd;
-	char		*heap_path;
+	static int			tries;
+	int					fd;
+	char				*heap_path;
 
 	tries = 0;
-	count = 0;
-	while (tries++ < 69 && ++count)
+	while (tries++ < 69)
 	{
-		heap_path = hd_path_heap(count, arena);
+		heap_path = hd_path_heap(tries, arena);
 		if (!heap_path)
 			return (INIT_FAIL);
 		fd = open(heap_path, O_WRONLY | O_CREAT | O_EXCL, 0600);

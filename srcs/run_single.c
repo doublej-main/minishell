@@ -1,5 +1,20 @@
 #include "minishell.h"
 
+static void	print_hd(t_cmd *cmd)
+{
+	int		fd;
+	char	*gnl;
+
+	fd = open(cmd->in->target, O_RDONLY);
+	gnl = get_next_line(fd);
+	while (gnl)
+	{
+		printf("%s", gnl);
+		free(gnl);
+		gnl = get_next_line(fd);
+	}
+}
+
 static int	run_single_parent(t_cmd *cmd, t_shell *shell)
 {
 	int	status;
@@ -31,8 +46,6 @@ static int	wait_one(pid_t pid)
 static int	fork_one_child(t_cmd *cmd, t_shell *shell)
 {
 	pid_t	pid;
-	int		fd;
-	char	*gnl;
 
 	pid = fork();
 	if (pid < 0)
@@ -42,16 +55,7 @@ static int	fork_one_child(t_cmd *cmd, t_shell *shell)
 		if (cmd->in->target || cmd->out->target)
 		{
 			if (cmd->in->hd_tmp && !cmd->argv[0])
-			{
-				fd = open(cmd->in->target, O_RDONLY);
-				gnl = get_next_line(fd);
-				while (gnl)
-				{
-					printf("%s", gnl);
-					free(gnl);
-					gnl = get_next_line(fd);
-				}
-			}
+				print_hd(cmd);
 			if (io_apply_redirs(cmd) < 0)
 				_exit(1);
 		}
