@@ -20,7 +20,7 @@ static int	init_segment(t_shell *shell, t_pl *pipeblock, int ac)
 
 void	redirs_quoted(t_token *current, t_pl *pipeblock, char *next)
 {
-	if (current->type == REDIR_IN || current->type == REDIR_HEREDOC)//ins
+	if (current->type == REDIR_IN || current->type == REDIR_HEREDOC)
 	{
 		pipeblock->cmd->in->target = next;
 		if (next[0] == '\''
@@ -32,17 +32,16 @@ void	redirs_quoted(t_token *current, t_pl *pipeblock, char *next)
 		else
 			pipeblock->cmd->in->quoted = 0;
 	}
-	if (current->type == REDIR_OUT || current->type == REDIR_APPEND)//outs
+	if (current->type == REDIR_OUT || current->type == REDIR_APPEND)
 	{
 		pipeblock->cmd->out->target = next;
-		if (next[0] == '\''                                               
-            && next[ft_strlen(next) - 1] == '\'')                              
-            pipeblock->cmd->out->quoted = 1;                                      
-        else if (next[0] == '\"'                                                
-            && next[ft_strlen(next) - 1] == '\"')                              
-            pipeblock->cmd->out->quoted = 2;                                      
-        else                                                                     
-            pipeblock->cmd->out->quoted = 0;
+		if (next[0] == '\'' && next[ft_strlen(next) - 1] == '\'')
+			pipeblock->cmd->out->quoted = 1;
+		else if (next[0] == '\"'
+			&& next[ft_strlen(next) - 1] == '\"')
+			pipeblock->cmd->out->quoted = 2;
+		else
+			pipeblock->cmd->out->quoted = 0;
 	}
 }
 
@@ -76,7 +75,7 @@ int	def_pipeblock(t_shell *shell, t_pl *pipeblock, int ac)
 			i = 0;
 		}
 		else if (curr->type == REDIR_IN || curr->type == REDIR_OUT
-            || curr->type == REDIR_APPEND || curr->type == REDIR_HEREDOC)
+			|| curr->type == REDIR_APPEND || curr->type == REDIR_HEREDOC)
 		{
 			if (!curr->next || curr->next->type != WORD)
 				return (FAILURE);
@@ -85,7 +84,7 @@ int	def_pipeblock(t_shell *shell, t_pl *pipeblock, int ac)
 			curr = curr->next;
 			if (curr->next)
 				curr = curr->next;
-			continue;
+			continue ;
 		}
 		else if (curr->type == WORD)
 		{
@@ -109,16 +108,17 @@ int	pipeline_init(t_shell *shell, t_pl **pipeblock)
 	(*pipeblock) = arena_alloc(shell->arena, sizeof(t_pl));
 	if (!*pipeblock)
 		return (perror("pipeblock"), FAILURE);
-	(*pipeblock)->cmd = arena_alloc(shell->arena, sizeof(t_cmd));            
+	(*pipeblock)->cmd = arena_alloc(shell->arena, sizeof(t_cmd));
 	if (!(*pipeblock)->cmd)
 		return (perror("cmds"), FAILURE);
-	(*pipeblock)->cmd->in = arena_calloc(shell->arena, sizeof(t_redir));                    
-	if (!(*pipeblock)->cmd->in)                                                                  
+	(*pipeblock)->cmd->in = arena_calloc(shell->arena, sizeof(t_redir));
+	if (!(*pipeblock)->cmd->in)
 		return (perror("in"), FAILURE);
-	(*pipeblock)->cmd->out = arena_calloc(shell->arena, sizeof(t_redir));                       
-	if (!(*pipeblock)->cmd->out)                                                                  
+	(*pipeblock)->cmd->out = arena_calloc(shell->arena, sizeof(t_redir));
+	if (!(*pipeblock)->cmd->out)
 		return (perror("out"), FAILURE);
-	(*pipeblock)->cmd->argv = arena_alloc(shell->arena, (ac + 1) * sizeof(char *));
+	(*pipeblock)->cmd->argv
+		= arena_alloc(shell->arena, (ac + 1) * sizeof(char *));
 	if (!(*pipeblock)->cmd->argv)
 		return (perror("args"), FAILURE);
 	ft_lstadd_back_pipe(&shell->pipe_head, *pipeblock);

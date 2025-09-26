@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 int	quote_handler(char c, int *q_flag)
@@ -30,8 +29,8 @@ int	quote_handler(char c, int *q_flag)
 
 size_t	wdcount(const char *s, t_parser *p)
 {
-	size_t  i;
-	size_t  count;
+	size_t	i;
+	size_t	count;
 
 	i = 0;
 	count = 0;
@@ -54,7 +53,7 @@ size_t	wdcount(const char *s, t_parser *p)
 		i++;
 	}
 	count++;
-	return(count);
+	return (count);
 }
 
 int	isdel(char c)
@@ -82,7 +81,7 @@ void	parser_helper(t_parser *p, int type)
 	{
 		p->i = 0;
 		p->j = 0;
-		p-> start = -1;
+		p->start = -1;
 		p->del_flag = 0;
 		p->q_flag = 0;
 	}

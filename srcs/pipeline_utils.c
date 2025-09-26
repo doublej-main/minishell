@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 int	redir_helper(t_token *token, t_pl *pipeblock)
@@ -36,12 +35,11 @@ int	argc(t_token *token)
 	return (count);
 }
 
-
-t_pl *add_pipeblock(t_shell *shell)
+t_pl	*add_pipeblock(t_shell *shell)
 {
-    t_pl *temp;
+	t_pl	*temp;
 
-    temp = arena_alloc(shell->arena, sizeof(*temp));
+	temp = arena_alloc(shell->arena, sizeof(*temp));
 	if (!temp)
 		return (NULL);
 	temp->cmd = NULL;

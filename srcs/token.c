@@ -1,9 +1,38 @@
-
 #include "minishell.h"
+
+int	replace_with_val(char *value, t_shell *shell)
+{
+	t_env	*node;
+
+	node = env_find(shell->env, value + 1);
+	if (!node)
+		return (FAILURE);
+	shell->head->value = node->val;
+	return (SUCCESS);
+}
+
+static void	check_for_env(t_shell *shell)
+{
+	t_token	*list_start;
+
+	list_start = shell->head;
+	while (shell->head)
+	{
+		if (shell->head->type == WORD && shell->head->value[0] == '$')
+		{
+			replace_with_val(shell->head->value, shell);
+			shell->head = shell->head->next;
+			continue ;
+		}
+		else
+			shell->head = shell->head->next;
+	}
+	shell->head = list_start;
+}
 
 static int	get_type(char *token)
 {
-	if (ft_strcmp(token,  "|") == 0)
+	if (ft_strcmp(token, "|") == 0)
 		return (PIPE);
 	if (ft_strcmp(token, "<") == 0)
 		return (REDIR_IN);
@@ -54,8 +83,8 @@ int	tokenize_input(char *line, t_shell *shell, t_token *token)
 {
 	t_parser	*p;
 	size_t		i;
-	size_t n;
-	
+	size_t		n;
+
 	i = 0;
 	p = arena_alloc(shell->arena, sizeof(t_parser));
 	if (!p)
@@ -79,5 +108,6 @@ int	tokenize_input(char *line, t_shell *shell, t_token *token)
 		ft_lstadd_back(&shell->head, token);
 		i++;
 	}
+	check_for_env(shell);
 	return (SUCCESS);
 }

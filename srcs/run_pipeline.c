@@ -23,7 +23,7 @@ static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
 		if (open_out(seg->cmd->out) < 0)
 			_exit(1);
 		_exit(0);
-	} 
+	}
 	if (in != -1)
 	{
 		dup2(in, STDIN_FILENO);
@@ -34,11 +34,8 @@ static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
 		dup2(out, STDOUT_FILENO);
 		close(out);
 	}
-	if (seg->cmd->in->target || seg->cmd->out->target)
-	{
-		if (io_apply_redirs(seg->cmd) < 0)
-			_exit(1);
-	}
+	if (io_apply_redirs(seg->cmd) < 0)
+		_exit(1);
 	if (is_any_builtin(seg->cmd->argv[0]))
 		_exit(run_any_builtin(seg->cmd->argv[0], seg->cmd->argv, shell));
 	exec_external_or_builtin(seg->cmd, shell);
@@ -90,7 +87,7 @@ static int	fork_segment(t_pl *seg, t_fd *fd, int i, t_shell *shell)
 
 int	run_pipeline(t_pl *pl, t_shell *shell)
 {
-	t_pl	*cur;
+	t_pl		*cur;
 	t_fd		fd;
 	int			i;
 

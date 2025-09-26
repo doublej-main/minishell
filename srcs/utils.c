@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 12:42:36 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/29 14:17:37 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/25 12:48:59 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_banner(void)
 {
 	char	*line;
-	int	fd;
+	int		fd;
 
 	fd = open("banner.txt", O_RDONLY);
 	if (fd < 0)
@@ -24,7 +24,7 @@ void	print_banner(void)
 	while (42)
 	{
 		if (line == NULL)
-			break  ;
+			break ;
 		ft_trimchar(line, '\n');
 		ft_printf("%s\n", line);
 		free(line);

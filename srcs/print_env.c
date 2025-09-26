@@ -28,8 +28,8 @@ int	env_to_array(t_env *env, t_env **arr, int count)
 
 static void	env_sort_array(t_env **arr, int count)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	t_env	*tmp;
 
 	i = 0;
@@ -52,8 +52,8 @@ static void	env_sort_array(t_env **arr, int count)
 
 int	print_sorted_env(t_env *env)
 {
-	int	count;
-	int	i;
+	int		count;
+	int		i;
 	t_env	**arr;
 
 	count = env_count(env);

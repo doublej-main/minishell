@@ -1,9 +1,8 @@
-
 #include "minishell.h"
 
 t_token	*add_token(t_shell *shell)
 {
-	t_token *temp;
+	t_token	*temp;
 
 	temp = arena_alloc(shell->arena, sizeof(*temp));
 	if (!temp)

@@ -1,16 +1,16 @@
 #ifndef EXEC_H
 # define EXEC_H
 
-struct s_shell;
+struct					s_shell;
 typedef struct s_shell	t_shell;
 
-struct s_pl;
+struct					s_pl;
 typedef struct s_pl		t_pl;
 
-struct s_cmd;
+struct					s_cmd;
 typedef struct s_cmd	t_cmd;
 
-struct s_env;
+struct					s_env;
 typedef struct s_env	t_env;
 
 typedef struct s_fd
