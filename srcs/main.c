@@ -8,7 +8,7 @@ int	shell_init(t_shell *shell, char **environ)
 	if (!shell->env)
 		return (perror("env fail"), FAILURE);
 	if (arena_init(shell->arena, 10000) < 0)
-		return (perror("arena fail"), FAILURE);
+		return (ft_putstr_fd("arena fail", 2), FAILURE);
 	disable_echoctl();
 	shell->status = 0;
 	return (SUCCESS);
@@ -40,12 +40,12 @@ void	shell_loop(t_shell *shell)
 		line = readline(prompt);
 		if (!line)
 			break ;
+		consume_line(shell, line);
 		shell->head = NULL;
 		tokenize_input(line, shell, token);
 		shell->pipe_head = NULL;
 		pipeline_init(shell, &pipeblock);
 		shell->status = execute_pipeline(shell->pipe_head, shell);
-		consume_line(shell, line);
 		if (line)
 			free(line);
 		arena_reset(shell->arena);
