@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:19:19 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/25 15:22:55 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/09/26 13:23:30 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 */
 typedef struct s_env
 {
-	size_t			keylen;
 	char			*key;
 	char			*val;
 	struct s_env	*next;
