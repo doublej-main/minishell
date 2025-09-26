@@ -41,6 +41,9 @@ void	shell_loop(t_shell *shell)
 		if (!line)
 			break ;
 		consume_line(shell, line);
+		shell->status = syntax_error_checker(line);
+		if (shell->status != 0)
+			continue ;
 		shell->head = NULL;
 		tokenize_input(line, shell, token);
 		shell->pipe_head = NULL;

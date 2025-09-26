@@ -6,7 +6,7 @@ typedef struct s_redir	t_redir;
 typedef struct s_pl		t_pl;
 typedef struct s_arena	t_arena;
 
-int						hd_loop(int fd, const char *delim);
+int						hd_loop(int fd, const char *delim, t_shell *shell);
 int						heredoc_prepare_all(t_shell *shell);
 void					heredoc_cleanup_all(t_pl *pl);
 char					*hd_path_heap(unsigned int count, t_arena *arena);
