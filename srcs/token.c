@@ -4,6 +4,11 @@ int	replace_with_val(char *value, t_shell *shell)
 {
 	t_env	*node;
 
+	if (!ft_strcmp(value, "$?"))
+	{
+		shell->head->value = ft_itoa(shell->status);
+		return (SUCCESS);
+	}
 	node = env_find(shell->env, value + 1);
 	if (!node)
 		return (FAILURE);

@@ -7,7 +7,7 @@ int	mini_cd(char **argv, t_shell *shell)
 	char	*old;
 
 	dir = argv[1];
-	if (!dir)
+	if (!dir || argv[1][0] == '~')
 	{
 		dir = env_get(shell->env, "HOME");
 		if (!dir || !*dir)
@@ -15,7 +15,7 @@ int	mini_cd(char **argv, t_shell *shell)
 	}
 	old = getcwd(buf, sizeof(buf));
 	if (chdir(dir) < 0)
-		return (ft_putstr_fd("cd", 2), EXIT_FAILURE);
+		return (ft_putstr_fd("cd error\n", 2), EXIT_FAILURE);
 	if (old)
 		set_new_pair(shell->env, "OLDPWD", old);
 	if (getcwd(buf, sizeof(buf)))

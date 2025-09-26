@@ -8,8 +8,7 @@ void	shell_destroy(t_shell *shell)
 
 void	consume_line(t_shell *shell, char *line)
 {
+	(void)shell;
 	if (line && *line)
 		add_history(line);
-	if (line && *line)
-		shell->status = 0;
 }

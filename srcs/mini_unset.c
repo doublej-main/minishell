@@ -5,6 +5,7 @@ int	mini_unset(char **argv, t_shell *shell)
 	int	i;
 
 	i = 1;
+	
 	while (argv[i])
 	{
 		if (!is_identifier(argv[i]))
