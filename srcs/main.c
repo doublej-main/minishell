@@ -40,6 +40,9 @@ void	shell_loop(t_shell *shell)
 		line = readline(prompt);
 		if (!line)
 			break ;
+		shell->status = syntax_error_checker(line);
+		if (shell->status != 0)
+			continue ;
 		shell->head = NULL;
 		tokenize_input(line, shell, token);
 		shell->pipe_head = NULL;

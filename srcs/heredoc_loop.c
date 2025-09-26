@@ -103,11 +103,14 @@ int	hd_loop(int fd, const char *delim, t_shell *shell)
 		line = readline("heredoc> ");
 		if (!line)
 			break ;
-		if (ft_strchr(line, '$'))
+		if (!shell->pipe_head->cmd->in->quoted)
 		{
-			key = findkey(shell, line);
-			if (key)
-				splicedline = spliceline(shell, key, line);
+			if (ft_strchr(line, '$'))
+			{
+				key = findkey(shell, line);
+				if (key)
+					splicedline = spliceline(shell, key, line);
+			}
 		}
 		if (ft_strcmp(line, delim) == 0)
 		{
