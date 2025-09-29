@@ -19,7 +19,7 @@ int						mini_cd(char **argv, t_shell *shell);
 /*
 ** mini_echo.c
 */
-int						mini_echo(char **argv);
+int						mini_echo(char **argv, int i, t_shell *shell);
 /*
 ** mini_export.c
 */

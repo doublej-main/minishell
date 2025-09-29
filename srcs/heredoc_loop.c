@@ -34,7 +34,7 @@ static	size_t	keyloop(char *line, size_t type)
 	return (len);
 }
 
-static char	*findkey(t_shell *shell, char *line)
+char	*findkey(t_shell *shell, char *line)
 {
 	char	*env_v;
 	t_env	*node;
@@ -57,14 +57,12 @@ static char	*findkey(t_shell *shell, char *line)
 	return (node->val);
 }
 
-static char	*spliceline(t_shell *shell, char *key, char *line)
+char	*spliceline(t_shell *shell, char *key, char *line, size_t i)
 {
 	char	*splicedline;
-	size_t	i;
 	size_t	start;
 	size_t	len;
 
-	i = 0;
 	start = keyloop(line, 1);
 	len = keyloop(line, 0);
 	splicedline = arena_alloc(shell->arena,
@@ -94,7 +92,6 @@ static char	*spliceline(t_shell *shell, char *key, char *line)
 int	hd_loop(int fd, const char *delim, t_shell *shell)
 {
 	char	*line;
-	char	*key;
 	char	*splicedline;
 
 	splicedline = NULL;
@@ -104,14 +101,7 @@ int	hd_loop(int fd, const char *delim, t_shell *shell)
 		if (!line)
 			break ;
 		if (!shell->pipe_head->cmd->in->quoted)
-		{
-			if (ft_strchr(line, '$'))
-			{
-				key = findkey(shell, line);
-				if (key)
-					splicedline = spliceline(shell, key, line);
-			}
-		}
+			splicedline = hd_expander_handler(shell, line);
 		if (ft_strcmp(line, delim) == 0)
 		{
 			free(line);

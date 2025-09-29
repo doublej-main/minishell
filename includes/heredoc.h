@@ -1,6 +1,8 @@
 #ifndef HEREDOC_H
 # define HEREDOC_H
 
+#include <stddef.h>
+
 typedef struct s_shell	t_shell;
 typedef struct s_redir	t_redir;
 typedef struct s_pl		t_pl;
@@ -12,5 +14,9 @@ void					heredoc_cleanup_all(t_pl *pl);
 char					*hd_path_heap(unsigned int count, t_arena *arena);
 int						hd_open_tmp(t_arena *arena, char **path_out);
 char					*strip_quotes(t_arena *arena, const char *s);
+char					*hd_expander_handler(t_shell *shell, char *line);
+char					*findkey(t_shell *shell, char *line);
+char					*spliceline(t_shell *shell, char *key,
+							char *line, size_t i); 
 
 #endif

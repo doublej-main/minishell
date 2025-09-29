@@ -1,12 +1,10 @@
 #include "minishell.h"
 
-int	mini_echo(char **argv)
+int	mini_echo(char **argv, int i, t_shell *shell)
 {
-	int	i;
 	int	j;
 	int	nflag;
 
-	i = 1;
 	nflag = 0;
 	while (argv[i] && argv[i][0] == '-' && argv[i][1] == 'n')
 	{
@@ -20,6 +18,7 @@ int	mini_echo(char **argv)
 	}
 	while (argv[i])
 	{
+		argv[i] = strip_quotes(shell->arena, argv[i]);
 		ft_putstr(argv[i++]);
 		if (argv[i])
 			ft_putchar(' ');
