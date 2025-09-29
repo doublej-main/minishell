@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 09:58:42 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/17 11:45:54 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/29 11:35:34 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "../includes/token.h"
 # include "../includes/pipeline.h"
-# include "ft_printf/ft_printf.h"
 # include "get_next_line.h"
+# include "ft_printf/ft_printf.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>

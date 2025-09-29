@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 12:42:36 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/25 12:48:59 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:04:29 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_banner(void)
 		if (line == NULL)
 			break ;
 		ft_trimchar(line, '\n');
-		ft_printf("%s\n", line);
+		printf("%s\n", line);
 		free(line);
 		line = get_next_line(fd);
 	}
