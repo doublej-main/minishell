@@ -25,7 +25,7 @@ int					split_keyval(const char *str, char **key, char **val);
 char				*env_get(t_env *env, const char *key);
 int					is_identifier(const char *str);
 int					print_sorted_env(t_env *env);
-int					set_new_pair(t_env *env, const char *key, const char *val);
+int					set_new_pair(t_env **env, const char *key, const char *val);
 int					env_unset(t_env *env, const char *key);
 int					env_to_array(t_env *env, t_env **arr, int count);
 int					env_count(t_env *env);

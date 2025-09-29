@@ -54,7 +54,7 @@ static int	fork_one_child(t_cmd *cmd, t_shell *shell)
 	{
 		if (cmd->in->target || cmd->out->target)
 		{
-			if (cmd->in->hd_tmp && !cmd->argv[0])
+			if (cmd->in->hd_tmp && !(cmd->argv[0] || cmd->in->next->target))
 				print_hd(cmd);
 			if (io_apply_redirs(cmd) < 0)
 				_exit(1);

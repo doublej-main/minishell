@@ -11,21 +11,21 @@ t_env	*env_find(t_env *env, const char *key)
 	return (NULL);
 }
 
-int	set_new_pair(t_env *env, const char *key, const char *val)
+int	set_new_pair(t_env **env, const char *key, const char *val)
 {
 	t_env	*node;
 	char	*new_value;
 
 	if (!env || !key || !is_identifier(key))
 		return (FAILURE);
-	node = env_find(env, key);
+	node = env_find(*env, key);
 	if (!node)
 	{
 		node = env_new_pair(key, val);
 		if (!node)
 			return (FAILURE);
-		node->next = env;
-		env = node;
+		node->next = *env;
+		*env = node;
 	}
 	if (val)
 	{
