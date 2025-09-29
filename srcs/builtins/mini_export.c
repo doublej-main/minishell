@@ -31,15 +31,15 @@ int	mini_export(char **argv, t_shell *shell)
 		equal_sign = ft_strchr(argv[i], '=');
 		if (!is_identifier(argv[i]))
 			return (ft_putstr_fd("export: not an identifier\n", 2), FAILURE);
-		else if (equal_sign && equal_sign + 1)
+		else if (equal_sign && equal_sign[1] != '\0')
 		{
-			split_keyval(argv[i], &key, &val);
-			set_new_pair(shell->env, key, val);
+			split_keyval(argv[i++], &key, &val);
+			set_new_pair(&shell->env, key, val);
 		}
 		else if (equal_sign)
-			set_new_pair(shell->env, argv[i++], "");
+			set_new_pair(&shell->env, argv[i++], "");
 		else
-			set_new_pair(shell->env, argv[i++], NULL);
+			set_new_pair(&shell->env, argv[i++], NULL);
 	}
 	return (EXIT_SUCCESS);
 }
