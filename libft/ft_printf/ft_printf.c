@@ -3,62 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/30 12:36:57 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/05/06 12:54:19 by jjaaskel         ###   ########.fr       */
+/*   Created: 2025/05/06 11:42:58 by vahdekiv          #+#    #+#             */
+/*   Updated: 2025/05/14 11:37:09 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static const t_conv	g_conv[128] = {
-['c'] = conv_char,
-['s'] = conv_str,
-['p'] = conv_ptr,
-['d'] = conv_int,
-['i'] = conv_int,
-['u'] = conv_uint,
-['x'] = conv_hexlow,
-['X'] = conv_hexup,
-['%'] = NULL,
-};
+int	print_format(va_list *ap, char c)
+{
+	int	count;
+
+	count = 0;
+	if (c == 'c')
+		count += ft_putchar(va_arg(*ap, int));
+	else if (c == 's')
+		count += ft_putstr(va_arg(*ap, char *));
+	else if (c == 'p')
+		count += ft_convertptr(va_arg(*ap, void *));
+	else if (c == 'd')
+		count += ft_putnbr(va_arg(*ap, int));
+	else if (c == 'i')
+		count += ft_putnbr(va_arg(*ap, int));
+	else if (c == 'u')
+		count += ft_tohex(va_arg(*ap, unsigned int), 10, 0);
+	else if (c == 'x')
+		count += ft_tohex(va_arg(*ap, unsigned int), 16, 0);
+	else if (c == 'X')
+		count += ft_tohex(va_arg(*ap, unsigned int), 16, 1);
+	else if (c == '%')
+		count += ft_putchar('%');
+	else
+		return (-1);
+	return (count);
+}
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
-	int		written;
+	int		count;
 
+	count = 0;
+	if (!format)
+		return (-1);
 	va_start(ap, format);
-	written = ft_vprintf(format, ap);
-	va_end(ap);
-	return (written);
-}
-
-int	ft_vprintf(const char *format, va_list ap)
-{
-	int	total;
-
-	total = 0;
 	while (*format)
 	{
-		if (*format != '%')
+		if (*format == '%')
 		{
-			write(1, format, 1);
-			++total;
+			format++;
+			if (*format == '\0')
+				return (va_end(ap), -1);
+			count += print_format(&ap, *format);
 		}
 		else
-		{
-			++format;
-			if (*format == '%')
-			{
-				write(1, "%", 1);
-				++total;
-			}
-			else if (g_conv[(int)*format])
-				total += g_conv[(int)*format](ap);
-		}
-		++format;
+			count += ft_putchar(*format);
+		format++;
 	}
-	return (total);
+	va_end(ap);
+	return (count);
 }

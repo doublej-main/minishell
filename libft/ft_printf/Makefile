@@ -1,26 +1,35 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/08 11:31:56 by vahdekiv          #+#    #+#              #
+#    Updated: 2025/05/08 11:53:33 by vahdekiv         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = libftprintf.a
-
-SRCS = conv_char.c conv_int.c conv_ptr.c conv_str.c conv_uint.c \
-		ft_hextoa.c ft_numlen.c ft_printf.c ft_putchar.c ft_putnbr.c \
-		ft_putstr.c ft_strlen.c conv_hexlow.c conv_hexup.c ft_uintlen.c
-
-CC = cc
-
+COMPILER = cc
 CFLAGS = -Wall -Wextra -Werror
+SRCS = ft_printf.c printf_hex.c printf_utils.c
 
-OBJECTS = $(SRCS:.c=.o)
+OBJS = $(SRCS:.c=.o)
+
+$(NAME): $(OBJS)
+	ar -rcs $(NAME) $(OBJS)
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS)
-		ar rcs $(NAME) $(OBJECTS)
-
 clean:
-		rm -f $(OBJECTS)
+	@rm -f $(OBJS)
+	@echo "removing objects"
 
 fclean: clean
-		rm -f $(NAME)
+	@rm -f $(NAME)
+	@echo "removing executable file"
 
 re: fclean all
 
-.PHONY: all re fclean clean bonus
+.PHONY: all clean fclean re

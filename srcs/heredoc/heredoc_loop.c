@@ -57,7 +57,7 @@ static char	*findkey(t_shell *shell, char *line)
 	return (node->val);
 }
 
-static char *spliceline(t_shell *shell, char *key, char *line)
+static char	*spliceline(t_shell *shell, char *key, char *line)
 {
 	char	*splicedline;
 	size_t	i;
@@ -68,7 +68,7 @@ static char *spliceline(t_shell *shell, char *key, char *line)
 	start = keyloop(line, 1);
 	len = keyloop(line, 0);
 	splicedline = arena_alloc(shell->arena,
-	((ft_strlen(line) - len) + ft_strlen(key) + 1));
+			((ft_strlen(line) - len) + ft_strlen(key) + 1));
 	if (!splicedline)
 		return (NULL);
 	while (line[i])

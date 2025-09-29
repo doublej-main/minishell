@@ -4,7 +4,7 @@
 
 # -------- library names ------------------------------
 NAME        := libft.a
-FT_PRINTF   := ft_printf/libftprintf.a
+FT_PRINTF	:= ft_printf/libftprintf.a
 
 # -------- source lists -------------------------------
 SRCS  := \
