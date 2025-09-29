@@ -6,7 +6,7 @@ int	mini_cd(char **argv, t_shell *shell)
 	char	*dir;
 	char	*old;
 
-	if (argv[2])
+	if (argv[1] && argv[2])
 		return (ft_putstr_fd("cd : too many arguments\n", 2), EXIT_FAILURE);
 	dir = argv[1];
 	if (!dir || argv[1][0] == '~')
