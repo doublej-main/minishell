@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:17:02 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/29 13:20:07 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/29 13:59:50 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 */
 # include <signal.h>
 # include <termios.h>
-
-extern int	rl_catch_signals;
 
 /*
 ** Prototypes
