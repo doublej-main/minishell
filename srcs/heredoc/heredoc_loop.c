@@ -29,13 +29,11 @@ static char	*findkey(t_shell *shell, char *line)
 	int		i;
 	char	*key;
 	char	*dol;
-	int		flag;
 
 	dol = ft_strchr(line, '$');
 	if (!dol || !dol[1] || isdel(dol[1]))
 		return (NULL);
 	i = 1;
-	flag = 0;
 	while (dol[i] && !isdel(dol[i]) && dol[i] != '$')
 		i++;
 	key = arena_alloc(shell->arena, i);
