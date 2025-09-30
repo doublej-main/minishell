@@ -88,7 +88,10 @@ char	*spliceline(t_shell *shell, char *key, char *line, size_t i)
 	splicedline[i] = '\0';
 	return (splicedline);
 }
-
+//if input "hello$HOMEhello" should only print "hello"
+//if expansion variable quoted, expanded variable also quoted
+//if input "hello$HOME hello" should print "hello hello"
+//if input "hello$HOME" should print "hello" and expanded variable
 int	hd_loop(int fd, const char *delim, t_shell *shell)
 {
 	char	*line;

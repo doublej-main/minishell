@@ -1,5 +1,16 @@
 #include "minishell.h"
 
+static void	cleanup_child(t_shell *shell, char **envv, char *prog)
+{
+	ft_free(envv);
+	free(prog);
+	shell_destroy(shell);
+	if (errno == EACCES)
+		_exit(126);
+	else
+		_exit(127);
+}
+
 void	exec_external_or_builtin(const t_cmd *cmd, t_shell *shell)
 {
 	char	**envv;
@@ -15,17 +26,15 @@ void	exec_external_or_builtin(const t_cmd *cmd, t_shell *shell)
 	else
 		prog = path_search(cmd->argv[0], shell->env);
 	if (!prog)
+	{
+		shell_destroy(shell);
 		_exit(127);
+	}
 	envv = env_to_chars(shell->env);
 	if (!envv)
 		_exit(1);
 	execve(prog, cmd->argv, envv);
-	ft_free(envv);
-	free(prog);
-	if (errno == EACCES)
-		_exit(126);
-	else
-		_exit(127);
+	cleanup_child(shell, envv, prog);
 }
 
 int	execute_pipeline(t_pl *pl, t_shell *shell)
