@@ -42,16 +42,14 @@ void	shell_loop(t_shell *shell)
 		if (!line)
 			break ;
 		consume_line(shell, line);
-		shell->status = syntax_error_checker(line);
-		if (shell->status != 0)
+		if (!syntax_error_checker(shell, line))
 			continue ;
 		shell->head = NULL;
 		tokenize_input(line, shell, token);
 		shell->pipe_head = NULL;
 		pipeline_init(shell, &pipeblock);
 		shell->status = execute_pipeline(shell->pipe_head, shell);
-		if (line)
-			free(line);
+		free(line);
 		arena_reset(shell->arena);
 	}
 }

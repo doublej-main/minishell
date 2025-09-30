@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	syntax_error_checker(char *line)
+int	syntax_error_checker(t_shell *shell, char *line)
 {
 	size_t	i;
 
@@ -19,11 +19,12 @@ int	syntax_error_checker(char *line)
 						&& line[i + 2] == '<')))
 			{
 				ft_putstr_fd("Syntax Error\n", STDOUT_FILENO);
+				shell->status = 2;
 				free(line);
-				return (1);
+				return (FAILURE);
 			}
 			i++;
 		}
 	}
-	return (0);
+	return (SUCCESS);
 }
