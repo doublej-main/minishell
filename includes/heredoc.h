@@ -1,6 +1,8 @@
 #ifndef HEREDOC_H
 # define HEREDOC_H
 
+#include <stddef.h>
+
 typedef struct s_shell	t_shell;
 typedef struct s_redir	t_redir;
 typedef struct s_pl		t_pl;

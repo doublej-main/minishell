@@ -21,7 +21,7 @@ int	is_parent_builtin(const char *name)
 int	run_any_builtin(const char *name, char **argv, t_shell *shell)
 {
 	if (!ft_strcmp(name, "echo"))
-		return (mini_echo(argv));
+		return (mini_echo(argv, 1, shell));
 	if (!ft_strcmp(name, "pwd"))
 		return (mini_pwd());
 	if (!ft_strcmp(name, "env"))
