@@ -17,8 +17,6 @@ static int	hd_write(int fd, char *line, t_shell *shell, int expand)
 	}
 	else
 		out = arena_strdup(shell->arena, line);
-	if (ft_strchr(out, '$'))
-		out = spliceline(shell, out);
 	if (!out)
 		return (INIT_FAIL);
 	ft_putstr_fd(out, fd);
@@ -31,12 +29,14 @@ static char	*findkey(t_shell *shell, char *line)
 	int		i;
 	char	*key;
 	char	*dol;
+	int		flag;
 
 	dol = ft_strchr(line, '$');
 	if (!dol || !dol[1] || isdel(dol[1]))
 		return (NULL);
 	i = 1;
-	while (dol[i] && !isdel(dol[i]))
+	flag = 0;
+	while (dol[i] && !isdel(dol[i]) && dol[i] != '$')
 		i++;
 	key = arena_alloc(shell->arena, i);
 	if (!key)

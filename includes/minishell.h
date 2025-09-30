@@ -4,11 +4,11 @@
 /*
 ** Includes
 */
-# include "heredoc.h"
 # include "arena.h"
 # include "builtins.h"
 # include "env.h"
 # include "exec.h"
+# include "heredoc.h"
 # include "libft.h"
 # include "pipeline.h"
 # include "prompt.h"
@@ -54,7 +54,8 @@ int								shell_init(t_shell *shell, char **environ);
 void							shell_loop(t_shell *shell);
 void							shell_destroy(t_shell *shell);
 void							consume_line(t_shell *shell, char *line);
-int								syntax_error_checker(t_shell *shell, char *line);
+int								syntax_error_checker(t_shell *shell,
+									char *line);
 void							init_token_and_pipeline(t_shell *shell,
 									t_token *token, t_pl *pipeblock,
 									char *line);
