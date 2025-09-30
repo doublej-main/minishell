@@ -30,10 +30,10 @@ int	mini_exit(char **argv, t_shell *shell)
 		exit(0);
 	if (!ft_isnum(argv[1]))
 	{
-		perror("exit: numeric arg required\n");
+		ft_putstr_fd("exit: numeric arg required\n", 2);
 		exit(2);
 	}
-	if (argv[2])
+	if (argv[1] && argv[2])
 	{
 		perror("exit: too many args\n");
 		return (EXIT_FAILURE);

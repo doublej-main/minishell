@@ -9,6 +9,7 @@ static void	cleanup_child(t_shell *shell, char **envv, char *prog)
 		_exit(126);
 	else
 		_exit(127);
+	shell_destroy(shell);
 }
 
 void	exec_external_or_builtin(const t_cmd *cmd, t_shell *shell)
@@ -27,6 +28,7 @@ void	exec_external_or_builtin(const t_cmd *cmd, t_shell *shell)
 		prog = path_search(cmd->argv[0], shell->env);
 	if (!prog)
 	{
+		ft_putstr_fd("command not found\n", 2);
 		shell_destroy(shell);
 		_exit(127);
 	}
