@@ -42,7 +42,10 @@ int	execute_pipeline(t_pl *pl, t_shell *shell)
 	int	status;
 
 	if (heredoc_prepare_all(shell) < 0)
+	{
+		dup2(shell->fd_in, STDIN_FILENO);
 		return (130);
+	}
 	if (!shell->pipe_head->next)
 		status = run_single(shell->pipe_head->cmd, shell);
 	else

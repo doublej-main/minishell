@@ -6,11 +6,13 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 14:18:30 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/08/29 14:17:12 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/09/30 12:42:28 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+volatile sig_atomic_t	g_sig = 0;
 
 /**
 * Write a newline
@@ -34,7 +36,7 @@ static void	handle_sigint(int sig)
 * Set the flags that are passed as @param
 * "Install" the instructions
 */
-static void	set_sigaction(int sig, void (*handler)(int), int flags)
+void	set_sigaction(int sig, void (*handler)(int), int flags)
 {
 	struct sigaction	sa;
 

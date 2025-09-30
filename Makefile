@@ -1,22 +1,16 @@
 NAME        = minishell
 
-SRCS        = srcs/main/main.c srcs/main/signals.c srcs//env/env.c \
-				srcs/main/prompt.c srcs/main/utils.c srcs//arena/arena.c \
-				srcs/arena/arena_utils.c srcs/builtins/dispatch.c \
-				srcs/builtins/mini_cd.c srcs/builtins/mini_echo.c \
-				srcs/builtins/mini_env.c srcs/builtins/mini_exit.c \
-				srcs/builtins/mini_export.c srcs/builtins/mini_pwd.c \
-				srcs/builtins/mini_unset.c srcs/env/env_get.c \
-				srcs/env/env_set.c srcs/env/env_unset.c srcs/env/print_env.c \
-				srcs/parsing/token.c srcs/parsing/token_utils.c \
-				srcs/parsing/parser_utils.c srcs/parsing/pipeline.c \
-				srcs/parsing/pipeline_utils.c \
-				srcs/parsing/pipeline_cmd_helper.c srcs/exec/exec.c \
-				srcs/exec/io.c srcs/exec/run_pipeline.c srcs/exec/run_single.c \
-				srcs/exec/exec_utils.c srcs/main/main_utils.c \
-				srcs/heredoc/heredoc_loop.c srcs/heredoc/heredoc_prepare.c \
-				srcs/heredoc/heredoc_utils.c srcs/heredoc/heredoc_loop_utils.c \
-				srcs/main/syntax.c \
+SRCS        = srcs/main/main.c srcs/main/signals.c srcs//env/env.c srcs/main/prompt.c \
+				srcs/main/utils.c srcs//arena/arena.c srcs/arena/arena_utils.c srcs/builtins/dispatch.c \
+				srcs/builtins/mini_cd.c srcs/builtins/mini_echo.c srcs/builtins/mini_env.c \
+				srcs/builtins/mini_exit.c srcs/builtins/mini_export.c srcs/builtins/mini_pwd.c \
+				srcs/builtins/mini_unset.c srcs/env/env_get.c srcs/env/env_set.c srcs/env/env_unset.c \
+				srcs/env/print_env.c srcs/parsing/token.c srcs/parsing/token_utils.c \
+				srcs/parsing/parser_utils.c srcs/parsing/pipeline.c srcs/parsing/pipeline_utils.c \
+				srcs/exec/exec.c srcs/exec/io.c srcs/exec/run_pipeline.c srcs/exec/run_single.c \
+				srcs/exec/exec_utils.c srcs/main/main_utils.c srcs/heredoc/heredoc_loop.c \
+				srcs/heredoc/heredoc_prepare.c srcs/heredoc/heredoc_utils.c srcs/main/syntax.c \
+				srcs/main/signal_heredoc.c
         
 OBJS = $(patsubst srcs/../%.c, $(O_DIR)/%.o,$(SRCS))
 O_DIR = objects

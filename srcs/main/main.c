@@ -1,10 +1,11 @@
 #include "minishell.h"
 
-volatile sig_atomic_t	g_sig = 0;
-
 int	shell_init(t_shell *shell, char **environ)
 {
 	shell->env = env_from_environ(environ);
+	shell->fd_in = dup(STDIN_FILENO);
+	if (shell->fd_in < 0)
+		return (FAILURE);
 	if (!shell->env)
 		return (perror("env fail"), FAILURE);
 	if (arena_init(shell->arena, 10000) < 0)
@@ -65,9 +66,11 @@ int	main(int argc, char **argv, char **environ)
 {
 	t_shell	shell;
 	t_arena	arena;
+	extern int	rl_catch_signals;
 
 	(void)argc;
 	(void)argv;
+	rl_catch_signals = 0;
 	arena = (t_arena){0};
 	shell.arena = &arena;
 	print_banner();
