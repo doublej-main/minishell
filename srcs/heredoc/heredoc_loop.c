@@ -1,124 +1,96 @@
 #include "minishell.h"
 
-static size_t	untilspace(char *line, size_t start)
+static int	hd_write(int fd, char *line, t_shell *shell, int expand)
 {
-	while (line[start])
-	{
-		if (line[start] == ' ' || line[start] == '\t' || line[start] == '\n'
-			|| line[start] == '\v')
-			break ;
-		start++;
-	}
-	return (start);
-}
+	char	*out;
 
-static	size_t	keyloop(char *line, size_t type)
-{
-	size_t	i;
-	size_t	start;
-	size_t	len;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '$')
-		{
-			i++;
-			start = i;
-			if (type == 1)
-				return (start);
-			len = untilspace(line, i) - i;
-		}
-		i++;
-	}
-	return (len);
+	if (expand && ft_strchr(line, '$'))
+		out = spliceline(shell, line);
+	else
+		out = arena_strdup(shell->arena, line);
+	if (!out)
+		return (INIT_FAIL);
+	ft_putstr_fd(out, fd);
+	write(fd, "\n", 1);
+	return (SUCCESS);
 }
 
 static char	*findkey(t_shell *shell, char *line)
 {
-	char	*env_v;
-	t_env	*node;
-	size_t	start;
-	size_t	i;
-	size_t	len;
+	int		i;
+	char	*key;
+	char	*dol;
 
-	start = keyloop(line, 1);
-	i = 0;
-	len = 0;
-	node = NULL;
-	len = keyloop(line, 0);
-	env_v = arena_alloc(shell->arena, len + 1);
-	while (i < len)
-		env_v[i++] = line[start++];
-	env_v[i] = '\0';
-	node = env_find(shell->env, env_v);
-	if (!node)
+	dol = ft_strchr(line, '$');
+	if (!dol || !dol[1] || isdel(dol[1]))
 		return (NULL);
-	return (node->val);
-}
-
-static char	*spliceline(t_shell *shell, char *key, char *line)
-{
-	char	*splicedline;
-	size_t	i;
-	size_t	start;
-	size_t	len;
-
-	i = 0;
-	start = keyloop(line, 1);
-	len = keyloop(line, 0);
-	splicedline = arena_alloc(shell->arena,
-			((ft_strlen(line) - len) + ft_strlen(key) + 1));
-	if (!splicedline)
-		return (NULL);
-	while (line[i])
-	{
-		if (line[i] == '$')
-		{
-			start = i;
-			break ;
-		}
-		splicedline[i] = line[i];
+	i = 1;
+	while (dol[i] && !isdel(dol[i]))
 		i++;
-	}
-	while (*key)
-		splicedline[i++] = *key++;
-	while (start < untilspace(line, start))
-		start++;
-	while (line[start])
-		splicedline[i++] = line[start++];
-	splicedline[i] = '\0';
-	return (splicedline);
+	key = arena_alloc(shell->arena, i);
+	if (!key)
+		return (NULL);
+	ft_memcpy(key, dol + 1, i - 1);
+	key[i - 1] = '\0';
+	return (key);
 }
 
-int	hd_loop(int fd, const char *delim, t_shell *shell)
+char	*spliceline(t_shell *shell, char *line)
+{
+	const char	*dol;
+	char		*key;
+	const char	*val;
+	const char	*post;
+	char		*out;
+
+	dol = ft_strchr(line, '$');
+	if (!dol)
+		return (arena_strdup(shell->arena, line));
+	key = findkey(shell, line);
+	if (!key)
+		return (arena_strdup(shell->arena, line));
+	val = env_get(shell->env, key);
+	if (!val)
+		val = "";
+	post = dol + 1 + ft_strlen(key);
+	out = arena_alloc(shell->arena, (size_t)((dol - line)
+			+ ft_strlen(val) + ft_strlen(post) + 1));
+	if (!out)
+		return (NULL);
+	ft_memcpy(out, line, (size_t)(dol - line));
+	ft_memcpy(out + (dol - line), val, ft_strlen(val));
+	ft_memcpy(out + (dol - line)
+		+ ft_strlen(val), post, ft_strlen(post) + 1);
+	return (out);
+}
+
+int	hd_loop(int fd, const char *delim, t_shell *shell, int expand)
 {
 	char	*line;
-	char	*key;
-	char	*splicedline;
 
-	splicedline = NULL;
-	while (420)
+	signals_heredoc();
+	while (1)
 	{
 		line = readline("heredoc> ");
+		if (g_sig == SIGINT)
+		{
+			free(line);
+			g_sig = 0;
+			signals_interactive();
+			return (INIT_FAIL);
+		}
 		if (!line)
 			break ;
-		if (!shell->pipe_head->cmd->in->quoted && ft_strchr(line, '$'))
-		{
-			key = findkey(shell, line);
-			if (key)
-				splicedline = spliceline(shell, key, line);
-		}
 		if (ft_strcmp(line, delim) == 0)
 		{
 			free(line);
 			break ;
 		}
-		if (!splicedline)
-			ft_putstr_fd(line, fd);
-		else
-			ft_putstr_fd(splicedline, fd);
-		write(fd, "\n", 1);
+		if (hd_write(fd, line, shell, expand) == FAILURE)
+		{
+			free(line);
+			return (INIT_FAIL);
+		}
 		free(line);
 	}
 	return (SUCCESS);

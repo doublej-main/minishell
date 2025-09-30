@@ -10,6 +10,7 @@ SRCS        = srcs/main/main.c srcs/main/signals.c srcs//env/env.c srcs/main/pro
 				srcs/exec/exec.c srcs/exec/io.c srcs/exec/run_pipeline.c srcs/exec/run_single.c \
 				srcs/exec/exec_utils.c srcs/main/main_utils.c srcs/heredoc/heredoc_loop.c \
 				srcs/heredoc/heredoc_prepare.c srcs/heredoc/heredoc_utils.c srcs/main/syntax.c \
+				srcs/main/signal_heredoc.c
         
 OBJS = $(patsubst srcs/../%.c, $(O_DIR)/%.o,$(SRCS))
 O_DIR = objects

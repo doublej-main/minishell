@@ -15,7 +15,7 @@ static int	heredoc_prepare_one(t_shell *shell, t_redir *r)
 	fd = hd_open_tmp(shell->arena, &path);
 	if (fd < 0)
 		return (INIT_FAIL);
-	if (hd_loop(fd, delim, shell) < 0)
+	if (hd_loop(fd, delim, shell, !r->quoted) < 0)
 	{
 		close(fd);
 		unlink(path);
