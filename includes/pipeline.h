@@ -35,22 +35,20 @@ typedef struct s_pl
 	struct s_pl		*next;// next pipeblock
 }					t_pl;
 
-int					pipeline_init(t_shell *shell, t_pl **pipeblock);
-int					def_pipeblock(t_shell *shell, t_pl *pipeblock, int i);
-char				*def_argv(t_arena *arena, char *value);
-void				redirs_quoted(t_token *current, t_pl *pipeblock,
-						char *next);
-int					redir_helper(t_token *token, t_pl *pipeblock);
-int					argc(t_token *token);
-int					init_segment(t_shell *shell, t_pl *pipeblock, t_token *tok);
-t_pl				*new_pipeblock(t_arena *arena);
-t_pl				*add_pipeblock(t_shell *shell);
+int		pipeline_init(t_shell *shell, t_pl **pipeblock);
+int		def_pipeblock(t_shell *shell, t_pl *pipeblock, t_token *curr, int i);
+char	*def_argv(t_arena *arena, char *value);
+void	redirs_quoted(t_token *current, t_pl *pipeblock, char *next);
+int		redir_helper(t_token *token, t_pl *pipeblock);
+int		argc(t_token *token);
+int		init_segment(t_shell *shell, t_pl *pipeblock, t_token *tok);
+t_pl	*new_pipeblock(t_arena *arena);
+t_pl	*add_pipeblock(t_shell *shell);
 
 //refactoring
 
-int					argv_builder(t_pl *pb, t_shell *shell, t_token *curr,
-						int i);
-int					pipeblock_helper(t_pl **pipeblock, t_shell *shell,
-						t_token *cur, int i);
-void				redir_parser(t_pl *pipeblock, t_token *curr);
+int		argv_builder(t_pl *pb, t_shell *shell, t_token *curr, int i);
+int		pipeblock_helper(t_pl **pipeblock, t_shell *shell, t_token *cur, int i);
+void	redir_parser(t_pl *pipeblock, t_token *curr);
+
 #endif

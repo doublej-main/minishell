@@ -64,8 +64,8 @@ void	shell_loop(t_shell *shell)
 // Heredoc
 int	main(int argc, char **argv, char **environ)
 {
-	t_shell	shell;
-	t_arena	arena;
+	t_shell		shell;
+	t_arena		arena;
 	extern int	rl_catch_signals;
 
 	(void)argc;

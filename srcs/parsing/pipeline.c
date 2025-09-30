@@ -57,11 +57,8 @@ char	*def_argv(t_arena *arena, char *value)
 	return (temp);
 }
 
-int	def_pipeblock(t_shell *shell, t_pl *pipeblock, int i)
+int	def_pipeblock(t_shell *shell, t_pl *pipeblock, t_token *curr, int i)
 {
-	t_token	*curr;
-
-	curr = shell->head;
 	while (curr)
 	{
 		if (curr->type == PIPE)
@@ -89,6 +86,9 @@ int	def_pipeblock(t_shell *shell, t_pl *pipeblock, int i)
 
 int	pipeline_init(t_shell *shell, t_pl **pipeblock)
 {
+	t_token	*curr;
+
+	curr = shell->head;
 	(*pipeblock) = arena_alloc(shell->arena, sizeof(t_pl));
 	if (!*pipeblock)
 		return (perror("pipeblock"), FAILURE);
@@ -108,7 +108,7 @@ int	pipeline_init(t_shell *shell, t_pl **pipeblock)
 	if (!(*pipeblock)->cmd->argv)
 		return (perror("args"), FAILURE);
 	ft_lstadd_back_pipe(&shell->pipe_head, *pipeblock);
-	if (!def_pipeblock(shell, *pipeblock, 0))
+	if (!def_pipeblock(shell, *pipeblock, curr, 0))
 		return (perror("def_pipeblock"), FAILURE);
 	return (SUCCESS);
 }
