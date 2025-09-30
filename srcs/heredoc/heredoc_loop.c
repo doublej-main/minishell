@@ -3,11 +3,22 @@
 static int	hd_write(int fd, char *line, t_shell *shell, int expand)
 {
 	char	*out;
+	int		dol_count;
 
 	if (expand && ft_strchr(line, '$'))
+	{
 		out = spliceline(shell, line);
+		dol_count = count_expanse(out);
+		while (dol_count)
+		{
+			out = spliceline(shell, out);
+			dol_count--;
+		}
+	}
 	else
 		out = arena_strdup(shell->arena, line);
+	if (ft_strchr(out, '$'))
+		out = spliceline(shell, out);
 	if (!out)
 		return (INIT_FAIL);
 	ft_putstr_fd(out, fd);
