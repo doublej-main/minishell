@@ -35,7 +35,7 @@ static void	check_for_env(t_shell *shell)
 	shell->head = list_start;
 }
 
-static int	get_type(char *token)
+int	get_type(char *token)
 {
 	if (ft_strcmp(token, "|") == 0)
 		return (PIPE);
@@ -105,12 +105,8 @@ int	tokenize_input(char *line, t_shell *shell, t_token *token)
 		return (perror("parser"), FAILURE);
 	while (p->array[i])
 	{
-		token = add_token(shell);
-		token->value = arena_strdup(shell->arena, p->array[i]);
-		if (!token->value)
+		if (!tokenization_helper(shell, p, token, i))
 			return (perror("token"), FAILURE);
-		token->type = get_type(token->value);
-		ft_lstadd_back(&shell->head, token);
 		i++;
 	}
 	check_for_env(shell);

@@ -54,7 +54,7 @@ char	*spliceline(t_shell *shell, char *line)
 		val = "";
 	post = dol + 1 + ft_strlen(key);
 	out = arena_alloc(shell->arena, (size_t)((dol - line)
-			+ ft_strlen(val) + ft_strlen(post) + 1));
+				+ ft_strlen(val) + ft_strlen(post) + 1));
 	if (!out)
 		return (NULL);
 	ft_memcpy(out, line, (size_t)(dol - line));
@@ -62,6 +62,14 @@ char	*spliceline(t_shell *shell, char *line)
 	ft_memcpy(out + (dol - line)
 		+ ft_strlen(val), post, ft_strlen(post) + 1);
 	return (out);
+}
+
+static int	hd_signal_handler(char *line)
+{
+	free(line);
+	g_sig = 0;
+	signals_interactive();
+	return (0);
 }
 
 int	hd_loop(int fd, const char *delim, t_shell *shell, int expand)
@@ -73,12 +81,8 @@ int	hd_loop(int fd, const char *delim, t_shell *shell, int expand)
 	{
 		line = readline("heredoc> ");
 		if (g_sig == SIGINT)
-		{
-			free(line);
-			g_sig = 0;
-			signals_interactive();
-			return (INIT_FAIL);
-		}
+			if (!hd_signal_handler(line))
+				return (INIT_FAIL);
 		if (!line)
 			break ;
 		if (ft_strcmp(line, delim) == 0)
