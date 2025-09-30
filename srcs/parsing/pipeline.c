@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static int	init_segment(t_shell *shell, t_pl *pipeblock, int ac)
+int	init_segment(t_shell *shell, t_pl *pipeblock, t_token *tok)
 {
 	pipeblock->cmd = arena_alloc(shell->arena, sizeof(t_cmd));
 	if (!pipeblock->cmd)
@@ -11,7 +11,9 @@ static int	init_segment(t_shell *shell, t_pl *pipeblock, int ac)
 	pipeblock->cmd->out = arena_calloc(shell->arena, sizeof(t_redir));
 	if (!pipeblock->cmd->out)
 		return (FAILURE);
-	pipeblock->cmd->argv = arena_alloc(shell->arena, sizeof(char *) * (ac + 1));
+	pipeblock->cmd->ac = argc(tok);
+	pipeblock->cmd->argv
+		= arena_alloc(shell->arena, sizeof(char *) * (pipeblock->cmd->ac + 1));
 	if (!pipeblock->cmd->argv)
 		return (FAILURE);
 	pipeblock->cmd->argv[0] = NULL;
@@ -55,45 +57,30 @@ char	*def_argv(t_arena *arena, char *value)
 	return (temp);
 }
 
-int	def_pipeblock(t_shell *shell, t_pl *pipeblock, int ac)
+int	def_pipeblock(t_shell *shell, t_pl *pipeblock, int i)
 {
 	t_token	*curr;
-	int		i;
 
 	curr = shell->head;
-	i = 0;
 	while (curr)
 	{
 		if (curr->type == PIPE)
 		{
-			pipeblock->cmd->argv[i] = NULL;
-			pipeblock = add_pipeblock(shell);
-			ft_lstadd_back_pipe(&shell->pipe_head, pipeblock);
-			ac = argc(curr->next);
-			if (!init_segment(shell, pipeblock, ac))
+			if (!pipeblock_helper(&pipeblock, shell, curr, i))
 				return (FAILURE);
 			i = 0;
 		}
-		else if (curr->type == REDIR_IN || curr->type == REDIR_OUT
-			|| curr->type == REDIR_APPEND || curr->type == REDIR_HEREDOC)
+		else if (curr->type >= REDIR_IN && curr->type <= REDIR_HEREDOC)
 		{
 			if (!curr->next || curr->next->type != WORD)
 				return (FAILURE);
-			redir_helper(curr, pipeblock);
-			redirs_quoted(curr, pipeblock, curr->next->value);
-			curr = curr->next;
+			redir_parser(pipeblock, curr);
 			if (curr->next)
 				curr = curr->next;
 			continue ;
 		}
 		else if (curr->type == WORD)
-		{
-			if (i < ac)
-			{
-				pipeblock->cmd->argv[i] = def_argv(shell->arena, curr->value);
-				i++;
-			}
-		}
+			i = argv_builder(pipeblock, shell, curr, i);
 		curr = curr->next;
 	}
 	pipeblock->cmd->argv[i] = NULL;
@@ -102,15 +89,13 @@ int	def_pipeblock(t_shell *shell, t_pl *pipeblock, int ac)
 
 int	pipeline_init(t_shell *shell, t_pl **pipeblock)
 {
-	int		ac;
-
-	ac = argc(shell->head);
 	(*pipeblock) = arena_alloc(shell->arena, sizeof(t_pl));
 	if (!*pipeblock)
 		return (perror("pipeblock"), FAILURE);
 	(*pipeblock)->cmd = arena_alloc(shell->arena, sizeof(t_cmd));
 	if (!(*pipeblock)->cmd)
 		return (perror("cmds"), FAILURE);
+	(*pipeblock)->cmd->ac = argc(shell->head);
 	(*pipeblock)->cmd->in = arena_calloc(shell->arena, sizeof(t_redir));
 	if (!(*pipeblock)->cmd->in)
 		return (perror("in"), FAILURE);
@@ -118,11 +103,12 @@ int	pipeline_init(t_shell *shell, t_pl **pipeblock)
 	if (!(*pipeblock)->cmd->out)
 		return (perror("out"), FAILURE);
 	(*pipeblock)->cmd->argv
-		= arena_alloc(shell->arena, (ac + 1) * sizeof(char *));
+		= arena_alloc(shell->arena,
+			((*pipeblock)->cmd->ac + 1) * sizeof(char *));
 	if (!(*pipeblock)->cmd->argv)
 		return (perror("args"), FAILURE);
 	ft_lstadd_back_pipe(&shell->pipe_head, *pipeblock);
-	if (!def_pipeblock(shell, *pipeblock, ac))
+	if (!def_pipeblock(shell, *pipeblock, 0))
 		return (perror("def_pipeblock"), FAILURE);
 	return (SUCCESS);
 }

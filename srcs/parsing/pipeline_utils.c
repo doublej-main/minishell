@@ -46,3 +46,20 @@ t_pl	*add_pipeblock(t_shell *shell)
 	temp->next = NULL;
 	return (temp);
 }
+
+int	pipeblock_helper(t_pl **pipeblock, t_shell *shell, t_token *cur, int i)
+{
+	(*pipeblock)->cmd->argv[i] = NULL;
+	(*pipeblock) = add_pipeblock(shell);
+	ft_lstadd_back_pipe(&shell->pipe_head, *pipeblock);
+	if (!init_segment(shell, *pipeblock, cur->next))
+		return (FAILURE);
+	return (SUCCESS);
+}
+
+void	redir_parser(t_pl *pipeblock, t_token *curr)
+{
+	redir_helper(curr, pipeblock);
+	redirs_quoted(curr, pipeblock, curr->next->value);
+	curr = curr->next;
+}
