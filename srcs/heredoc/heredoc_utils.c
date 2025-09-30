@@ -1,5 +1,21 @@
 #include "minishell.h"
 
+int	count_expanse(char *str)
+{
+	int count;
+	int	i;
+
+	count = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+			count++;
+		i++;
+	}
+	return (count);
+}
+
 char	*strip_quotes(t_arena *arena, const char *s)
 {
 	char	*out;

@@ -14,5 +14,6 @@ char					*hd_path_heap(unsigned int count, t_arena *arena);
 int						hd_open_tmp(t_arena *arena, char **path_out);
 char					*strip_quotes(t_arena *arena, const char *s);
 char					*spliceline(t_shell *shell, char *line);
+int						count_expanse(char *str);
 
 #endif
