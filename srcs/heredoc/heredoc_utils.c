@@ -2,7 +2,7 @@
 
 int	count_expanse(char *str)
 {
-	int count;
+	int	count;
 	int	i;
 
 	count = 0;

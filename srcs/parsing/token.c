@@ -3,16 +3,23 @@
 int	replace_with_val(char *value, t_shell *shell)
 {
 	t_env	*node;
+	char	*itoa;
+	char	*val;
 
+	itoa = NULL;
 	if (!ft_strcmp(value, "$?"))
 	{
-		shell->head->value = ft_itoa(shell->status);
+		itoa = ft_itoa(shell->status);
+		shell->head->value = arena_strdup(shell->arena, itoa);
+		free(itoa);
 		return (SUCCESS);
 	}
 	node = env_find(shell->env, value + 1);
 	if (!node)
 		return (FAILURE);
-	shell->head->value = node->val;
+	val = node->val;
+	shell->head->value = arena_strdup(shell->arena, val);
+	free(val);
 	return (SUCCESS);
 }
 
