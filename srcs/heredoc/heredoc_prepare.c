@@ -32,12 +32,16 @@ int	heredoc_prepare_all(t_shell *shell)
 {
 	t_pl	*seg;
 	t_redir	*r;
+	int		i;
 
+	i = 0;
 	if (!shell->pipe_head->cmd->in->target)
 		return (SUCCESS);
 	seg = shell->pipe_head;
 	while (seg)
 	{
+		printf("index is: %d\n", i);
+		i++;
 		if (seg->cmd->in->target)
 			r = seg->cmd->in;
 		while (r)

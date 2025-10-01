@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:25:32 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/09/30 13:42:07 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/01 13:42:13 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 typedef struct s_arena	t_arena;
 
-//typedef enum e_token_type
+// typedef enum e_token_type
 //{
 //	WORD,          // For commands and arguments
 //	PIPE,          // For '|'
@@ -54,12 +54,14 @@ int						tokenize_input(char *line, t_shell *shell,
 t_token					*new_token(void);
 t_token					*add_token(t_shell *shell);
 char					*gettokentype(int type);
-int						quote_handler(char c, int *q_flag);
+int						quote_handler(t_shell *shell, char c, int *q_flag);
 int						isdel(char c);
 int						get_type(char *token);
 int						tokenization_helper(t_shell *shell, t_parser *p,
 							t_token *token, int i);
 void					parser_helper(t_parser *p, int type);
-size_t					wdcount(const char *s, t_parser *p);
+size_t					wdcount(t_shell *shell, const char *s, t_parser *p);
+int						check_for_env(t_shell *shell, char **str);
+int						replace_with_val(t_shell *shell, char **str);
 
 #endif
