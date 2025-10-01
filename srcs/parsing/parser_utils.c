@@ -1,14 +1,16 @@
 #include "minishell.h"
 
-int	quote_handler(char c, int *q_flag)
+int	quote_handler(t_shell *shell, char c, int *q_flag)
 {
 	if (c == '\'' && *q_flag == 0)
 	{
+		shell->single = 1;
 		*q_flag = 1;
 		return (1);
 	}
 	if (c == '"' && *q_flag == 0)
 	{
+		shell->doppel = 1;
 		*q_flag = 2;
 		return (1);
 	}
@@ -27,7 +29,7 @@ int	quote_handler(char c, int *q_flag)
 	return (1);
 }
 
-size_t	wdcount(const char *s, t_parser *p)
+size_t	wdcount(t_shell *shell, const char *s, t_parser *p)
 {
 	size_t	i;
 	size_t	count;
@@ -43,7 +45,7 @@ size_t	wdcount(const char *s, t_parser *p)
 	{
 		if (s[i] == '\'' || s[i] == '"')
 		{
-			if (quote_handler(s[i], &p->q_flag) < 0)
+			if (quote_handler(shell, s[i], &p->q_flag) < 0)
 				ft_putstr_fd("quote handler failure\n", 2);
 		}
 		else if (isdel(s[i]) && p->q_flag == 0)

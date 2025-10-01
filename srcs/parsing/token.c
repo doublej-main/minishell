@@ -1,45 +1,40 @@
 #include "minishell.h"
 
-int	replace_with_val(char *value, t_shell *shell)
+int	replace_with_val(t_shell *shell, char **str)
 {
-	t_env	*node;
 	char	*itoa;
-	char	*val;
+	char	*key;
 
 	itoa = NULL;
-	if (!ft_strcmp(value, "$?"))
+	key = NULL;
+	if (!ft_strcmp(*str, "$?"))
 	{
 		itoa = ft_itoa(shell->status);
-		shell->head->value = arena_strdup(shell->arena, itoa);
+		*str = arena_strdup(shell->arena, itoa);
 		free(itoa);
 		return (SUCCESS);
 	}
-	node = env_find(shell->env, value + 1);
-	if (!node)
+	if (shell->single || shell->doppel)
+		key = strip_quotes(shell->arena, *str);
+	if (shell->single)
+	{
+		*str = key;
+		return (SUCCESS);
+	}
+	*str = env_get(shell->env, ft_strchr(key, '$') + 1);
+	if (!*str)
 		return (FAILURE);
-	val = node->val;
-	shell->head->value = arena_strdup(shell->arena, val);
-	free(val);
 	return (SUCCESS);
 }
 
-static void	check_for_env(t_shell *shell)
+int	check_for_env(t_shell *shell, char **str)
 {
-	t_token	*list_start;
-
-	list_start = shell->head;
-	while (shell->head)
+	if (ft_strchr(*str, '$'))
 	{
-		if (shell->head->type == WORD && shell->head->value[0] == '$')
-		{
-			replace_with_val(shell->head->value, shell);
-			shell->head = shell->head->next;
-			continue ;
-		}
-		else
-			shell->head = shell->head->next;
+		if (!replace_with_val(shell, str))
+			return (FAILURE);
 	}
-	shell->head = list_start;
+	return (SUCCESS);
 }
 
 int	get_type(char *token)
@@ -59,18 +54,15 @@ int	get_type(char *token)
 	else
 		return (WORD);
 }
-// for testing
-// static void	print_token(t_token *token)
-// {
-// 	printf("Token: %s	| Type: %s\n", token->value, gettokentype(token->type));
-// }
 
-static char	**parser(char *line, t_arena *arena, t_parser *p)
+static char	**parser(t_shell *shell, char *line, t_arena *arena, t_parser *p)
 {
 	char		**array;
 
+	if (!line || !line[0])
+		return (NULL);
 	parser_helper(p, 2);
-	array = arena_alloc(arena, (wdcount(line, p) + 1) * sizeof(char *));
+	array = arena_alloc(arena, (wdcount(shell, line, p) + 1) * sizeof(char *));
 	if (!array)
 		return (NULL);
 	while (p->i <= (int) ft_strlen(line))
@@ -83,7 +75,7 @@ static char	**parser(char *line, t_arena *arena, t_parser *p)
 			array[p->j] = arena_substr(line, p->start, p->i - p->start, arena);
 			parser_helper(p, 1);
 		}
-		else if (quote_handler(line[p->i], &p->q_flag) < 0)
+		else if (quote_handler(shell, line[p->i], &p->q_flag) < 0)
 			return (NULL);
 		p->i++;
 	}
@@ -101,21 +93,20 @@ int	tokenize_input(char *line, t_shell *shell, t_token *token)
 	p = arena_alloc(shell->arena, sizeof(t_parser));
 	if (!p)
 		return (perror("parser"), FAILURE);
-	n = wdcount(line, p);
+	n = wdcount(shell, line, p);
 	if (n == 0)
 		return (SUCCESS);
 	p->array = arena_alloc(shell->arena, (n + 1) * sizeof(char *));
 	if (!p->array)
 		return (perror("memory"), FAILURE);
-	p->array = parser(line, shell->arena, p);
+	p->array = parser(shell, line, shell->arena, p);
 	if (!p->array)
-		return (perror("parser"), FAILURE);
+		return (ft_putstr_fd("parse error\n", 2), FAILURE);
 	while (p->array[i])
 	{
 		if (!tokenization_helper(shell, p, token, i))
 			return (perror("token"), FAILURE);
 		i++;
 	}
-	check_for_env(shell);
 	return (SUCCESS);
 }

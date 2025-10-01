@@ -45,6 +45,8 @@ typedef struct s_shell
 	t_token						*head;
 	t_pl						*pipe_head;
 	int							fd_in;
+	int							single;
+	int							doppel;
 }								t_shell;
 
 /*

@@ -68,5 +68,7 @@ int	run_single(t_cmd *cmd, t_shell *shell)
 {
 	if (cmd->argv && cmd->argv[0] && is_parent_builtin(cmd->argv[0]))
 		return (run_single_parent(cmd, shell));
+	if (!cmd->argv || !cmd->argv[0])
+		return (126);
 	return (fork_one_child(cmd, shell));
 }
