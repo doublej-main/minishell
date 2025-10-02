@@ -33,7 +33,7 @@ int	mini_export(char **argv, t_shell *shell)
 			return (ft_putstr_fd("export: not an identifier\n", 2), FAILURE);
 		else if (equal_sign && equal_sign[1] != '\0')
 		{
-			split_keyval(argv[i++], &key, &val);
+			split_keyval(shell, argv[i++], &key, &val);
 			set_new_pair(&shell->env, key, val);
 		}
 		else if (equal_sign)
