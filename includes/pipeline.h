@@ -14,32 +14,30 @@
 
 typedef struct s_redir
 {
-	int				type;//<, >, >>, <<
-	char			*target;// file or heredoc delimiter
-	int				quoted;// heredoc quoted?
+	int				type;
+	char			*target;
+	int				quoted;
 	int				hd_tmp;
 	struct s_redir	*next;
 }					t_redir;
 
 typedef struct s_cmd
 {
-	char			**argv;//["echo", "hello", NULL]
-	t_redir			*in;// input redirs
-	t_redir			*out;// output redirs
+	char			**argv;
+	t_redir			*in;
+	t_redir			*out;
 	int				ac;
 }					t_cmd;
 
 typedef struct s_pl
 {
 	t_cmd			*cmd;
-	struct s_pl		*next;// next pipeblock
+	struct s_pl		*next;
 }					t_pl;
 
 int		pipeline_init(t_shell *shell, t_pl **pipeblock);
 int		def_pipeblock(t_shell *shell, t_pl *pipeblock, t_token *curr, int i);
 char	*def_argv(t_arena *arena, char *value);
-void	redirs_quoted(t_token *current, t_pl *pipeblock, char *next);
-int		redir_helper(t_token *token, t_pl *pipeblock);
 int		argc(t_token *token);
 int		init_segment(t_shell *shell, t_pl *pipeblock, t_token *tok);
 t_pl	*new_pipeblock(t_arena *arena);
@@ -49,6 +47,13 @@ t_pl	*add_pipeblock(t_shell *shell);
 
 int		argv_builder(t_pl *pb, t_shell *shell, t_token *curr, int i);
 int		pipeblock_helper(t_pl **pipeblock, t_shell *shell, t_token *cur, int i);
-void	redir_parser(t_pl *pipeblock, t_token *curr);
 
+//redirs
+
+t_redir *add_redir(t_shell *shell);
+int		redir_init(t_pl **pipeblock, t_shell *shell);
+void	ft_lstadd_back_redir(t_redir **lst, t_redir *new);
+void	redirs_quoted(t_token *current, t_pl *pb, char *next, t_shell *shell);
+int		redir_helper(t_token *token, t_pl *pipeblock);
+void	redir_parser(t_shell *shell, t_pl *pipeblock, t_token *curr);
 #endif

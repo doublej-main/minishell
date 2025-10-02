@@ -57,9 +57,9 @@ int	pipeblock_helper(t_pl **pipeblock, t_shell *shell, t_token *cur, int i)
 	return (SUCCESS);
 }
 
-void	redir_parser(t_pl *pipeblock, t_token *curr)
+void	redir_parser(t_shell *shell, t_pl *pipeblock, t_token *curr)
 {
 	redir_helper(curr, pipeblock);
-	redirs_quoted(curr, pipeblock, curr->next->value);
+	redirs_quoted(curr, pipeblock, curr->next->value, shell);
 	curr = curr->next;
 }

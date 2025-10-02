@@ -20,30 +20,31 @@ int	init_segment(t_shell *shell, t_pl *pipeblock, t_token *tok)
 	return (SUCCESS);
 }
 
-void	redirs_quoted(t_token *current, t_pl *pipeblock, char *next)
+void	redirs_quoted(t_token *current, t_pl *pb, char *next, t_shell *shell)
 {
 	if (current->type == REDIR_IN || current->type == REDIR_HEREDOC)
 	{
-		pipeblock->cmd->in->target = next;
-		if (next[0] == '\''
-			&& next[ft_strlen(next) - 1] == '\'')
-			pipeblock->cmd->in->quoted = 1;
-		else if (next[0] == '\"'
-			&& next[ft_strlen(next) - 1] == '\"')
-			pipeblock->cmd->in->quoted = 2;
+		pb->cmd->in->target = next;
+		pb->cmd->in = add_redir(shell);
+		ft_lstadd_back_redir(&shell->pipe_head->cmd->in, pb->cmd->in); 
+		if (next[0] == '\'' && next[ft_strlen(next) - 1] == '\'')
+			pb->cmd->in->quoted = 1;
+		else if (next[0] == '\"' && next[ft_strlen(next) - 1] == '\"')
+			pb->cmd->in->quoted = 2;
 		else
-			pipeblock->cmd->in->quoted = 0;
+			pb->cmd->in->quoted = 0;
 	}
 	if (current->type == REDIR_OUT || current->type == REDIR_APPEND)
 	{
-		pipeblock->cmd->out->target = next;
+		pb->cmd->out->target = next;
+		pb->cmd->out = add_redir(shell);
+		ft_lstadd_back_redir(&shell->pipe_head->cmd->out, pb->cmd->out);
 		if (next[0] == '\'' && next[ft_strlen(next) - 1] == '\'')
-			pipeblock->cmd->out->quoted = 1;
-		else if (next[0] == '\"'
-			&& next[ft_strlen(next) - 1] == '\"')
-			pipeblock->cmd->out->quoted = 2;
+			pb->cmd->out->quoted = 1;
+		else if (next[0] == '\"' && next[ft_strlen(next) - 1] == '\"')
+			pb->cmd->out->quoted = 2;
 		else
-			pipeblock->cmd->out->quoted = 0;
+			pb->cmd->out->quoted = 0;
 	}
 }
 
@@ -71,7 +72,7 @@ int	def_pipeblock(t_shell *shell, t_pl *pipeblock, t_token *curr, int i)
 		{
 			if (!curr->next || curr->next->type != WORD)
 				return (FAILURE);
-			redir_parser(pipeblock, curr);
+			redir_parser(shell, pipeblock, curr);
 			if (curr->next)
 				curr = curr->next;
 			continue ;
@@ -96,18 +97,20 @@ int	pipeline_init(t_shell *shell, t_pl **pipeblock)
 	if (!(*pipeblock)->cmd)
 		return (perror("cmds"), FAILURE);
 	(*pipeblock)->cmd->ac = argc(shell->head);
-	(*pipeblock)->cmd->in = arena_calloc(shell->arena, sizeof(t_redir));
-	if (!(*pipeblock)->cmd->in)
-		return (perror("in"), FAILURE);
-	(*pipeblock)->cmd->out = arena_calloc(shell->arena, sizeof(t_redir));
-	if (!(*pipeblock)->cmd->out)
-		return (perror("out"), FAILURE);
+//	(*pipeblock)->cmd->in = arena_calloc(shell->arena, sizeof(t_redir));
+//	if (!(*pipeblock)->cmd->in)
+//		return (perror("in"), FAILURE);
+//	(*pipeblock)->cmd->out = arena_calloc(shell->arena, sizeof(t_redir));
+//	if (!(*pipeblock)->cmd->out)
+//		return (perror("out"), FAILURE);
 	(*pipeblock)->cmd->argv
 		= arena_alloc(shell->arena,
 			((*pipeblock)->cmd->ac + 1) * sizeof(char *));
 	if (!(*pipeblock)->cmd->argv)
 		return (perror("args"), FAILURE);
 	ft_lstadd_back_pipe(&shell->pipe_head, *pipeblock);
+	if (!redir_init(pipeblock, shell))
+		return (perror("redir"), FAILURE);
 	if (!def_pipeblock(shell, *pipeblock, curr, 0))
 		return (perror("def_pipeblock"), FAILURE);
 	return (SUCCESS);
