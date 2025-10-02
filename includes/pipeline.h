@@ -50,10 +50,7 @@ int		pipeblock_helper(t_pl **pipeblock, t_shell *shell, t_token *cur, int i);
 
 //redirs
 
-t_redir *add_redir(t_shell *shell);
-int		redir_init(t_pl **pipeblock, t_shell *shell);
+t_redir	*add_redir(t_shell *shell);
 void	ft_lstadd_back_redir(t_redir **lst, t_redir *new);
 void	redirs_quoted(t_token *current, t_pl *pb, char *next, t_shell *shell);
-int		redir_helper(t_token *token, t_pl *pipeblock);
-void	redir_parser(t_shell *shell, t_pl *pipeblock, t_token *curr);
 #endif

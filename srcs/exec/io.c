@@ -40,7 +40,7 @@ int	io_apply_redirs(const t_cmd *cmd)
 	t_redir	*r;
 
 	r = NULL;
-	if (cmd->in->target)
+	if (cmd->in && cmd->in->target)
 		r = cmd->in;
 	while (r)
 	{
@@ -49,7 +49,7 @@ int	io_apply_redirs(const t_cmd *cmd)
 			return (ft_putstr_fd("in redir error\n", 2), -1);
 		r = r->next;
 	}
-	if (cmd->out->target)
+	if (cmd->out && cmd->out->target)
 		r = cmd->out;
 	while (r)
 	{
