@@ -32,10 +32,10 @@ char	*gettokentype(int type)
 }
 
 // for testing
-static void	print_token(t_token *token)
-{
-	printf("Token: %s	| Type: %s\n", token->value, gettokentype(token->type));
-}
+// static void	print_token(t_token *token)
+// {
+// 	printf("Token: %s	| Type: %s\n", token->value, gettokentype(token->type));
+// }
 
 int	tokenization_helper(t_shell *shell, t_parser *p, t_token *token, int i)
 {
@@ -46,7 +46,6 @@ int	tokenization_helper(t_shell *shell, t_parser *p, t_token *token, int i)
 	if (!token->value)
 		return (perror("token"), FAILURE);
 	token->type = get_type(token->value);
-	print_token(token);
 	ft_lstadd_back(&shell->head, token);
 	return (SUCCESS);
 }

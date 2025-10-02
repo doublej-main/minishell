@@ -14,10 +14,11 @@ typedef struct s_env
 /*
 ** env.c
 */
-t_env				*env_from_environ(char **envp);
+t_env				*env_from_environ(t_shell *shell, char **envp);
 void				env_free(t_env *env);
 t_env				*env_new_pair(const char *key, const char *val);
-int					split_keyval(const char *str, char **key, char **val);
+int					split_keyval(t_shell *shell, const char *str, char **key,
+						char **val);
 /*
 ** builtin helpers
 */

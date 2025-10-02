@@ -1,37 +1,11 @@
 #include "minishell.h"
 
-int	replace_with_val(t_shell *shell, char **str)
-{
-	char	*itoa;
-	char	*key;
-
-	itoa = NULL;
-	key = NULL;
-	if (!ft_strcmp(*str, "$?"))
-	{
-		itoa = ft_itoa(shell->status);
-		*str = arena_strdup(shell->arena, itoa);
-		free(itoa);
-		return (SUCCESS);
-	}
-	if (shell->single || shell->doppel)
-		key = strip_quotes(shell->arena, *str);
-	if (shell->single)
-	{
-		*str = key;
-		return (SUCCESS);
-	}
-	*str = env_get(shell->env, ft_strchr(key, '$') + 1);
-	if (!*str)
-		return (FAILURE);
-	return (SUCCESS);
-}
-
 int	check_for_env(t_shell *shell, char **str)
 {
 	if (ft_strchr(*str, '$'))
 	{
-		if (!replace_with_val(shell, str))
+		*str = spliceline(shell, *str);
+		if (!*str)
 			return (FAILURE);
 	}
 	return (SUCCESS);

@@ -2,7 +2,6 @@
 
 int	shell_init(t_shell *shell, char **environ)
 {
-	shell->env = env_from_environ(environ);
 	shell->fd_in = dup(STDIN_FILENO);
 	if (shell->fd_in < 0)
 		return (FAILURE);
@@ -10,6 +9,7 @@ int	shell_init(t_shell *shell, char **environ)
 		return (perror("env fail"), FAILURE);
 	if (arena_init(shell->arena, 10000) < 0)
 		return (ft_putstr_fd("arena fail", 2), FAILURE);
+	shell->env = env_from_environ(shell, environ);
 	disable_echoctl();
 	shell->status = 0;
 	return (SUCCESS);
