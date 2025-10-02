@@ -14,7 +14,7 @@ int	mini_unset(char **argv, t_shell *shell)
 		}
 		else
 		{
-			if (env_unset(shell->env, argv[i]) > 0)
+			if (env_unset(&shell->env, argv[i]) > 0)
 				return (ft_putstr_fd("Variable was not set\n", 1), SUCCESS);
 		}
 		i++;

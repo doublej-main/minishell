@@ -40,7 +40,6 @@ int	heredoc_prepare_all(t_shell *shell)
 	seg = shell->pipe_head;
 	while (seg)
 	{
-		printf("index is: %d\n", i);
 		i++;
 		if (seg->cmd->in->target)
 			r = seg->cmd->in;
