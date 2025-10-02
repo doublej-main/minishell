@@ -32,15 +32,12 @@ int	heredoc_prepare_all(t_shell *shell)
 {
 	t_pl	*seg;
 	t_redir	*r;
-	int		i;
 
-	i = 0;
-	if (!shell->pipe_head->cmd->in->target)
+	if (!shell->pipe_head->cmd->in)
 		return (SUCCESS);
 	seg = shell->pipe_head;
 	while (seg)
 	{
-		i++;
 		if (seg->cmd->in->target)
 			r = seg->cmd->in;
 		while (r)
@@ -62,7 +59,7 @@ void	heredoc_cleanup_all(t_pl *pipeblock)
 	t_pl	*seg;
 	t_redir	*r;
 
-	if (!pipeblock->cmd->in->target)
+	if (!pipeblock->cmd->in)
 		return ;
 	seg = pipeblock;
 	while (seg)

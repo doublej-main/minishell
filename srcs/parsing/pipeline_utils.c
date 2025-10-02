@@ -1,18 +1,5 @@
 #include "minishell.h"
 
-int	redir_helper(t_token *token, t_pl *pipeblock)
-{
-	if (token->type == REDIR_IN)
-		pipeblock->cmd->in->type = REDIR_IN;
-	if (token->type == REDIR_OUT)
-		pipeblock->cmd->out->type = REDIR_OUT;
-	if (token->type == REDIR_APPEND)
-		pipeblock->cmd->out->type = REDIR_APPEND;
-	if (token->type == REDIR_HEREDOC)
-		pipeblock->cmd->in->type = REDIR_HEREDOC;
-	return (1);
-}
-
 int	argc(t_token *token)
 {
 	int		count;
@@ -55,11 +42,4 @@ int	pipeblock_helper(t_pl **pipeblock, t_shell *shell, t_token *cur, int i)
 	if (!init_segment(shell, *pipeblock, cur->next))
 		return (FAILURE);
 	return (SUCCESS);
-}
-
-void	redir_parser(t_pl *pipeblock, t_token *curr)
-{
-	redir_helper(curr, pipeblock);
-	redirs_quoted(curr, pipeblock, curr->next->value);
-	curr = curr->next;
 }

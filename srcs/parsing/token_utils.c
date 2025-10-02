@@ -13,30 +13,6 @@ t_token	*add_token(t_shell *shell)
 	return (temp);
 }
 
-char	*gettokentype(int type)
-{
-	if (type == PIPE)
-		return ("PIPE");
-	else if (type == REDIR_IN)
-		return ("REDIR IN");
-	else if (type == REDIR_OUT)
-		return ("REDIR OUT");
-	else if (type == REDIR_APPEND)
-		return ("REDIR APPEND");
-	else if (type == REDIR_HEREDOC)
-		return ("REDIR HEREDOC");
-	else if (type == ENV_VAR)
-		return ("ENV VAR");
-	else
-		return ("WORD");
-}
-
-// for testing
-// static void	print_token(t_token *token)
-// {
-// 	printf("Token: %s	| Type: %s\n", token->value, gettokentype(token->type));
-// }
-
 int	tokenization_helper(t_shell *shell, t_parser *p, t_token *token, int i)
 {
 	if (!check_for_env(shell, &p->array[i]))
