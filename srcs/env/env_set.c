@@ -3,14 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   env_set.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:41:55 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:41:57 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/03 13:08:57 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*strip_quotes_env(const char *s)
+{
+	char	*out;
+	int		i;
+	int		j;
+	char	q;
+
+	out = malloc(ft_strlen(s) + 1);
+	if (!out)
+		return (NULL);
+	i = 0;
+	q = 0;
+	j = 0;
+	while (s[i])
+	{
+		if ((s[i] == '\'' || s[i] == '"') && q == 0)
+			q = s[i];
+		else if (q && s[i] == q)
+			q = 0;
+		else
+			out[j++] = s[i];
+		i++;
+	}
+	out[j] = '\0';
+	return (out);
+}
 
 t_env	*env_find(t_env *env, const char *key)
 {

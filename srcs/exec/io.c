@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   io.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:42:54 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:43:03 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/03 11:30:41 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	io_apply_redirs(const t_cmd *cmd)
 		r = cmd->out;
 	while (r)
 	{
+		printf("before open out\n");
 		fd = open_out(r);
 		if (fd < 0 || dup_to(fd, STDOUT_FILENO) < 0)
 			return (ft_putstr_fd("open out error\n", 2), -1);

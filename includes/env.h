@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:36:33 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:36:36 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/03 12:43:05 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ int					env_unset(t_env **env, const char *key);
 int					env_to_array(t_env *env, t_env **arr, int count);
 int					env_count(t_env *env);
 t_env				*env_find(t_env *env, const char *key);
+char				*strip_quotes_env(const char *s);
 
 #endif
