@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:42:29 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/03 11:49:50 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/03 13:30:39 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static void	cleanup_child(t_shell *shell, char **envv, char *prog)
 		_exit(126);
 	else
 		_exit(127);
-	
 }
 
 void	exec_external_or_builtin(const t_cmd *cmd, t_shell *shell)
