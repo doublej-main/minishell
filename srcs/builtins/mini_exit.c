@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:40:35 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/03 10:53:21 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/03 14:41:59 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,16 @@ int	mini_exit(char **argv, t_shell *shell)
 	unsigned char	exit_code;
 
 	exit_code = 0;
-	(void)shell;
 	if (!argv[1])
+	{
+		shell_destroy(shell);
 		exit(shell->status);
+	}
 	if (!ft_isnum(argv[1]))
 	{
 		ft_putstr_fd("exit: numeric arg required\n", 2);
-		return (2);
+		shell_destroy(shell);
+		exit(2);
 	}
 	if (argv[1] && argv[2])
 	{

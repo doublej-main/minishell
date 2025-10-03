@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_pipeline.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:43:31 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:43:33 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/03 14:39:57 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
 	}
 	if (io_apply_redirs(seg->cmd) < 0)
 		_exit(1);
-	if (is_any_builtin(seg->cmd->argv[0]))
-		_exit(run_any_builtin(seg->cmd->argv[0], seg->cmd->argv, shell));
+	// if (is_any_builtin(seg->cmd->argv[0]))
+	// 	_exit(run_any_builtin(seg->cmd->argv[0], seg->cmd->argv, shell));
 	exec_external_or_builtin(seg->cmd, shell);
 }
 
