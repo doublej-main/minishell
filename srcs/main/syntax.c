@@ -6,7 +6,7 @@
 /*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:45:39 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/06 15:36:13 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/06 16:52:28 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,24 @@ static int	redirs(char *line, int i)
 	return (SUCCESS);
 }
 
+static void	quote_syntax(char *line, size_t *i)
+{
+	char	q;
+	size_t	j;
+
+	j = 0;
+	while (line[j] != '\'' && line[j] != '"')
+		j++;
+	if (line[*i] == '\'' || line[*i] == '"')
+	{
+		*i = j;
+		q = line[*i];
+		*i += 1;
+		while (line[*i] && line[*i] != q)
+			*i += 1;
+	}
+}
+
 int	syntax_error_checker(t_shell *shell, char *line)
 {
 	size_t	i;
@@ -65,6 +83,7 @@ int	syntax_error_checker(t_shell *shell, char *line)
 	i = 0;
 	if (line)
 	{
+		quote_syntax(line, &i);
 		while (line[i])
 		{
 			if (!pipes_and_ampersands(line, i, 0))

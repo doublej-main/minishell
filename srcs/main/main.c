@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:34 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/06 16:13:59 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/06 16:29:04 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	main(int argc, char **argv, char **environ)
 	pipeblock = NULL;
 	arena = (t_arena){0};
 	shell.arena = &arena;
-	print_banner();
+//	print_banner();
 	if (!shell_init(&shell, environ))
 		return (EXIT_FAILURE);
 	shell_loop(&shell, token, pipeblock);
