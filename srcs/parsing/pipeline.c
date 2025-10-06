@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:46:15 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:46:17 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/06 14:47:40 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,10 @@ int	pipeline_init(t_shell *shell, t_pl **pipeblock)
 	(*pipeblock)->cmd->in = NULL;
 	(*pipeblock)->cmd->out = NULL;
 	if (!def_pipeblock(shell, *pipeblock, curr, 0))
-		return (perror("def_pipeblock"), FAILURE);
+	{
+		shell->status = 2;
+		arena_reset(shell, shell->arena);
+		return (ft_putstr_fd("error: def_pipeblock\n", 2), FAILURE);
+	}
 	return (SUCCESS);
 }

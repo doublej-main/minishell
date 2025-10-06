@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:41 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:44:42 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/06 14:28:46 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	shell_destroy(t_shell *shell)
 {
 	env_free(shell->env);
 	arena_destroy(shell->arena);
+	close(shell->fd_in);
 }
 
 void	consume_line(t_shell *shell, char *line)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arena.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:36:13 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:36:15 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/06 14:44:08 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_arena
  */
 int							arena_init(t_arena *arena, size_t block_size);
 void						arena_destroy(t_arena *arena);
-void						arena_reset(t_arena *arena);
+void						arena_reset(t_shell *shell, t_arena *arena);
 // t_arena_block	*arena_add_block(t_arena *arena, size_t needed);
 void						arena_add_block(t_arena *arena, size_t needed);
 void						*arena_alloc(t_arena *arena, size_t needed);
