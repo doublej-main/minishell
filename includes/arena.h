@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:36:13 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/06 14:44:08 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/06 16:04:42 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # define INIT_FAIL -1
 # define SUCCESS 1
 # define FAILURE 0
+
+typedef struct s_shell	t_shell;
 
 typedef struct s_arena_block
 {
@@ -40,7 +42,6 @@ typedef struct s_arena
 int							arena_init(t_arena *arena, size_t block_size);
 void						arena_destroy(t_arena *arena);
 void						arena_reset(t_shell *shell, t_arena *arena);
-// t_arena_block	*arena_add_block(t_arena *arena, size_t needed);
 void						arena_add_block(t_arena *arena, size_t needed);
 void						*arena_alloc(t_arena *arena, size_t needed);
 void						*arena_calloc(t_arena *arena, size_t needed);

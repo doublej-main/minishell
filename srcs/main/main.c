@@ -6,11 +6,17 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:34 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/06 14:52:56 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/06 16:13:59 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	signal_helper(t_shell *shell)
+{
+	shell->status = 130;
+	g_sig = 0;
+}
 
 int	shell_init(t_shell *shell, char **environ)
 {
@@ -40,13 +46,14 @@ void	shell_loop(t_shell *shell, t_token *token, t_pl *pipeblock)
 		prompt = make_prompt(shell->arena);
 		line = readline(prompt);
 		if (g_sig == SIGINT)
-			shell->status = 130;
+			signal_helper(shell);
 		if (!line)
 			break ;
 		consume_line(shell, line);
 		if (!syntax_error_checker(shell, line))
 			continue ;
-		tokenize_input(line, shell, token);
+		if (!tokenize_input(line, shell, token))
+			continue ;
 		free(line);
 		if (!pipeline_init(shell, &pipeblock))
 			continue ;

@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:46:47 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/03 11:27:06 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/06 16:14:52 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	tokenize_input(char *line, t_shell *shell, t_token *token)
 		return (perror("memory"), FAILURE);
 	p->array = parser(shell, line, shell->arena, p);
 	if (!p->array)
-		return (ft_putstr_fd("parse error\n", 2), FAILURE);
+		return (FAILURE);
 	while (p->array[i])
 	{
 		if (!tokenization_helper(shell, p, token, i))
