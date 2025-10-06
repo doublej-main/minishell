@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:43:31 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/03 14:39:57 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/06 12:22:17 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
 	}
 	if (io_apply_redirs(seg->cmd) < 0)
 		_exit(1);
-	// if (is_any_builtin(seg->cmd->argv[0]))
-	// 	_exit(run_any_builtin(seg->cmd->argv[0], seg->cmd->argv, shell));
 	exec_external_or_builtin(seg->cmd, shell);
 }
 

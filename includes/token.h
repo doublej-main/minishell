@@ -6,7 +6,7 @@
 /*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:38:09 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:38:11 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/06 12:23:18 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,6 @@
 # include "stddef.h"
 
 typedef struct s_arena	t_arena;
-
-// typedef enum e_token_type
-//{
-//	WORD,          // For commands and arguments
-//	PIPE,          // For '|'
-//	REDIR_IN,      // For '<'
-//	REDIR_OUT,     // For '>'
-//	REDIR_APPEND,  // For '>>'
-//	REDIR_HEREDOC, // For '<<'
-//	ENV_VAR,       // For environment variables '$'
-//}						t_token_type;
 
 typedef struct s_token
 {
