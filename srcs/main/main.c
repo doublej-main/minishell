@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:34 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/07 15:53:37 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/07 16:52:32 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ void	shell_loop(t_shell *shell, t_token *token, t_pl *pipeblock)
 		consume_line(shell, line);
 		shell->status = tokenize_input(line, shell, token, 0);
 		if (shell->status != 0)
+		{
+			free(line);
 			continue ;
+		}
 		free(line);
 		if (!pipeline_init(shell, &pipeblock))
 			continue ;
@@ -78,7 +81,7 @@ int	main(int argc, char **argv, char **environ)
 	pipeblock = NULL;
 	arena = (t_arena){0};
 	shell.arena = &arena;
-//	print_banner();
+	print_banner();
 	if (!shell_init(&shell, environ))
 		return (EXIT_FAILURE);
 	shell_loop(&shell, token, pipeblock);

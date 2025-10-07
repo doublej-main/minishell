@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_unset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:41:14 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:41:15 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/07 16:52:04 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	mini_unset(char **argv, t_shell *shell)
 		else
 		{
 			if (env_unset(&shell->env, argv[i]) > 0)
-				return (ft_putstr_fd("Variable was not set\n", 1), SUCCESS);
+				return (ft_putstr_fd("Variable not set\n", 1), EXIT_SUCCESS);
 		}
 		i++;
 	}

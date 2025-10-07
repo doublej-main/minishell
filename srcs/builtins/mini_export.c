@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:40:58 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/03 13:26:18 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/07 16:51:51 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	mini_export(char **argv, t_shell *shell)
 	{
 		equal_sign = ft_strchr(argv[i], '=');
 		if (!is_identifier(argv[i]))
-			return (ft_putstr_fd("export: not an identifier\n", 2), FAILURE);
+			return (ft_putstr_fd("export: not an id\n", 2), EXIT_FAILURE);
 		else if (equal_sign && equal_sign[1] != '\0')
 		{
 			split_keyval(shell, argv[i++], &key, &val);
