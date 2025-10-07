@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:46:15 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/06 14:47:40 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/07 13:29:40 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,15 +100,15 @@ int	pipeline_init(t_shell *shell, t_pl **pipeblock)
 	curr = shell->head;
 	(*pipeblock) = arena_alloc(shell->arena, sizeof(t_pl));
 	if (!*pipeblock)
-		return (perror("pipeblock"), FAILURE);
+		return (ft_putstr_fd("error: pipeblock\n", 2), FAILURE);
 	(*pipeblock)->cmd = arena_alloc(shell->arena, sizeof(t_cmd));
 	if (!(*pipeblock)->cmd)
-		return (perror("cmds"), FAILURE);
+		return (ft_putstr_fd("error: cmds\n", 2), FAILURE);
 	(*pipeblock)->cmd->ac = argc(shell->head);
 	(*pipeblock)->cmd->argv = arena_alloc(shell->arena,
 			((*pipeblock)->cmd->ac + 1) * sizeof(char *));
 	if (!(*pipeblock)->cmd->argv)
-		return (perror("args"), FAILURE);
+		return (ft_putstr_fd("error: bad args\n", 2), FAILURE);
 	ft_lstadd_back_pipe(&shell->pipe_head, *pipeblock);
 	(*pipeblock)->cmd->in = NULL;
 	(*pipeblock)->cmd->out = NULL;

@@ -32,7 +32,7 @@ int	tokenization_helper(t_shell *shell, t_parser *p, t_token *token, int i)
 	token = add_token(shell);
 	token->value = arena_strdup(shell->arena, p->array[i]);
 	if (!token->value)
-		return (perror("token"), FAILURE);
+		return (ft_putstr_fd("error: token\n", 2), FAILURE);
 	token->type = get_type(token->value);
 	ft_lstadd_back(&shell->head, token);
 	return (SUCCESS);

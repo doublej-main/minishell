@@ -32,6 +32,8 @@ int	shell_init(t_shell *shell, char **environ)
 	shell->head = NULL;
 	shell->pipe_head = NULL;
 	shell->status = 0;
+	shell->head = NULL;
+	shell->pipe_head = NULL;
 	return (SUCCESS);
 }
 
