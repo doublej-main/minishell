@@ -61,7 +61,7 @@ int	arena_init(t_arena *arena, size_t block_size)
 	return (SUCCESS);
 }
 
-void	arena_reset(t_arena *arena)
+void	arena_reset(t_shell *shell, t_arena *arena)
 {
 	t_arena_block	*tmp;
 	t_arena_block	*next;
@@ -78,6 +78,8 @@ void	arena_reset(t_arena *arena)
 	}
 	arena->head->used_mem = 0;
 	arena->head->next = NULL;
+	shell->head = NULL;
+	shell->pipe_head = NULL;
 }
 
 void	arena_destroy(t_arena *arena)

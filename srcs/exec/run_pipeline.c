@@ -16,13 +16,13 @@ static int	count_segments(t_pl *pl)
 static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
 {
 	if (!seg->cmd)
-		_exit(0);
+		even_earlier_exit(shell, 0);
 	signals_default();
 	if ((!seg->cmd->argv || !seg->cmd->argv[0]) && seg->cmd->out)
 	{
 		if (open_out(seg->cmd->out) < 0)
-			_exit(1);
-		_exit(0);
+			even_earlier_exit(shell, 1);
+		even_earlier_exit(shell, 0);
 	}
 	if (in != -1)
 	{
@@ -35,7 +35,7 @@ static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
 		close(out);
 	}
 	if (io_apply_redirs(seg->cmd) < 0)
-		_exit(1);
+		even_earlier_exit(shell, 1);
 	if (is_any_builtin(seg->cmd->argv[0]))
 		_exit(run_any_builtin(seg->cmd->argv[0], seg->cmd->argv, shell));
 	exec_external_or_builtin(seg->cmd, shell);
@@ -76,7 +76,7 @@ static int	fork_segment(t_pl *seg, t_fd *fd, int i, t_shell *shell)
 		if (i < fd->count -1)
 			fd->out_fd = fd->fd[1];
 		child_segment(seg, fd->prev_in, fd->out_fd, shell);
-		_exit(1);
+		even_earlier_exit(shell, 1);
 	}
 	if (fd->prev_in != -1)
 		close(fd->prev_in);

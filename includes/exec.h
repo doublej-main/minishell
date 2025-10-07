@@ -33,5 +33,6 @@ int						run_single(t_cmd *cmd, t_shell *shell);
 int						io_apply_redirs(const t_cmd *cmd);
 void					io_restore_std(int save_in, int save_out);
 int						open_out(const t_redir *r);
+void					even_earlier_exit(t_shell *shell, int status);
 
 #endif

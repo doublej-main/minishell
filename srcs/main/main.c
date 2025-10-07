@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -8,12 +6,17 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:34 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/07 12:27:14 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/07 13:06:29 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
->>>>>>> Stashed changes
 #include "minishell.h"
+
+static void	signal_helper(t_shell *shell)
+{
+	shell->status = 130;
+	g_sig = 0;
+}
 
 int	shell_init(t_shell *shell, char **environ)
 {
@@ -27,34 +30,26 @@ int	shell_init(t_shell *shell, char **environ)
 		return (perror("env fail"), FAILURE);
 	disable_echoctl();
 	shell->status = 0;
+	shell->head = NULL;
+	shell->pipe_head = NULL;
 	return (SUCCESS);
 }
 
-void	shell_loop(t_shell *shell)
+void	shell_loop(t_shell *shell, t_token *token, t_pl *pipeblock)
 {
 	char	*line;
 	char	*prompt;
-	t_token	*token;
-	t_pl	*pipeblock;
 
-	token = NULL;
-	pipeblock = NULL;
 	while (1)
 	{
 		signals_interactive();
 		prompt = make_prompt(shell->arena);
 		line = readline(prompt);
+		if (g_sig == SIGINT)
+			signal_helper(shell);
 		if (!line)
 			break ;
 		consume_line(shell, line);
-<<<<<<< Updated upstream
-		if (!syntax_error_checker(shell, line))
-			continue ;
-		shell->head = NULL;
-		tokenize_input(line, shell, token);
-		shell->pipe_head = NULL;
-		pipeline_init(shell, &pipeblock);
-=======
 		// if (!syntax_error_checker(shell, line))
 		// 	continue ;
 		if (!tokenize_input(line, shell, token))
@@ -62,10 +57,8 @@ void	shell_loop(t_shell *shell)
 		free(line);
 		if (!pipeline_init(shell, &pipeblock))
 			continue ;
->>>>>>> Stashed changes
 		shell->status = execute_pipeline(shell->pipe_head, shell);
-		free(line);
-		arena_reset(shell->arena);
+		arena_reset(shell, shell->arena);
 	}
 }
 
@@ -73,17 +66,21 @@ int	main(int argc, char **argv, char **environ)
 {
 	t_shell		shell;
 	t_arena		arena;
+	t_token		*token;
+	t_pl		*pipeblock;
 	extern int	rl_catch_signals;
 
 	(void)argc;
 	(void)argv;
 	rl_catch_signals = 0;
+	token = NULL;
+	pipeblock = NULL;
 	arena = (t_arena){0};
 	shell.arena = &arena;
 	print_banner();
 	if (!shell_init(&shell, environ))
 		return (EXIT_FAILURE);
-	shell_loop(&shell);
+	shell_loop(&shell, token, pipeblock);
 	shell_destroy(&shell);
 	return (EXIT_SUCCESS);
 }
