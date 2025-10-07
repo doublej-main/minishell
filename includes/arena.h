@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 11:39:13 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/10/07 12:47:01 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/07 13:15:20 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # define INIT_FAIL -1
 # define SUCCESS 1
 # define FAILURE 0
+
+typedef struct s_shell	t_shell;
 
 typedef struct s_arena_block
 {

@@ -75,11 +75,11 @@ int	tokenize_input(char *line, t_shell *shell, t_token *token)
 		return (perror("memory"), FAILURE);
 	p->array = parser(shell, line, shell->arena, p);
 	if (!p->array)
-		return (ft_putstr_fd("parse error\n", 2), FAILURE);
+		return (FAILURE);
 	while (p->array[i])
 	{
 		if (!tokenization_helper(shell, p, token, i))
-			return (perror("token"), FAILURE);
+			return (ft_putstr_fd("error: token\n", 2), FAILURE);
 		i++;
 	}
 	return (SUCCESS);

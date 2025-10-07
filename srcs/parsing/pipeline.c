@@ -91,24 +91,24 @@ int	pipeline_init(t_shell *shell, t_pl **pipeblock)
 	curr = shell->head;
 	(*pipeblock) = arena_alloc(shell->arena, sizeof(t_pl));
 	if (!*pipeblock)
-		return (perror("pipeblock"), FAILURE);
+		return (ft_putstr_fd("error: pipeblock\n", 2), FAILURE);
 	(*pipeblock)->cmd = arena_alloc(shell->arena, sizeof(t_cmd));
 	if (!(*pipeblock)->cmd)
-		return (perror("cmds"), FAILURE);
+		return (ft_putstr_fd("error: cmds\n", 2), FAILURE);
 	(*pipeblock)->cmd->ac = argc(shell->head);
 	(*pipeblock)->cmd->in = arena_calloc(shell->arena, sizeof(t_redir));
 	if (!(*pipeblock)->cmd->in)
-		return (perror("in"), FAILURE);
+		return (ft_putstr_fd("error: in calloc\n", 2), FAILURE);
 	(*pipeblock)->cmd->out = arena_calloc(shell->arena, sizeof(t_redir));
 	if (!(*pipeblock)->cmd->out)
-		return (perror("out"), FAILURE);
+		return (ft_putstr_fd("error: out\n", 2), FAILURE);
 	(*pipeblock)->cmd->argv
 		= arena_alloc(shell->arena,
 			((*pipeblock)->cmd->ac + 1) * sizeof(char *));
 	if (!(*pipeblock)->cmd->argv)
-		return (perror("args"), FAILURE);
+		return (ft_putstr_fd("error: bad args\n", 2), FAILURE);
 	ft_lstadd_back_pipe(&shell->pipe_head, *pipeblock);
 	if (!def_pipeblock(shell, *pipeblock, curr, 0))
-		return (perror("def_pipeblock"), FAILURE);
+		return (ft_putstr_fd("error: def_pipeblock\n", 2), FAILURE);
 	return (SUCCESS);
 }
