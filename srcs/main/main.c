@@ -1,3 +1,18 @@
+<<<<<<< Updated upstream
+=======
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/02 17:44:34 by vahdekiv          #+#    #+#             */
+/*   Updated: 2025/10/07 12:27:14 by jjaaskel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+>>>>>>> Stashed changes
 #include "minishell.h"
 
 int	shell_init(t_shell *shell, char **environ)
@@ -32,12 +47,22 @@ void	shell_loop(t_shell *shell)
 		if (!line)
 			break ;
 		consume_line(shell, line);
+<<<<<<< Updated upstream
 		if (!syntax_error_checker(shell, line))
 			continue ;
 		shell->head = NULL;
 		tokenize_input(line, shell, token);
 		shell->pipe_head = NULL;
 		pipeline_init(shell, &pipeblock);
+=======
+		// if (!syntax_error_checker(shell, line))
+		// 	continue ;
+		if (!tokenize_input(line, shell, token))
+			continue ;
+		free(line);
+		if (!pipeline_init(shell, &pipeblock))
+			continue ;
+>>>>>>> Stashed changes
 		shell->status = execute_pipeline(shell->pipe_head, shell);
 		free(line);
 		arena_reset(shell->arena);

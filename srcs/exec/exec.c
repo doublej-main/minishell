@@ -1,5 +1,28 @@
+<<<<<<< Updated upstream
 #include "minishell.h"
 
+=======
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/02 17:42:29 by vahdekiv          #+#    #+#             */
+/*   Updated: 2025/10/07 12:33:35 by jjaaskel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+static void	even_earlier_exit(t_shell *shell, int status)
+{
+	shell_destroy(shell);
+	_exit(status);
+}
+
+>>>>>>> Stashed changes
 static void	early_exit(t_shell *shell)
 {
 	ft_putstr_fd("command not found\n", 2);
@@ -26,7 +49,11 @@ void	exec_external_or_builtin(const t_cmd *cmd, t_shell *shell)
 	int		status;
 
 	if (!cmd || !cmd->argv || !cmd->argv[0])
+<<<<<<< Updated upstream
 		_exit(0);
+=======
+		even_earlier_exit(shell, 0);
+>>>>>>> Stashed changes
 	if (is_any_builtin(cmd->argv[0]))
 	{
 		status = run_any_builtin(cmd->argv[0], cmd->argv, shell);
@@ -42,7 +69,7 @@ void	exec_external_or_builtin(const t_cmd *cmd, t_shell *shell)
 		early_exit(shell);
 	envv = env_to_chars(shell->env);
 	if (!envv)
-		_exit(1);
+		even_earlier_exit(shell, 1);
 	execve(prog, cmd->argv, envv);
 	cleanup_child(shell, envv, prog);
 }
