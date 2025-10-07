@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mini_cd.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/02 17:40:06 by vahdekiv          #+#    #+#             */
+/*   Updated: 2025/10/03 12:13:02 by jjaaskel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	mini_cd(char **argv, t_shell *shell)
@@ -9,7 +21,7 @@ int	mini_cd(char **argv, t_shell *shell)
 	if (argv[1] && argv[2])
 		return (ft_putstr_fd("cd : too many arguments\n", 2), EXIT_FAILURE);
 	dir = argv[1];
-	if (!dir || dir[0] == '~')
+	if (!dir)
 	{
 		dir = env_get(shell->env, "HOME");
 		if (!dir || !*dir)

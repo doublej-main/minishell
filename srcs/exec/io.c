@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   io.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/02 17:42:54 by vahdekiv          #+#    #+#             */
+/*   Updated: 2025/10/06 14:11:11 by jjaaskel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	io_restore_std(int save_in, int save_out)
@@ -40,7 +52,7 @@ int	io_apply_redirs(const t_cmd *cmd)
 	t_redir	*r;
 
 	r = NULL;
-	if (cmd->in->target)
+	if (cmd->in && cmd->in->target)
 		r = cmd->in;
 	while (r)
 	{
@@ -49,7 +61,7 @@ int	io_apply_redirs(const t_cmd *cmd)
 			return (ft_putstr_fd("in redir error\n", 2), -1);
 		r = r->next;
 	}
-	if (cmd->out->target)
+	if (cmd->out && cmd->out->target)
 		r = cmd->out;
 	while (r)
 	{

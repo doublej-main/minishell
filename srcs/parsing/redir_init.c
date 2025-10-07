@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back_pipe.c                              :+:      :+:    :+:   */
+/*   redir_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/02 17:48:24 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:48:26 by vahdekiv         ###   ########.fr       */
+/*   Created: 2025/10/02 17:46:39 by vahdekiv          #+#    #+#             */
+/*   Updated: 2025/10/02 17:46:41 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-static t_pl	*ft_lstlast_pipe(t_pl *lst)
+static t_redir	*ft_lstlast_redir(t_redir *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -21,9 +21,9 @@ static t_pl	*ft_lstlast_pipe(t_pl *lst)
 	return (lst);
 }
 
-void	ft_lstadd_back_pipe(t_pl **lst, t_pl *new)
+void	ft_lstadd_back_redir(t_redir **lst, t_redir *new)
 {
-	t_pl	*last;
+	t_redir	*last;
 
 	if (!lst || !new)
 		return ;
@@ -33,7 +33,19 @@ void	ft_lstadd_back_pipe(t_pl **lst, t_pl *new)
 		*lst = new;
 		return ;
 	}
-	last = ft_lstlast_pipe(*lst);
+	last = ft_lstlast_redir(*lst);
 	if (last)
 		last->next = new;
+}
+
+t_redir	*add_redir(t_shell *shell)
+{
+	t_redir	*temp;
+
+	temp = arena_calloc(shell->arena, sizeof(t_redir));
+	if (!temp)
+		return (NULL);
+	temp->target = NULL;
+	temp->next = NULL;
+	return (temp);
 }

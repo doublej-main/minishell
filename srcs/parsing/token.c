@@ -1,8 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/02 17:46:47 by vahdekiv          #+#    #+#             */
+/*   Updated: 2025/10/06 16:14:52 by vahdekiv         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	check_for_env(t_shell *shell, char **str)
 {
-	if (ft_strchr(*str, '$'))
+	char	*itoa;
+	int		len;
+
+	len = ft_strlen(*str);
+	itoa = NULL;
+	if (!ft_strcmp(*str, "$?") || !ft_strcmp(*str, "\"$?\""))
+	{
+		itoa = ft_itoa(shell->status);
+		*str = arena_strdup(shell->arena, itoa);
+		free(itoa);
+		return (SUCCESS);
+	}
+	if (ft_strchr(*str, '$') && (*str)[0] != '\'' && (*str)[len - 1] != '\'')
 	{
 		*str = spliceline(shell, *str);
 		if (!*str)
@@ -23,8 +47,6 @@ int	get_type(char *token)
 		return (REDIR_APPEND);
 	if (ft_strcmp(token, "<<") == 0)
 		return (REDIR_HEREDOC);
-	if (!ft_strcmp(token, "$"))
-		return (ENV_VAR);
 	else
 		return (WORD);
 }

@@ -5,12 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 14:23:47 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/10/02 13:26:49 by jjaaskel         ###   ########.fr       */
+/*   Created: 2025/10/02 17:41:30 by vahdekiv          #+#    #+#             */
+/*   Updated: 2025/10/03 12:44:15 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	free_node(t_env *env)
+{
+	if (env->key)
+		free(env->key);
+	if (env->val)
+		free(env->val);
+	free(env);
+}
 
 t_env	*env_new_pair(const char *key, const char *val)
 {
@@ -32,9 +41,7 @@ t_env	*env_new_pair(const char *key, const char *val)
 	env->next = NULL;
 	if (!env->key || (val && !env->val))
 	{
-		free(env->key);
-		free(env->val);
-		free(env);
+		free_node(env);
 		return (NULL);
 	}
 	return (env);
@@ -44,6 +51,7 @@ int	split_keyval(t_shell *shell, const char *str, char **key, char **val)
 {
 	int	i;
 
+	(void)shell;
 	i = 0;
 	while (str[i] && str[i] != '=')
 		i++;
@@ -62,7 +70,7 @@ int	split_keyval(t_shell *shell, const char *str, char **key, char **val)
 	if (str[i] == '=')
 	{
 		*val = (char *)(str + i + 1);
-		*val = strip_quotes(shell->arena, *val);
+		*val = strip_quotes_env(*val);
 	}
 	return (SUCCESS);
 }
@@ -83,6 +91,7 @@ t_env	*env_from_environ(t_shell *shell, char **envp)
 			return (env_free(head), NULL);
 		node = env_new_pair(key, val);
 		free(key);
+		free(val);
 		if (!node)
 			return (env_free(head), NULL);
 		if (!head)

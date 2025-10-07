@@ -1,4 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mini_export.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/02 17:40:58 by vahdekiv          #+#    #+#             */
+/*   Updated: 2025/10/03 13:26:18 by jjaaskel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
+
+static void	free_keypair(char *key, char *val)
+{
+	if (key)
+		free(key);
+	if (val)
+		free(val);
+}
 
 int	is_identifier(const char *str)
 {
@@ -35,6 +55,7 @@ int	mini_export(char **argv, t_shell *shell)
 		{
 			split_keyval(shell, argv[i++], &key, &val);
 			set_new_pair(&shell->env, key, val);
+			free_keypair(key, val);
 		}
 		else if (equal_sign)
 			set_new_pair(&shell->env, argv[i++], "");

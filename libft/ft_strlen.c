@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:33:15 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/04/15 15:38:49 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/03 11:18:25 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlen(const char *s)
 {
 	int	i;
 
+	if (!s || !*s)
+		return (0);
 	i = 0;
 	while (s[i])
 		i++;

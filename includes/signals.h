@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 13:17:02 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/29 17:41:32 by jjaaskel         ###   ########.fr       */
+/*   Created: 2025/10/02 17:37:52 by vahdekiv          #+#    #+#             */
+/*   Updated: 2025/10/02 17:37:55 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

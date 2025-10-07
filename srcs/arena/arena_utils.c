@@ -3,31 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   arena_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/27 14:10:04 by jjaaskel          #+#    #+#             */
-/*   Updated: 2025/09/19 12:22:50 by jjaaskel         ###   ########.fr       */
+/*   Created: 2025/10/02 17:39:42 by vahdekiv          #+#    #+#             */
+/*   Updated: 2025/10/02 17:39:46 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// void	*arena_alloc(t_arena *arena, size_t needed)
-// {
-// 	t_arena_block	*temp;
-// 	unsigned char	*ptr;
-
-// 	temp = arena->head;
-// 	if (needed > (temp->max_size - temp->used_mem))
-// 	{
-// 		temp = arena_add_block(arena, needed);
-// 		if (!temp)
-// 			return (NULL);
-// 	}
-// 	ptr = (unsigned char *)temp->mem + temp->used_mem;
-// 	temp->used_mem += needed;
-// 	return ((void *)ptr);
-// }
 
 void	*arena_alloc(t_arena *arena, size_t needed)
 {

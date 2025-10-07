@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mini_exit.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/02 17:40:35 by vahdekiv          #+#    #+#             */
+/*   Updated: 2025/10/03 14:41:59 by jjaaskel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static unsigned char	exit_code_from_str(const char *str)
@@ -25,12 +37,18 @@ static unsigned char	exit_code_from_str(const char *str)
 
 int	mini_exit(char **argv, t_shell *shell)
 {
-	(void)shell;
+	unsigned char	exit_code;
+
+	exit_code = 0;
 	if (!argv[1])
-		exit(0);
+	{
+		shell_destroy(shell);
+		exit(shell->status);
+	}
 	if (!ft_isnum(argv[1]))
 	{
 		ft_putstr_fd("exit: numeric arg required\n", 2);
+		shell_destroy(shell);
 		exit(2);
 	}
 	if (argv[1] && argv[2])
@@ -38,5 +56,7 @@ int	mini_exit(char **argv, t_shell *shell)
 		perror("exit: too many args\n");
 		return (EXIT_FAILURE);
 	}
-	exit(exit_code_from_str(argv[1]));
+	exit_code = exit_code_from_str(argv[1]);
+	shell_destroy(shell);
+	exit(exit_code);
 }

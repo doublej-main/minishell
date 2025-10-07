@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   arena.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/02 17:39:12 by vahdekiv          #+#    #+#             */
+/*   Updated: 2025/10/06 14:44:00 by jjaaskel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_arena_block	*arena_new_block(size_t block_size)
@@ -15,23 +27,6 @@ t_arena_block	*arena_new_block(size_t block_size)
 	new_block->used_mem = 0;
 	return (new_block);
 }
-
-// t_arena_block	*arena_add_block(t_arena *arena, size_t needed)
-// {
-// 	size_t			max;
-// 	t_arena_block	*new_block;
-
-// 	if (needed > arena->block_size)
-// 		max = arena->block_size + (needed - arena->block_size);
-// 	else
-// 		max = arena->block_size;
-// 	new_block = arena_new_block(max);
-// 	if (!new_block)
-// 		return (NULL);
-// 	new_block->next = arena->head;
-// 	arena->head = new_block;
-// 	return (new_block);
-// }
 
 void	arena_add_block(t_arena *arena, size_t needed)
 {

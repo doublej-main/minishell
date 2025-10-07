@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:42:29 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/07 13:04:57 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/07 13:27:00 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,15 @@ static void	early_exit(t_shell *shell)
 
 static void	cleanup_child(t_shell *shell, char **envv, char *prog)
 {
-	ft_free(envv);
-	free(prog);
+	if (envv)
+		ft_free(envv);
+	if (prog)
+		free(prog);
 	shell_destroy(shell);
 	if (errno == EACCES)
 		_exit(126);
 	else
 		_exit(127);
-	shell_destroy(shell);
 }
 
 void	exec_external_or_builtin(const t_cmd *cmd, t_shell *shell)
