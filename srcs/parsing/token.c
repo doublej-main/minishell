@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:46:47 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/06 16:14:52 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/07 15:56:12 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,30 +79,56 @@ static char	**parser(t_shell *shell, char *line, t_arena *arena, t_parser *p)
 	return (array);
 }
 
-int	tokenize_input(char *line, t_shell *shell, t_token *token)
+static int	syntax_failsafe(t_parser *p)
 {
-	t_parser	*p;
-	size_t		i;
-	size_t		n;
+	size_t	i;
 
 	i = 0;
-	p = arena_alloc(shell->arena, sizeof(t_parser));
-	if (!p)
-		return (perror("parser"), FAILURE);
-	n = wdcount(shell, line, p);
-	if (n == 0)
-		return (SUCCESS);
-	p->array = arena_alloc(shell->arena, (n + 1) * sizeof(char *));
-	if (!p->array)
-		return (perror("memory"), FAILURE);
-	p->array = parser(shell, line, shell->arena, p);
-	if (!p->array)
-		return (FAILURE);
 	while (p->array[i])
 	{
-		if (!tokenization_helper(shell, p, token, i))
-			return (perror("token"), FAILURE);
+		if ((ft_strcmp(p->array[i], "|") == 0) && !p->array[i + 1])
+			return (FAILURE);
+		else if (!syntax_compare(p->array[i], p->array[i + 1]))
+			return (FAILURE);
+		else if (p->array[i][0] != '"'
+			&& p->array[i][ft_strlen(p->array[i]) - 1] != '"')
+		{
+			if (p->array[i][0] != '\''
+				|| p->array[i][ft_strlen(p->array[i]) - 1] != '\'')
+			{
+				if (!syntax_helper(p->array[i]))
+					return (FAILURE);
+			}
+		}
 		i++;
 	}
 	return (SUCCESS);
+}
+
+int	tokenize_input(char *line, t_shell *shell, t_token *token, size_t i)
+{
+	t_parser	*p;
+	size_t		n;
+
+	p = arena_alloc(shell->arena, sizeof(t_parser));
+	if (!p)
+		return (ft_putstr_fd("Parsing Error\n", 2), 1);
+	n = wdcount(shell, line, p);
+	if (n == 0)
+		return (0);
+	p->array = arena_alloc(shell->arena, (n + 1) * sizeof(char *));
+	if (!p->array)
+		return (ft_putstr_fd("Memory allocation failure\n", 2), 1);
+	p->array = parser(shell, line, shell->arena, p);
+	if (!p->array)
+		return (1);
+	if (!syntax_failsafe(p))
+		return (ft_putstr_fd("Syntax Error\n", 2), 2);
+	while (p->array[i])
+	{
+		if (!tokenization_helper(shell, p, token, i))
+			return (ft_putstr_fd("Tokenization Failure\n", 2), 1);
+		i++;
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:34 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/06 16:29:04 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/07 15:53:37 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,8 @@ void	shell_loop(t_shell *shell, t_token *token, t_pl *pipeblock)
 		if (!line)
 			break ;
 		consume_line(shell, line);
-		if (!syntax_error_checker(shell, line))
-			continue ;
-		if (!tokenize_input(line, shell, token))
+		shell->status = tokenize_input(line, shell, token, 0);
+		if (shell->status != 0)
 			continue ;
 		free(line);
 		if (!pipeline_init(shell, &pipeblock))

@@ -6,7 +6,7 @@
 /*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:46:56 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:46:57 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/07 16:02:33 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,50 @@ int	tokenization_helper(t_shell *shell, t_parser *p, t_token *token, int i)
 		return (perror("token"), FAILURE);
 	token->type = get_type(token->value);
 	ft_lstadd_back(&shell->head, token);
+	return (SUCCESS);
+}
+
+int	syntax_compare(char *token, char *next)
+{
+	if (((ft_strcmp(token, "<") == 0)
+			|| (ft_strcmp(token, ">") == 0)
+			|| (ft_strcmp(token, ">>") == 0)
+			|| (ft_strcmp(token, "<<") == 0))
+		&& ((!next)
+			|| (ft_strcmp(next, "<") == 0)
+			|| (ft_strcmp(next, ">") == 0)
+			|| (ft_strcmp(next, ">>") == 0)
+			|| (ft_strcmp(next, "<<") == 0)))
+		return (FAILURE);
+	else if (((ft_strcmp(token, "&") == 0) || (ft_strcmp(token, "|") == 0))
+		&& ((ft_strcmp(next, "&") == 0) || ft_strcmp(next, "|") == 0))
+		return (FAILURE);
+	return (SUCCESS);
+}
+
+int	syntax_helper(char *token)
+{
+	size_t	i;
+
+	i = 0;
+	while (token[i])
+	{
+		if ((token[i] == '&' || token[i] == '|')
+			&& (token[i + 1] == '&' || token[i + 1] == '|'))
+			return (FAILURE);
+		else if ((token[i] == '<' && token[i + 1] == '>')
+			|| (token[i] == '>' && token[i + 1] == '<'))
+			return (FAILURE);
+		else if (token[i] == '<' || token[i] == '>'
+			|| token[i] == '&' || token[i] == '|')
+		{
+			if (token[i + 1] && (token[i + 1] == '<' || token[i + 1] == '>'
+					|| token[i + 1] == '&' || token[i + 1] == '|'))
+				if (token[i + 2] && (token[i + 2] == '<' || token[i + 2] == '>'
+						|| token[i + 2] == '&' || token[i + 2] == '|'))
+					return (FAILURE);
+		}
+		i++;
+	}
 	return (SUCCESS);
 }
