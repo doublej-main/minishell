@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signal_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:45:07 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:45:09 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/08 17:09:10 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	signals_init(void)
-{
-	extern int	rl_catch_signals;
-
-	rl_catch_signals = 0;
-	signals_interactive();
-}
 
 static void	sigint_hd(int sig)
 {

@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:43:54 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/03 11:51:44 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/08 17:30:41 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	run_single_parent(t_cmd *cmd, t_shell *shell)
 	}
 	status = run_parent_builtin_cmd(cmd->argv[0], cmd->argv, shell);
 	if (cmd->in || cmd->out)
-		io_restore_std(STDIN_FILENO, STDOUT_FILENO);
+		io_restore_std(shell->fd_in, STDOUT_FILENO);
 	return (status);
 }
 

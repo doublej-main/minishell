@@ -6,11 +6,24 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:41:55 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/08 15:05:55 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/08 17:37:07 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*trim_eq(char *key)
+{
+	int		i;
+
+	if (!key || !*key)
+		return (NULL);
+	i = 0;
+	while (key[i] && key[i] != '=')
+		i++;
+	key[i] = '\0';
+	return (key);
+}
 
 char	*strip_quotes_env(const char *s)
 {
@@ -43,20 +56,21 @@ t_env	*env_find(t_env *env, const char *key)
 {
 	while (env)
 	{
-		if (!ft_strncmp(env->key, key, ft_strlen(key)))
+		if (!ft_strcmp(env->key, key))
 			return (env);
 		env = env->next;
 	}
 	return (NULL);
 }
 
-int	set_new_pair(t_env **env, const char *key, const char *val)
+int	set_new_pair(t_env **env, char *key, const char *val)
 {
 	t_env	*node;
 	char	*new_value;
 
 	if (!env || !key || !is_identifier(key))
 		return (FAILURE);
+	key = trim_eq(key);
 	node = env_find(*env, key);
 	if (!node)
 	{

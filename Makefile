@@ -1,7 +1,7 @@
 NAME        = minishell
 
 SRCS        = srcs/main/main.c srcs/main/signals.c srcs//env/env.c \
-				srcs/main/prompt.c srcs/main/utils.c srcs//arena/arena.c \
+				srcs/main/prompt.c srcs//arena/arena.c \
 				srcs/arena/arena_utils.c srcs/builtins/dispatch.c \
 				srcs/builtins/mini_cd.c srcs/builtins/mini_echo.c \
 				srcs/builtins/mini_env.c srcs/builtins/mini_exit.c \

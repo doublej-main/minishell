@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:37:52 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:37:55 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/08 17:09:16 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,5 @@ void	signals_default(void);
 void	disable_echoctl(void);
 void	set_sigaction(int sig, void (*handler)(int), int flags);
 void	signals_heredoc(void);
-void	signals_init(void);
 
 #endif

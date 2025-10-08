@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:37:00 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/08 12:43:10 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/08 17:38:33 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # include "prompt.h"
 # include "signals.h"
 # include "token.h"
-# include "utils.h"
 # include <errno.h>
 # include <readline/history.h>
 # include <readline/readline.h>
