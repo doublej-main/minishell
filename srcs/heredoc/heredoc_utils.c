@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:25 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:44:26 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/08 14:45:39 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	count_expanse(char *str)
 	int	count;
 	int	i;
 
+	if (!str || !*str)
+		return (0);
 	count = 0;
 	i = 0;
 	while (str[i])

@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:15 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/07 13:27:55 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/08 15:16:05 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ static int	heredoc_prepare_one(t_shell *shell, t_redir *r)
 	char	*path;
 	int		fd;
 
-	if (shell->pipe_head->cmd->in->quoted)
-		delim = strip_quotes(shell->arena, r->target);
-	else
-		delim = arena_strdup(shell->arena, r->target);
+	delim = strip_quotes(shell->arena, r->target);
 	if (!delim)
 		return (INIT_FAIL);
 	fd = hd_open_tmp(shell->arena, &path);
