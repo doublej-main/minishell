@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:36:42 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/08 14:31:54 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/08 18:34:56 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ int						io_apply_redirs(const t_cmd *cmd);
 void					io_restore_std(int save_in, int save_out);
 int						open_out(const t_redir *r);
 void					even_earlier_exit(t_shell *shell, int status);
+int						has_input_redir(const t_cmd *cmd);
 
 #endif

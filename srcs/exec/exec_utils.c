@@ -6,11 +6,27 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:42:39 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/08 14:31:22 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/08 18:41:26 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// int	has_input_redir(const t_cmd *cmd)
+// {
+// 	const t_redir	*r;
+
+// 	if (!cmd)
+// 		return (0);
+// 	r = cmd->in;
+// 	while (r)
+// 	{
+// 		if (r->type == REDIR_IN)
+// 			return (1);
+// 		r = r->next;
+// 	}
+// 	return (0);
+// }
 
 char	*env_join(const char *s1, const char *s2, const char *s3)
 {

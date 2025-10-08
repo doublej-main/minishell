@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:15 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/08 17:21:48 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/08 19:06:02 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,11 @@ int	heredoc_prepare_all(t_shell *shell)
 	t_pl	*seg;
 	t_redir	*r;
 
-	if (!shell->pipe_head->cmd->in)
-		return (SUCCESS);
 	seg = shell->pipe_head;
 	while (seg)
 	{
-		if (seg->cmd->in->target)
+		r = NULL;
+		if (seg->cmd->in)
 			r = seg->cmd->in;
 		while (r)
 		{
@@ -68,6 +67,7 @@ void	heredoc_cleanup_all(t_pl *pipeblock)
 	t_pl	*seg;
 	t_redir	*r;
 
+	r = NULL;
 	if (!pipeblock->cmd->in)
 		return ;
 	seg = pipeblock;
