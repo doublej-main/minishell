@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:34 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/07 16:52:32 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/08 12:53:44 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	shell_init(t_shell *shell, char **environ)
 	shell->status = 0;
 	shell->head = NULL;
 	shell->pipe_head = NULL;
+	shell->empty = 0;
 	return (SUCCESS);
 }
 
@@ -53,7 +54,7 @@ void	shell_loop(t_shell *shell, t_token *token, t_pl *pipeblock)
 			break ;
 		consume_line(shell, line);
 		shell->status = tokenize_input(line, shell, token, 0);
-		if (shell->status != 0)
+		if (shell->status != 0 || shell->empty == 1)
 		{
 			free(line);
 			continue ;
@@ -81,7 +82,7 @@ int	main(int argc, char **argv, char **environ)
 	pipeblock = NULL;
 	arena = (t_arena){0};
 	shell.arena = &arena;
-	print_banner();
+	// print_banner();
 	if (!shell_init(&shell, environ))
 		return (EXIT_FAILURE);
 	shell_loop(&shell, token, pipeblock);

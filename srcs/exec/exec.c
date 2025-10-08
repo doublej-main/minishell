@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:42:29 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/07 13:27:00 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/08 14:32:17 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	exec_external_or_builtin(const t_cmd *cmd, t_shell *shell)
 	if (ft_strchr(cmd->argv[0], '/'))
 		prog = ft_strdup(cmd->argv[0]);
 	else
-		prog = path_search(cmd->argv[0], shell->env);
+		prog = path_search(shell, cmd->argv[0], shell->env);
 	if (!prog)
 		early_exit(shell);
 	envv = env_to_chars(shell->env);

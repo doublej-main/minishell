@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_loop.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:08 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:44:10 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/08 14:29:20 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ static char	*findkey(t_shell *shell, char *line)
 	if (!dol || !dol[1] || isdel(dol[1]))
 		return (NULL);
 	i = 1;
+	if (dol[i] == '?')
+	{
+		key = arena_strdup(shell->arena, "?");
+		return (key);
+	}
 	while (dol[i] && !isdel(dol[i]) && dol[i] != '$'
 		&& dol[i] != '"' && dol[i] != '\'')
 		i++;
@@ -71,9 +76,9 @@ char	*spliceline(t_shell *shell, char *line)
 	key = findkey(shell, line);
 	if (!key)
 		return (arena_strdup(shell->arena, line));
-	val = env_get(shell->env, key);
+	val = env_get(shell, shell->env, key);
 	if (!val)
-		val = "";
+		return (NULL);
 	post = dol + 1 + ft_strlen(key);
 	out = arena_alloc(shell->arena, (size_t)((dol - line)
 				+ ft_strlen(val) + ft_strlen(post) + 1));

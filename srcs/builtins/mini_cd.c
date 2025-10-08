@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:40:06 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/03 12:13:02 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/08 14:29:52 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	mini_cd(char **argv, t_shell *shell)
 	dir = argv[1];
 	if (!dir)
 	{
-		dir = env_get(shell->env, "HOME");
+		dir = env_get(shell, shell->env, "HOME");
 		if (!dir || !*dir)
 			return (ft_putstr_fd("cd: HOME not set\n", 2), EXIT_FAILURE);
 	}

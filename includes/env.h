@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:36:33 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/03 12:43:05 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/08 14:28:14 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int					split_keyval(t_shell *shell, const char *str, char **key,
 /*
 ** builtin helpers
 */
-char				*env_get(t_env *env, const char *key);
+char				*env_get(t_shell *shell, t_env *env, const char *key);
 int					is_identifier(const char *str);
 int					print_sorted_env(t_env *env);
 int					set_new_pair(t_env **env, const char *key, const char *val);

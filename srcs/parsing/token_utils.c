@@ -3,14 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:46:56 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/07 16:02:33 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/08 14:33:31 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	check_for_env(t_shell *shell, char **str)
+{
+	char	*itoa;
+	int		len;
+	int		dol_count;
+
+	len = ft_strlen(*str);
+	itoa = NULL;
+	if (ft_strchr(*str, '$') && (*str)[0] != '\'' && (*str)[len - 1] != '\'')
+	{
+		dol_count = 0;
+		*str = spliceline(shell, *str);
+		dol_count = count_expanse(*str);
+		while (dol_count--)
+			*str = spliceline(shell, *str);
+		if (!*str)
+			return (FAILURE);
+	}
+	return (SUCCESS);
+}
 
 t_token	*add_token(t_shell *shell)
 {

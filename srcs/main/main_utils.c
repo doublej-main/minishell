@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:41 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/06 16:10:26 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/08 12:51:04 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,5 @@ void	consume_line(t_shell *shell, char *line)
 	(void)shell;
 	if (line && *line)
 		add_history(line);
+	shell->empty = 0;
 }

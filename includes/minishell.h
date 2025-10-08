@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:37:00 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/06 14:52:37 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/08 12:43:10 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_shell
 	int							fd_in;
 	int							single;
 	int							doppel;
+	int							empty;
 }								t_shell;
 
 /*

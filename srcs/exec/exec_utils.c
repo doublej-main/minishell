@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:42:39 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:42:43 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/08 14:31:22 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ static char	*build_candidate(const char *dir, size_t len, const char *name)
 	return (str);
 }
 
-char	*path_search(char *name, t_env *env)
+char	*path_search(t_shell *shell, char *name, t_env *env)
 {
 	const char	*path;
 	const char	*start;
 	char		*cand;
 	size_t		len;
 
-	path = env_get(env, "PATH");
+	path = env_get(shell, env, "PATH");
 	if (!path || !*path || !name || !*name)
 		return (NULL);
 	while (69)
