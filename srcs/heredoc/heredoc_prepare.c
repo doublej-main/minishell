@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:15 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/08 19:06:02 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/09 15:12:55 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	heredoc_prepare_all(t_shell *shell)
 			{
 				if (heredoc_prepare_one(shell, r) < 0)
 					return (INIT_FAIL);
+				seg->cmd->in->target = r->target;
 			}
 			r = r->next;
 		}
