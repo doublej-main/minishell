@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:42:29 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/08 17:29:33 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/09 16:09:39 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ int	execute_pipeline(t_pl *pl, t_shell *shell)
 	else
 		status = run_pipeline(shell->pipe_head, shell);
 	heredoc_cleanup_all(pl);
+//	close(shell->fd_in);
 	return (status);
 }

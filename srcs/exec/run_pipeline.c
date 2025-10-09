@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:43:31 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/09 15:13:27 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/09 16:21:34 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
 		even_earlier_exit(shell, 1);
 	if (is_any_builtin(seg->cmd->argv[0]))
 		_exit(run_any_builtin(seg->cmd->argv[0], seg->cmd->argv, shell));
+//		close(shell->fd_in);
 	exec_external_or_builtin(seg->cmd, shell);
 }
 
@@ -83,7 +84,10 @@ static int	fork_segment(t_pl *seg, t_fd *fd, int i, t_shell *shell)
 	if (pid == 0)
 	{
 		if (i < fd->count - 1)
+		{
+			close(shell->fd_in);
 			close(fd->fd[0]);
+		}
 		fd->out_fd = -1;
 		if (i < fd->count -1)
 			fd->out_fd = fd->fd[1];
