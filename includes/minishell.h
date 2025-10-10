@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:37:00 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/10 10:54:06 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/10 17:06:07 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 */
 # define SUCCESS 1
 # define FAILURE 0
+# define MAX_INPUT_LENGTH 1024
 
 /*
 ** Variables and structs
