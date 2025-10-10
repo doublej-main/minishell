@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:46:15 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/07 13:29:40 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/10 14:20:09 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,13 @@ void	redirs_quoted(t_token *current, t_pl *pb, char *next, t_shell *shell)
 	node->type = current->type;
 	node->target = next;
 	len = ft_strlen(next);
-	if (len >= 2 && next[0] == '\'' && next[len - 1] == '\'')
+	if (len >= 2 && ((next[0] == '\'' && next[len - 1] == '\'')
+			|| (next[0] == '\'' && next[1] == '\'') || (next[len -1] == '\''
+				&& next[len - 2] == '\'')))
 		node->quoted = 1;
-	else if (len >= 2 && next[0] == '"' && next[len - 1] == '"')
+	else if (len >= 2 && ((next[0] == '"' && next[len - 1] == '"')
+			|| (next[0] == '"' && next[1] == '"') || (next[len -1] == '"'
+				&& next[len - 2] == '"')))
 		node->quoted = 2;
 	else
 		node->quoted = 0;

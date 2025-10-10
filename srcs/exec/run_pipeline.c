@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:43:31 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/08 18:54:42 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/10 14:20:27 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	count_segments(t_pl *pl)
 }
 
 static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
-{	
+{
 	if (!seg->cmd)
 		even_earlier_exit(shell, 0);
 	signals_default();
@@ -46,7 +46,6 @@ static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
 		dup2(out, STDOUT_FILENO);
 		close(out);
 	}
-	printf("child_segment\n");
 	if (io_apply_redirs(seg->cmd) < 0)
 		even_earlier_exit(shell, 1);
 	if (is_any_builtin(seg->cmd->argv[0]))
@@ -107,14 +106,7 @@ int	run_pipeline(t_pl *pl, t_shell *shell)
 	i = 0;
 	cur = pl;
 	fd.count = count_segments(pl);
-	printf("number os segments is: %d\n", fd.count);
 	fd.prev_in = -1;
-	while (pl)
-	{
-		if (pl->cmd->in)
-			printf("target is:%s\n", pl->cmd->in->target);
-		pl = pl->next;
-	}
 	while (i < fd.count)
 	{
 		if (fork_segment(cur, &fd, i, shell))

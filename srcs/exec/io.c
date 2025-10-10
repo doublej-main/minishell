@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:42:54 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/08 18:48:42 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/10 14:13:26 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,8 @@ int	io_apply_redirs(const t_cmd *cmd)
 	t_redir	*r;
 
 	r = NULL;
-	printf("apply redirs\n");
 	if (cmd->in && cmd->in->target)
-	{
-		printf("target exits\n");
 		r = cmd->in;
-	}
 	while (r)
 	{
 		fd = open(r->target, O_RDONLY);
