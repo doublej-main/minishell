@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:43:31 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/10 14:20:27 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/10 18:12:31 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
 			even_earlier_exit(shell, 1);
 		even_earlier_exit(shell, 0);
 	}
-	if (fd->prev_in != -1 && !(seg->cmd->in && seg->cmd->in->target))
+	if (in != -1 && !(seg->cmd->in && seg->cmd->in->target))
 	{
-		dup2(fd->prev_in, STDIN_FILENO);
-		close(fd->prev_in);
+		dup2(in, STDIN_FILENO);
+		close(in);
 	}
-	if (fd->out_fd != -1)
+	if (out != -1)
 	{
-		dup2(fd->out_fd, STDOUT_FILENO);
-		close(fd->out_fd);
+		dup2(out, STDOUT_FILENO);
+		close(out);
 	}
 	if (io_apply_redirs(seg->cmd) < 0)
 		even_earlier_exit(shell, 1);
@@ -85,7 +85,7 @@ static int	fork_segment(t_pl *seg, t_fd *fd, int i, t_shell *shell)
 		fd->out_fd = -1;
 		if (i < fd->count -1)
 			fd->out_fd = fd->fd[1];
-		child_segment(seg, fd, shell);
+		child_segment(seg, fd->prev_in, fd->out_fd, shell);
 		even_earlier_exit(shell, 1);
 	}
 	if (fd->prev_in != -1)
