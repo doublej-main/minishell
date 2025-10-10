@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:41:41 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/08 15:29:16 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/10 16:50:21 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ char	*env_get(t_shell *shell, t_env *env, const char *key)
 	}
 	while (env)
 	{
-		if (env->key && key && !ft_strncmp(env->key, key, ft_strlen(key)))
+		if (env->key && key && !ft_strncmp(env->key, key, ft_strlen(key)) 
+			&& ft_strcmp(key, "") != 0)
 			return (env->val);
+		else if (ft_strcmp(key, "") == 0)
+			return ("");
 		env = env->next;
 	}
 	return (NULL);
