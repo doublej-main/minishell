@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:40:16 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:40:17 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/10 17:44:25 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	mini_echo(char **argv, int i, t_shell *shell)
 	int	j;
 	int	nflag;
 
+	(void)shell;
 	nflag = 0;
 	while (argv[i] && argv[i][0] == '-' && argv[i][1] == 'n')
 	{
@@ -30,7 +31,6 @@ int	mini_echo(char **argv, int i, t_shell *shell)
 	}
 	while (argv[i])
 	{
-		argv[i] = strip_quotes(shell->arena, argv[i]);
 		ft_putstr(argv[i++]);
 		if (argv[i])
 			ft_putchar(' ');
