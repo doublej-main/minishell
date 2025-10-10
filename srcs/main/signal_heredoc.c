@@ -6,11 +6,17 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:45:07 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/08 17:09:10 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/10 15:20:19 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	wait_children_signal(void)
+{
+	set_sigaction(SIGINT, SIG_IGN, 0);
+	set_sigaction(SIGQUIT, SIG_IGN, 0);
+}
 
 static void	sigint_hd(int sig)
 {
