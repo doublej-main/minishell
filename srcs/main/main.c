@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:34 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/10 10:19:28 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/10 11:43:27 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,6 @@ int	main(int argc, char **argv, char **environ)
 		return (EXIT_FAILURE);
 	shell_loop(&shell, token, pipeblock);
 	shell_destroy(&shell);
+	printf("exit\n");
 	return (EXIT_SUCCESS);
 }
