@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:42:29 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/09 16:09:39 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/10 11:01:20 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	exec_external_or_builtin(const t_cmd *cmd, t_shell *shell)
 	envv = env_to_chars(shell->env);
 	if (!envv)
 		even_earlier_exit(shell, 1);
-	close(shell->fd_in);
 	execve(prog, cmd->argv, envv);
 	cleanup_child(shell, envv, prog);
 }
@@ -81,6 +80,5 @@ int	execute_pipeline(t_pl *pl, t_shell *shell)
 	else
 		status = run_pipeline(shell->pipe_head, shell);
 	heredoc_cleanup_all(pl);
-//	close(shell->fd_in);
 	return (status);
 }
