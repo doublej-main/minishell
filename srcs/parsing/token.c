@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:46:47 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/08 14:35:21 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/10 17:07:00 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ int	tokenize_input(char *line, t_shell *shell, t_token *token, size_t i)
 
 	p = NULL;
 	status = 0;
+	if (ft_strlen(line) > MAX_INPUT_LENGTH)
+		return (ft_putstr_fd("Line too long\n", 2), 2);
 	status = init_parser(line, shell, &p);
 	if (status == 1)
 		return (status);

@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:43:31 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/08 18:54:42 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/10 11:17:11 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static int	count_segments(t_pl *pl)
 	return (count);
 }
 
-static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
-{	
+static void	child_segment(t_pl *seg, t_fd *fd, t_shell *shell)
+{
 	if (!seg->cmd)
 		even_earlier_exit(shell, 0);
 	signals_default();
@@ -36,21 +36,18 @@ static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
 			even_earlier_exit(shell, 1);
 		even_earlier_exit(shell, 0);
 	}
-	if (in != -1)
+	if (fd->prev_in != -1 && !(seg->cmd->in && seg->cmd->in->target))
 	{
-		dup2(in, STDIN_FILENO);
-		close(in);
+		dup2(fd->prev_in, STDIN_FILENO);
+		close(fd->prev_in);
 	}
-	if (out != -1)
+	if (fd->out_fd != -1)
 	{
-		dup2(out, STDOUT_FILENO);
-		close(out);
+		dup2(fd->out_fd, STDOUT_FILENO);
+		close(fd->out_fd);
 	}
-	printf("child_segment\n");
 	if (io_apply_redirs(seg->cmd) < 0)
 		even_earlier_exit(shell, 1);
-	if (is_any_builtin(seg->cmd->argv[0]))
-		_exit(run_any_builtin(seg->cmd->argv[0], seg->cmd->argv, shell));
 	exec_external_or_builtin(seg->cmd, shell);
 }
 
@@ -88,7 +85,7 @@ static int	fork_segment(t_pl *seg, t_fd *fd, int i, t_shell *shell)
 		fd->out_fd = -1;
 		if (i < fd->count -1)
 			fd->out_fd = fd->fd[1];
-		child_segment(seg, fd->prev_in, fd->out_fd, shell);
+		child_segment(seg, fd, shell);
 		even_earlier_exit(shell, 1);
 	}
 	if (fd->prev_in != -1)
@@ -107,14 +104,7 @@ int	run_pipeline(t_pl *pl, t_shell *shell)
 	i = 0;
 	cur = pl;
 	fd.count = count_segments(pl);
-	printf("number os segments is: %d\n", fd.count);
 	fd.prev_in = -1;
-	while (pl)
-	{
-		if (pl->cmd->in)
-			printf("target is:%s\n", pl->cmd->in->target);
-		pl = pl->next;
-	}
 	while (i < fd.count)
 	{
 		if (fork_segment(cur, &fd, i, shell))

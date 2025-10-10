@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:34 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/08 17:37:32 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/10 14:59:44 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int	shell_init(t_shell *shell, char **environ)
 	if (arena_init(shell->arena, 10000) < 0)
 		return (ft_putstr_fd("error: arena fail\n", 2), FAILURE);
 	shell->env = env_from_environ(shell, environ);
-	if (!shell->env)
-		return (ft_putstr_fd("error: env fail\n", 2), FAILURE);
 	disable_echoctl();
 	shell->head = NULL;
 	shell->pipe_head = NULL;
