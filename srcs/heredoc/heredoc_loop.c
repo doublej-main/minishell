@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:08 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/10 16:49:10 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/10 18:02:40 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,22 +107,22 @@ int	hd_loop(int fd, const char *delim, t_shell *shell, int expand)
 	while (1)
 	{
 		line = readline("heredoc> ");
+		if (ft_strlen(line) > MAX_INPUT_LENGTH)
+		{
+			ft_putstr_fd("Line too long\n", 2);
+			continue ;
+		}
 		if (g_sig == SIGINT)
 			if (!hd_signal_handler(line))
 				return (INIT_FAIL);
-		if (!line)
+		if (!line || ft_strcmp(line, delim) == 0)
 			break ;
-		if (ft_strcmp(line, delim) == 0)
-		{
-			free(line);
-			break ;
-		}
 		if (hd_write(fd, line, shell, expand) == FAILURE)
 		{
 			free(line);
 			return (INIT_FAIL);
 		}
-		free(line);
 	}
+	free(line);
 	return (SUCCESS);
 }
