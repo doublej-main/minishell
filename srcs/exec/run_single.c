@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:43:54 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/10 10:50:05 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/10 15:20:32 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ static int	fork_one_child(t_cmd *cmd, t_shell *shell)
 	pid = fork();
 	if (pid < 0)
 		return (perror("fork"), 1);
+	wait_children_signal();
 	if (pid == 0)
 	{
+		signals_default();
 		if (cmd->in || cmd->out)
 			if (io_apply_redirs(cmd) < 0)
 				_exit(1);

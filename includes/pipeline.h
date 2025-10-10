@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:37:19 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:37:22 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/10 14:26:58 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int		argc(t_token *token);
 int		init_segment(t_shell *shell, t_pl *pipeblock, t_token *tok);
 t_pl	*new_pipeblock(t_arena *arena);
 t_pl	*add_pipeblock(t_shell *shell);
+int		count_quotes(char *next);
 
 //refactoring
 

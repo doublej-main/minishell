@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:43:31 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/10 11:17:11 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/10 14:20:27 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	count_segments(t_pl *pl)
 	return (count);
 }
 
-static void	child_segment(t_pl *seg, t_fd *fd, t_shell *shell)
+static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
 {
 	if (!seg->cmd)
 		even_earlier_exit(shell, 0);

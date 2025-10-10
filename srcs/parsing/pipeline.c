@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:46:15 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/07 13:29:40 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/10 14:40:27 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	redirs_quoted(t_token *current, t_pl *pb, char *next, t_shell *shell)
 {
 	t_redir	*node;
 	size_t	len;
+	int		count;
 
 	node = add_redir(shell);
 	if (!node)
@@ -43,10 +44,10 @@ void	redirs_quoted(t_token *current, t_pl *pb, char *next, t_shell *shell)
 	node->type = current->type;
 	node->target = next;
 	len = ft_strlen(next);
-	if (len >= 2 && next[0] == '\'' && next[len - 1] == '\'')
+	count = 1;
+	count = count_quotes(next);
+	if (len >= 2 && count != 0 && count % 2 == 0)
 		node->quoted = 1;
-	else if (len >= 2 && next[0] == '"' && next[len - 1] == '"')
-		node->quoted = 2;
 	else
 		node->quoted = 0;
 	if (current->type == REDIR_IN || current->type == REDIR_HEREDOC)
