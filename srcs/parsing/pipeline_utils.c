@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:46:31 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:46:32 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/10 14:26:43 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	count_quotes(char *next)
+{
+	int	i;
+	int	count;
+
+	if (!next || !*next)
+		return (0);
+	i = 0;
+	count = 0;
+	while (next[i])
+	{
+		if (next[i] == '"' || next[i] == '\'')
+			count++;
+		i++;
+	}
+	return (count);
+}
 
 int	argc(t_token *token)
 {
