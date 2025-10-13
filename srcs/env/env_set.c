@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:41:55 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/13 13:18:46 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/13 14:16:09 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static char	*trim_eq(char *key)
 
 	if (!key || !*key)
 		return (NULL);
-	if (!ft_strchr(key, '$'))
-		return (NULL);
+	if (!ft_strchr(key, '='))
+		return (key);
 	i = 0;
 	while (key[i] && key[i] != '=')
 		i++;
