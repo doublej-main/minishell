@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:41:55 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/08 17:37:07 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/13 13:18:46 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static char	*trim_eq(char *key)
 	int		i;
 
 	if (!key || !*key)
+		return (NULL);
+	if (!ft_strchr(key, '$'))
 		return (NULL);
 	i = 0;
 	while (key[i] && key[i] != '=')
@@ -54,6 +56,8 @@ char	*strip_quotes_env(const char *s)
 
 t_env	*env_find(t_env *env, const char *key)
 {
+	if (!key || !*key)
+		return (NULL);
 	while (env)
 	{
 		if (!ft_strcmp(env->key, key))
