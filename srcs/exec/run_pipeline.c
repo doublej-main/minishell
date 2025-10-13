@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:43:31 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/10 18:12:31 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/13 14:03:02 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	run_pipeline(t_pl *pl, t_shell *shell)
 	{
 		if (fork_segment(cur, &fd, i, shell))
 			return (EXIT_FAILURE);
+		wait_children_signal();
 		if (i < fd.count - 1)
 			fd.prev_in = fd.fd[0];
 		cur = cur->next;
