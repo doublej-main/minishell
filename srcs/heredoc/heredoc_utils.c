@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:25 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/08 14:45:39 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/13 13:47:52 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ char	*strip_quotes(t_arena *arena, const char *s)
 	int		j;
 	char	q;
 
+	if (!s || !*s)
+		return (NULL);
 	out = arena_calloc(arena, ft_strlen(s) + 1);
 	if (!out)
 		return (NULL);

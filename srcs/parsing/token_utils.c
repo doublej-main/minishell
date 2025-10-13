@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:46:56 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/13 13:39:30 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/13 13:55:12 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ t_token	*add_token(t_shell *shell)
 
 int	tokenization_helper(t_shell *shell, t_parser *p, t_token *token, int i)
 {
-	if (!check_for_env(shell, &p->array[i]))
-		return (SUCCESS);
 	token = add_token(shell);
 	token->value = arena_strdup(shell->arena, p->array[i]);
 	if (!token->value)
