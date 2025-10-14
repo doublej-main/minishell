@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:46:39 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:46:41 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/14 14:58:47 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,8 @@ t_redir	*add_redir(t_shell *shell)
 		return (NULL);
 	temp->target = NULL;
 	temp->next = NULL;
+	temp->type = 0;
+	temp->quoted = 0;
+	temp->hd_tmp = 0;
 	return (temp);
 }

@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:46:15 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/13 13:45:54 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/14 14:57:23 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,8 @@ int	init_segment(t_shell *shell, t_pl *pipeblock, t_token *tok)
 	pipeblock->cmd = arena_alloc(shell->arena, sizeof(t_cmd));
 	if (!pipeblock->cmd)
 		return (FAILURE);
-	pipeblock->cmd->in = arena_calloc(shell->arena, sizeof(t_redir));
-	if (!pipeblock->cmd->in)
-		return (FAILURE);
-	pipeblock->cmd->out = arena_calloc(shell->arena, sizeof(t_redir));
-	if (!pipeblock->cmd->out)
-		return (FAILURE);
+	pipeblock->cmd->in = NULL;
+	pipeblock->cmd->out = NULL;
 	pipeblock->cmd->ac = argc(tok);
 	pipeblock->cmd->argv
 		= arena_alloc(shell->arena, sizeof(char *) * (pipeblock->cmd->ac + 1));
@@ -32,7 +28,7 @@ int	init_segment(t_shell *shell, t_pl *pipeblock, t_token *tok)
 	return (SUCCESS);
 }
 
-void	redirs_quoted(t_token *current, t_pl *pb, char *next, t_shell *shell)
+void	redirs_quoted(t_token *current, t_pl **pb, char *next, t_shell *shell)
 {
 	t_redir	*node;
 	size_t	len;
@@ -51,9 +47,9 @@ void	redirs_quoted(t_token *current, t_pl *pb, char *next, t_shell *shell)
 	else
 		node->quoted = 0;
 	if (current->type == REDIR_IN || current->type == REDIR_HEREDOC)
-		ft_lstadd_back_redir(&pb->cmd->in, node);
+		ft_lstadd_back_redir(&(*pb)->cmd->in, node);
 	else
-		ft_lstadd_back_redir(&pb->cmd->out, node);
+		ft_lstadd_back_redir(&(*pb)->cmd->out, node);
 }
 
 char	*def_argv(t_arena *arena, char *value)
@@ -80,7 +76,7 @@ int	def_pipeblock(t_shell *shell, t_pl *pipeblock, t_token *curr, int i)
 		{
 			if (!curr->next || curr->next->type != WORD)
 				return (FAILURE);
-			redirs_quoted(curr, pipeblock, curr->next->value, shell);
+			redirs_quoted(curr, &pipeblock, curr->next->value, shell);
 			curr = curr->next;
 			if (curr->next)
 				curr = curr->next;

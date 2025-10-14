@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:37:19 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/10 14:26:58 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/14 14:42:36 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,5 @@ int		pipeblock_helper(t_pl **pipeblock, t_shell *shell, t_token *cur, int i);
 
 t_redir	*add_redir(t_shell *shell);
 void	ft_lstadd_back_redir(t_redir **lst, t_redir *new);
-void	redirs_quoted(t_token *current, t_pl *pb, char *next, t_shell *shell);
+void	redirs_quoted(t_token *current, t_pl **pb, char *next, t_shell *shell);
 #endif

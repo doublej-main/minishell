@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:43:31 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/13 14:03:02 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:48:35 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	child_segment(t_pl *seg, int in, int out, t_shell *shell)
 		dup2(in, STDIN_FILENO);
 		close(in);
 	}
-	if (out != -1)
+	if (out != -1 && !(seg->cmd->out && seg->cmd->out->target))
 	{
 		dup2(out, STDOUT_FILENO);
 		close(out);

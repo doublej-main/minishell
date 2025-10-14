@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:15 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/13 13:31:49 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/14 15:04:44 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	heredoc_cleanup_all(t_pl *pipeblock)
 	seg = pipeblock;
 	while (seg)
 	{
-		if (seg->cmd->in->target)
+		if (seg->cmd->in && seg->cmd->in->target)
 			r = seg->cmd->in;
 		while (r)
 		{
