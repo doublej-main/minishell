@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:41:41 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/10 16:55:30 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/15 12:10:08 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,7 @@
 
 char	*env_get(t_shell *shell, t_env *env, const char *key)
 {
-	char	*itoa;
-	char	*val;
-
-	itoa = NULL;
-	val = NULL;
-	if (!ft_strcmp(key, "?"))
-	{
-		itoa = ft_itoa(shell->status);
-		val = arena_strdup(shell->arena, itoa);
-		free(itoa);
-		return (val);
-	}
+	(void)shell;
 	while (env)
 	{
 		if (env->key && key && !ft_strncmp(env->key, key, ft_strlen(key))
