@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:08 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/10 18:24:23 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/15 13:47:31 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static int	hd_write(int fd, char *line, t_shell *shell, int expand)
 
 	if (expand && ft_strchr(line, '$'))
 	{
-		out = spliceline(shell, line);
+		out = spliceline(shell, line, NULL);
 		dol_count = count_expanse(out);
 		while (dol_count)
 		{
-			out = spliceline(shell, out);
+			out = spliceline(shell, out, NULL);
 			dol_count--;
 		}
 	}
@@ -36,7 +36,7 @@ static int	hd_write(int fd, char *line, t_shell *shell, int expand)
 	return (SUCCESS);
 }
 
-static char	*findkey(t_shell *shell, char *line)
+static char	*findkey(t_shell *shell, char *line, int *j)
 {
 	int		i;
 	char	*key;
@@ -45,41 +45,42 @@ static char	*findkey(t_shell *shell, char *line)
 	dol = ft_strchr(line, '$');
 	if (!dol || !dol[1] || isdel(dol[1]))
 		return (NULL);
-	i = 1;
-	if (dol[i] == '?')
-	{
-		key = arena_strdup(shell->arena, "?");
-		return (key);
-	}
+	*j = 0;
+	while (dol[*j] == '$' || isdel(dol[*j]))
+		*j += 1;
+	i = *j;
 	while (dol[i] && !isdel(dol[i]) && dol[i] != '$'
 		&& dol[i] != '"' && dol[i] != '\'')
 		i++;
 	key = arena_alloc(shell->arena, i);
 	if (!key)
 		return (NULL);
-	ft_memcpy(key, dol + 1, i - 1);
-	key[i - 1] = '\0';
+	if (*j > 1)
+		ft_memcpy(key, dol + *j, i - *j);
+	else
+		ft_memcpy(key, dol + 1, i - 1);
+	key[i - *j] = '\0';
 	return (key);
 }
 
-char	*spliceline(t_shell *shell, char *line)
+char	*spliceline(t_shell *shell, char *line, char *key)
 {
 	const char	*dol;
-	char		*key;
 	const char	*val;
 	const char	*post;
 	char		*out;
+	int			j;
 
 	dol = ft_strchr(line, '$');
 	if (!dol)
 		return (arena_strdup(shell->arena, line));
-	key = findkey(shell, line);
+	key = findkey(shell, line, &j);
 	if (!key)
 		return (arena_strdup(shell->arena, line));
 	val = env_get(shell, shell->env, key);
 	if (!val)
 		return (NULL);
-	post = dol + 1 + ft_strlen(key);
+	post = dol + j + ft_strlen(key);
 	out = arena_alloc(shell->arena, (size_t)((dol - line)
 				+ ft_strlen(val) + ft_strlen(post) + 1));
 	if (!out)

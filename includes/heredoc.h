@@ -6,7 +6,7 @@
 /*   By: vahdekiv <vahdekiv@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:36:50 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/02 17:36:52 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/15 13:44:47 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void					heredoc_cleanup_all(t_pl *pl);
 char					*hd_path_heap(unsigned int count, t_arena *arena);
 int						hd_open_tmp(t_arena *arena, char **path_out);
 char					*strip_quotes(t_arena *arena, const char *s);
-char					*spliceline(t_shell *shell, char *line);
+char					*spliceline(t_shell *shell, char *line, char *key);
 int						count_expanse(char *str);
 
 #endif

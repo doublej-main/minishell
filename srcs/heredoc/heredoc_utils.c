@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:25 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/13 13:47:52 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/15 13:23:42 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	count_expanse(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$')
+		if (str[i] == '$' && str[i + 1] != '$' && !isdel(str[i + 1]))
 			count++;
 		i++;
 	}

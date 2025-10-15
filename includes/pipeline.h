@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:37:19 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/14 14:42:36 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/15 12:42:57 by vahdekiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int		init_segment(t_shell *shell, t_pl *pipeblock, t_token *tok);
 t_pl	*new_pipeblock(t_arena *arena);
 t_pl	*add_pipeblock(t_shell *shell);
 int		count_quotes(char *next);
+int		only_dollars(char *line);
 
 //refactoring
 
