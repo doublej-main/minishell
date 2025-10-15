@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:36:42 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/10 10:50:43 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/15 14:37:44 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char					*env_join(const char *s1, const char *s2,
 							const char *s3);
 char					*path_search(t_shell *shell, char *name, t_env *env);
 int						run_single(t_cmd *cmd, t_shell *shell);
-int						io_apply_redirs(const t_cmd *cmd);
+int						io_apply_redirs(t_shell *shell, const t_cmd *cmd);
 void					io_restore_std(int save_in, int save_out);
 int						open_out(const t_redir *r);
 void					even_earlier_exit(t_shell *shell, int status);

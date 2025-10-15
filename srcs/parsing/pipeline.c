@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:46:15 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/14 14:57:23 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/15 15:04:00 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	redirs_quoted(t_token *current, t_pl **pb, char *next, t_shell *shell)
 	if (!node)
 		return ;
 	node->type = current->type;
-	node->target = next;
+	node->target = strip_quotes(shell->arena, next);
 	len = ft_strlen(next);
 	count = 1;
 	count = count_quotes(next);

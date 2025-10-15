@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:42:54 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/10 14:13:26 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/15 15:03:22 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,13 @@ static int	dup_to(int fd, int to)
 	return (EXIT_SUCCESS);
 }
 
-int	io_apply_redirs(const t_cmd *cmd)
+int	io_apply_redirs(t_shell *shell, const t_cmd *cmd)
 {
 	int		fd;
 	t_redir	*r;
 
 	r = NULL;
+	(void)shell;
 	if (cmd->in && cmd->in->target)
 		r = cmd->in;
 	while (r)

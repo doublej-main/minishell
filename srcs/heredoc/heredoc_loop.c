@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:44:08 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/15 13:47:31 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/15 14:14:51 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static char	*findkey(t_shell *shell, char *line, int *j)
 	while (dol[*j] == '$' || isdel(dol[*j]))
 		*j += 1;
 	i = *j;
+	if (dol[1] == '?')
+		return (arena_strdup(shell->arena, "?"));
 	while (dol[i] && !isdel(dol[i]) && dol[i] != '$'
 		&& dol[i] != '"' && dol[i] != '\'')
 		i++;

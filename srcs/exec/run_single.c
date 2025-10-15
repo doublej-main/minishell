@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:43:54 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/10 15:20:32 by jjaaskel         ###   ########.fr       */
+/*   Updated: 2025/10/15 14:55:51 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	run_single_parent(t_cmd *cmd, t_shell *shell)
 
 	if (cmd->in || cmd->out)
 	{
-		if (io_apply_redirs(cmd) < 0)
+		if (io_apply_redirs(shell, cmd) < 0)
 			return (EXIT_FAILURE);
 	}
 	status = run_parent_builtin_cmd(cmd->argv[0], cmd->argv, shell);
@@ -54,8 +54,8 @@ static int	fork_one_child(t_cmd *cmd, t_shell *shell)
 	{
 		signals_default();
 		if (cmd->in || cmd->out)
-			if (io_apply_redirs(cmd) < 0)
-				_exit(1);
+			if (io_apply_redirs(shell, cmd) < 0)
+				even_earlier_exit(shell, 1);
 		exec_external_or_builtin(cmd, shell);
 	}
 	return (wait_one(pid));
@@ -63,9 +63,9 @@ static int	fork_one_child(t_cmd *cmd, t_shell *shell)
 
 int	run_single(t_cmd *cmd, t_shell *shell)
 {
+	if ((!cmd->argv || !cmd->argv[0]) && !cmd->in && !cmd->out)
+		return (0);
 	if (cmd->argv && cmd->argv[0] && is_parent_builtin(cmd->argv[0]))
 		return (run_single_parent(cmd, shell));
-	if ((!cmd->argv || !cmd->argv[0]) && !cmd->in && !cmd->out)
-		return (126);
 	return (fork_one_child(cmd, shell));
 }
