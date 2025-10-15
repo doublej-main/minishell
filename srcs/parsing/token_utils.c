@@ -18,15 +18,19 @@ int	check_for_env(t_shell *shell, char **str)
 	int		len;
 	int		dol_count;
 
+	if (only_dollars(*str))
+		return (SUCCESS);
 	len = ft_strlen(*str);
 	itoa = NULL;
 	if (ft_strchr(*str, '$') && (*str)[0] != '\'' && (*str)[len - 1] != '\'')
 	{
 		dol_count = 0;
-		*str = spliceline(shell, *str);
 		dol_count = count_expanse(*str);
-		while (dol_count--)
-			*str = spliceline(shell, *str);
+		while (dol_count > 0)
+		{
+			*str = spliceline(shell, *str, NULL);
+			dol_count--;
+		}
 		if (!*str)
 			return (FAILURE);
 	}
