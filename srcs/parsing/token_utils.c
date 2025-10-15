@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:46:56 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/15 13:52:27 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/15 12:09:22 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,14 @@ t_token	*add_token(t_shell *shell)
 
 int	tokenization_helper(t_shell *shell, t_parser *p, t_token *token, int i)
 {
+	char	*val;
+
 	token = add_token(shell);
-	token->value = arena_strdup(shell->arena, p->array[i]);
+	val = check_for_shell_status(shell, p->array[i]);
+	if (val)
+		token->value = val;
+	else
+		token->value = arena_strdup(shell->arena, p->array[i]);
 	if (!token->value)
 		return (ft_putstr_fd("error: token\n", 2), FAILURE);
 	token->type = get_type(token->value);

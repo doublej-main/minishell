@@ -6,7 +6,7 @@
 /*   By: jjaaskel <jjaaskel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:37:00 by vahdekiv          #+#    #+#             */
-/*   Updated: 2025/10/10 17:06:07 by vahdekiv         ###   ########.fr       */
+/*   Updated: 2025/10/15 12:12:59 by jjaaskel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,13 @@ typedef struct s_shell
 /*
 ** Prototypes
 */
-int								shell_init(t_shell *shell, char **environ);
-void							shell_loop(t_shell *shell, t_token *token,
-									t_pl *pipeblock);
-void							shell_destroy(t_shell *shell);
-void							consume_line(t_shell *shell, char *line);
-int								syntax_error_checker(t_shell *shell,
-									char *line);
-void							init_token_and_pipeline(t_shell *shell,
-									t_token *token, t_pl *pipeblock,
-									char *line);
+int		shell_init(t_shell *shell, char **environ);
+void	shell_loop(t_shell *shell, t_token *token, t_pl *pipeblock);
+void	shell_destroy(t_shell *shell);
+void	consume_line(t_shell *shell, char *line);
+int		syntax_error_checker(t_shell *shell, char *line);
+void	init_token_and_pipeline(t_shell *shell, t_token *token,
+			t_pl *pipeblock, char *line);
+char	*check_for_shell_status(t_shell *shell, char *str);
 
 #endif
